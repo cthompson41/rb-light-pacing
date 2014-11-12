@@ -113,9 +113,9 @@ public void showFootballMP() {
    for (GLabel temp : fm_labels) {
       temp.setVisible(true);
    }
-//  for (GButton temp : ft_buttons) {
-//     temp.setVisible(true);
-//  } 
+  for (GImageButton temp : fm_imageButtons) {
+     temp.setVisible(true);
+  } 
 }
 
 public void showTrackMP() {
