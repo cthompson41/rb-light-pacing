@@ -65,6 +65,14 @@ public void tb_football_click(GButton source, GEvent event) {
    showFootballTP();  
 }
 
+public void ftb_forty_click(GButton source, GEvent event) {
+   println("tb_football click - GButton event occured" + System.currentTimeMillis()%10000000);
+  ftl_title.setVisible(false);
+  ftb_dash.setVisible(false);
+  ftb_fivetenfive.setVisible(false);
+  fml_title.setVisible(true);
+}
+
 public void cb_click(GButton source, GEvent event) {
    println("cb_click (" + source.getText() + ") - GButton event occured" + System.currentTimeMillis()%1000000);
    removeAll();
@@ -226,12 +234,15 @@ public void createGUI(){
   //=============================================================================================================
   //Football Title Page Setup
   ftl_title = makeTitle(0, 0, frameWidth, 200, 100, ftl_title, "FOOTBALL", false);
-  ftb_dash = makeButton(200, 300, 250, 90, ftb_dash, "Forty Yard Dash", false, "");
+  ftb_dash = makeButton(200, 300, 250, 90, ftb_dash, "Forty-Yard Dash", false, "ftb_forty_click");
   ftb_fivetenfive = makeButton(550, 300, 250, 90, ftb_fivetenfive, "5-10-5", false, "");
   //Football Title Page Containers
   ft_labels = new ArrayList<GLabel>();
   ft_labels.add(ftl_title);
   ft_buttons = new ArrayList<GButton>(Arrays.asList(ftb_dash, ftb_fivetenfive));
+  //=============================================================================================================
+  //Football Main Page
+  fml_title = makeTitle(0, 0, frameWidth, 50, 40, ftl_title, "Forty-Yard Dash", false);
   //=============================================================================================================
   //Track Main Page
   rowHeight = new int[]{90, 122, 154, 186}; //for runner rows, used in add/remove person
@@ -388,3 +399,5 @@ GButton ftb_dash, ftb_fivetenfive;
 List<GLabel> ft_labels;
 List<GButton> ft_buttons;
 //==================
+//Football Main Page
+GLabel fml_title;
