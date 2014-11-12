@@ -108,6 +108,15 @@ public void showFootballTP() {
   } 
 }
 
+public void showFootballMP() {
+   for (GLabel temp : fm_labels) {
+      temp.setVisible(true);
+   }
+//  for (GButton temp : ft_buttons) {
+//     temp.setVisible(true);
+//  } 
+}
+
 public void showTrackMP() {
   for (GLabel temp : tm_labels) {
      temp.setVisible(true); 
