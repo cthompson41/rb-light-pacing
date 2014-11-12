@@ -67,10 +67,8 @@ public void tb_football_click(GButton source, GEvent event) {
 
 public void ftb_forty_click(GButton source, GEvent event) {
    println("tb_football click - GButton event occured" + System.currentTimeMillis()%10000000);
-  ftl_title.setVisible(false);
-  ftb_dash.setVisible(false);
-  ftb_fivetenfive.setVisible(false);
-  fml_title.setVisible(true);
+  removeAll();
+  showFootballMP();
 }
 
 public void cb_click(GButton source, GEvent event) {
@@ -242,7 +240,10 @@ public void createGUI(){
   ft_buttons = new ArrayList<GButton>(Arrays.asList(ftb_dash, ftb_fivetenfive));
   //=============================================================================================================
   //Football Main Page
-  fml_title = makeTitle(0, 0, frameWidth, 50, 40, ftl_title, "Forty-Yard Dash", false);
+  fml_title = makeTitle(0, 0, frameWidth, 50, 40, fml_title, "Forty-Yard Dash", false);
+  fml_desiredTime = makeTitle(100, 50, 250, 40, 20, fml_desiredTime, "Desired Time", false);
+  
+  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime));
   //=============================================================================================================
   //Track Main Page
   rowHeight = new int[]{90, 122, 154, 186}; //for runner rows, used in add/remove person
@@ -310,7 +311,7 @@ public void createGUI(){
   led4.setAlpha(0);  
   //=============================================================================================================
   //Final: Let this be the last code before the closing bracket in order to avoid null pointers
-  labels = new ArrayList<List<GLabel>>(Arrays.asList(t_labels, ft_labels, tm_labels));
+  labels = new ArrayList<List<GLabel>>(Arrays.asList(t_labels, ft_labels, tm_labels, fm_labels));
   textFields = new ArrayList<List<GTextField>>(Arrays.asList(tm_textFields));
   buttons = new ArrayList<List<GButton>>(Arrays.asList(t_buttons, ft_buttons, tm_buttons));
   imageButtons = new ArrayList<List<GImageButton>>(Arrays.asList(tm_imageButtons));
@@ -401,3 +402,5 @@ List<GButton> ft_buttons;
 //==================
 //Football Main Page
 GLabel fml_title;
+GLabel fml_desiredTime;
+List<GLabel> fm_labels;
