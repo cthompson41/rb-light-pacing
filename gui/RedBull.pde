@@ -34,6 +34,7 @@ double computedSpeedIncrease = 0;
 boolean hysteresis = false;
 double lastPosition = 250.0;
 double elapsed_seconds = 0;
+float pi = (float) Math.PI;
 
 
 

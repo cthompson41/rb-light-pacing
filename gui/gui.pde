@@ -84,40 +84,40 @@ public void moveLED(GButton light, double targetTime){
   velocity=(250.0/targetTime)*(1.0+computedSpeedIncrease/100.0);
   position = (velocity*elapsed_seconds) % 250.0;//position in meters
   float p =(float) position;
-  float ledTrackLength = (track.getWidth()-track.getHeight())*2+3.14159*track.getHeight();
+  float ledTrackLength = (track.getWidth()-track.getHeight())*2+pi*track.getHeight();
   float ledPosition = p/trackLength*ledTrackLength;
   
 //  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
   if (ledPosition<track.getWidth()-track.getHeight()) {
   light.moveTo(startPosition+ledPosition,track.getY()+track.getHeight());
   }
-  else if (track.getWidth()-track.getHeight()<ledPosition && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*3.14159/4) {
+  else if (track.getWidth()-track.getHeight()<ledPosition && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*pi/4) {
    float s = (ledPosition - (track.getWidth()-track.getHeight()));
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
+   float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
    float centerPointY1 = track.getY()+track.getHeight()/2;
    light.moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2); 
   }
-  else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*3.14159/4 && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*3.14159/2) {
+  else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*pi/4 && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*pi/2) {
    float s = (ledPosition - (track.getWidth()-track.getHeight()));
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
+   float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
    float centerPointY1 = track.getY()+track.getHeight()/2;
    light.moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2-light.getHeight()); 
   }
-   else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*3.14159/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159/2) {
-    light.moveTo(startPosition+((track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159/2)-ledPosition,light.getY());
+   else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*pi/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2) {
+    light.moveTo(startPosition+((track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2)-ledPosition,light.getY());
   }
-   else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159*3/4) {
-   float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*3.14159/2);
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
+   else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4) {
+   float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
+   float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX2 = track.getX()+track.getHeight()/2;
    float centerPointY2 = track.getY()+track.getHeight()/2;
    light.moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light.getWidth(),centerPointY2+sin(theta)*track.getHeight()/2-light.getHeight()); 
   }
-   else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159*3/4 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159) {
-   float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*3.14159/2);
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
+   else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi) {
+   float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
+   float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX2 = track.getX()+track.getHeight()/2;
    float centerPointY2 = track.getY()+track.getHeight()/2;
    light.moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light.getWidth(),centerPointY2+sin(theta)*track.getHeight()/2); 
