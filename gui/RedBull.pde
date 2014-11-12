@@ -115,7 +115,10 @@ public void showFootballMP() {
    }
   for (GImageButton temp : fm_imageButtons) {
      temp.setVisible(true);
-  } 
+  }
+   for (GTextField temp : fm_textFields) {
+     temp.setVisible(true);
+  }  
 }
 
 public void showTrackMP() {

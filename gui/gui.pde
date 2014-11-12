@@ -241,11 +241,14 @@ public void createGUI(){
   //=============================================================================================================
   //Football Main Page
   fml_title = makeTitle(0, 0, frameWidth, 50, 40, fml_title, "Forty-Yard Dash", false);
-  fml_desiredTime = makeTitle(100, 50, 250, 40, 20, fml_desiredTime, "Desired Time", false);
+  fml_desiredTime = makeTitle(100, 50, 250, 40, 30, fml_desiredTime, "Desired Time", false);
+  fmt_desiredTime = makeTextField(270, 281, 40, 20, 20, fmt_desiredTime, "", false, "");
   football_track = makeImageButton(147, 340, 706, 75, football_track, false, "football_track_click", "football_track.png");
+  football_track.setEnabled(false);
   
   fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime));
   fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));
+  fm_textFields = new ArrayList<GTextField>(Arrays.asList(fmt_desiredTime));
   //=============================================================================================================
   //Track Main Page
   rowHeight = new int[]{90, 122, 154, 186}; //for runner rows, used in add/remove person
@@ -265,6 +268,7 @@ public void createGUI(){
   tmt_desiredLT4 = makeTextField(desiredLTX, rowHeight[3], 250, 22, 18, tmt_desiredLT4, "", false, "");
   
   track = makeImageButton(520, 250, 301, 140, track, false, "track_click", "track3.png");
+  track.setEnabled(false);
   tmb_adjustU1 = makeImageButton(frameWidth/2-5-25, rowHeight[0]-2, 25, 25, tmb_adjustU1, false, "tmb_adjustU_click", "up.png");
   tmb_adjustU2 = makeImageButton(frameWidth/2-5-25, rowHeight[1]-2, 25, 25, tmb_adjustU2, false, "tmb_adjustU_click", "up.png");
   tmb_adjustU3 = makeImageButton(frameWidth/2-5-25, rowHeight[2]-2, 25, 25, tmb_adjustU3, false, "tmb_adjustU_click", "up.png");
@@ -314,9 +318,9 @@ public void createGUI(){
   //=============================================================================================================
   //Final: Let this be the last code before the closing bracket in order to avoid null pointers
   labels = new ArrayList<List<GLabel>>(Arrays.asList(t_labels, ft_labels, tm_labels, fm_labels));
-  textFields = new ArrayList<List<GTextField>>(Arrays.asList(tm_textFields));
+  textFields = new ArrayList<List<GTextField>>(Arrays.asList(tm_textFields, fm_textFields));
   buttons = new ArrayList<List<GButton>>(Arrays.asList(t_buttons, ft_buttons, tm_buttons));
-  imageButtons = new ArrayList<List<GImageButton>>(Arrays.asList(tm_imageButtons));
+  imageButtons = new ArrayList<List<GImageButton>>(Arrays.asList(tm_imageButtons, fm_imageButtons));
 }
 
 //=============================================================================================================
@@ -403,5 +407,7 @@ List<GButton> ft_buttons;
 GLabel fml_title;
 GLabel fml_desiredTime;
 GImageButton football_track;
+GTextField fmt_desiredTime;
 List<GLabel> fm_labels;
 List<GImageButton> fm_imageButtons;
+List<GTextField> fm_textFields;
