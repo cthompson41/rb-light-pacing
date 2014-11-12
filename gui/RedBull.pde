@@ -17,7 +17,10 @@ TestObserver testObserver;
 //global variables
 int lapCounter=0;
 float trackLength = 250;
-double targetTime=5; //KEEP
+double targetTime1=5; //KEEP
+double targetTime2=5; //KEEP
+double targetTime3=5; //KEEP
+double targetTime4=5; //KEEP
 double increaseSpeed=5.0;
 double position=0;
 long startTime;
@@ -40,12 +43,10 @@ int frameHeight = 637;
 
 synchronized public void updateVariables(){
     if(running){
-    long currentTime = System.nanoTime();
-    long elapsed = currentTime-startTime;
-    elapsed_seconds = elapsed/1000000000.0;
-    velocity=(250.0/targetTime)*(1.0+computedSpeedIncrease/100.0);
-    position = (velocity*elapsed_seconds) % 250.0;//position in meters
-    moveLED(led1);        
+    moveLED(led1, targetTime1);  
+    moveLED(led2, targetTime2); 
+    moveLED(led3, targetTime3); 
+    moveLED(led4, targetTime4);    
  }
 }
 
