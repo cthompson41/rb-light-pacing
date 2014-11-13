@@ -26,16 +26,18 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
   running=true;
   targetTime = new double[led.length]; 
-  targetTime[0] = Double.parseDouble(tmt_desiredLT1.getText());
-  targetTime[1] = Double.parseDouble(tmt_desiredLT2.getText());
-  targetTime[2] = Double.parseDouble(tmt_desiredLT3.getText());
-  targetTime[3] = Double.parseDouble(tmt_desiredLT4.getText());
+  
+  for (int i=0; i<targetTime.length; i++){
+  targetTime[i] = Double.parseDouble(tmt_desiredTimes[i].getText());
+  }
   
   startTime = System.nanoTime();
   startPosition = led[1].getX();
   
   for (int i=0; i<led.length; i++){
+    if (targetTime[i] > 0){
     led[i].setAlpha(255);
+    }
   }
 
   updateVariables();
@@ -268,10 +270,13 @@ public void createGUI(){
   //Each number is for the that number runner. The items are on rows per player, with a height of 10 between rows
   int desiredLTX = (int) tml_desiredLT.getX();
   tmt_desiredLT1 = makeTextField(desiredLTX, rowHeight[0], 250, 22, 18, tmt_desiredLT1, "", false, "");
+  tmt_desiredLT1.setText("5");
   tmt_desiredLT2 = makeTextField(desiredLTX, rowHeight[1], 250, 22, 18, tmt_desiredLT2, "", false, "");
+  tmt_desiredLT2.setText("0");
   tmt_desiredLT3 = makeTextField(desiredLTX, rowHeight[2], 250, 22, 18, tmt_desiredLT3, "", false, "");
+  tmt_desiredLT3.setText("0");
   tmt_desiredLT4 = makeTextField(desiredLTX, rowHeight[3], 250, 22, 18, tmt_desiredLT4, "", false, "");
-  
+  tmt_desiredLT4.setText("0");  
   track = makeImageButton(520, 250, 301, 140, track, false, "track_click", "track3.png");
   track.setEnabled(false);
   tmb_adjustU1 = makeImageButton(frameWidth/2-5-25, rowHeight[0]-2, 25, 25, tmb_adjustU1, false, "tmb_adjustU_click", "up.png");
