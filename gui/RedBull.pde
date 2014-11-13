@@ -198,7 +198,7 @@ public void trackRemovePlayer(int currentPlayer) {
       break;
   }
   showTrackMP();
-  tmt_desiredTimes[currentPlayer].setText("0");
+  tmt_desiredTimes[currentPlayer-1].setText("0");  
 }
 
 public void showTP() {
