@@ -25,7 +25,7 @@ import java.awt.Font;
 public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
   if (tml_title.isVisible()){
-    track_running=true;
+    running=true;
     targetTime = new double[led.length]; 
   
     for (int i=0; i<targetTime.length; i++){
@@ -46,7 +46,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
 }
 public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
-  track_running=false;
+  running=false;
   
   for (int i=0; i<led.length; i++){
     led[i].setAlpha(0);

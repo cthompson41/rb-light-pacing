@@ -24,7 +24,7 @@ long startTime;
 float startPosition;
 double velocity;
 color pulseColor=#FA150D;
-boolean track_running=false;
+boolean running=false;
 long positionPixels=0;
 double percentBump=.05;
 double computedSpeedIncrease = 0;
@@ -40,7 +40,7 @@ int frameWidth = 1020;
 int frameHeight = 637;
 
 synchronized public void updateVariables(){
-    if(track_running){
+    if(running){
     moveLED(led, targetTime);  
    
  }
