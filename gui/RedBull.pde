@@ -32,6 +32,7 @@ boolean hysteresis = false;
 double lastPosition = 250.0;
 double elapsed_seconds = 0;
 float pi = (float) Math.PI;
+int football_led_height = 12;
 
 
 
@@ -40,9 +41,13 @@ int frameWidth = 1020;
 int frameHeight = 637;
 
 synchronized public void updateVariables(){
-    if(running){
-    moveLED(led, targetTime);  
-   
+  if(running){
+   if (tml_title.isVisible()){
+   moveLED(led, targetTime);    
+   }
+   else if (fml_title.isVisible()){
+   moveFootballLED(football_led, targetTime);    
+  }
  }
 }
 
@@ -92,7 +97,12 @@ public void removeAll(){
         temp.setVisible(false);
      } 
   }
+  for (GButton temp: led){
+    temp.setAlpha(0);
+  }
+  football_led.setAlpha(0);   
   paceAssist.setVisible(false);
+  
 }
 
 public void showFootballTP() {

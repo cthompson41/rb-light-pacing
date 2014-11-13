@@ -40,20 +40,31 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
       led[i].setAlpha(255);
       }
     }
-  }
+  }  
  else if (fml_title.isVisible()){
+   running=true;
+   targetTime = new double[1]; 
+   targetTime[0] = Double.parseDouble(fmt_desiredTime.getText());
+   startTime = System.nanoTime();
+   startPosition = football_led.getX();
+   football_led.setAlpha(255);
  }
+ updateVariables();
 }
+
 public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
   running=false;
-  
+ if (tml_title.isVisible()){ 
   for (int i=0; i<led.length; i++){
     led[i].setAlpha(0);
     led[i].moveTo(track.getX()+(track.getHeight()/2), track.getY()+track.getHeight());   
   }
-
-  updateVariables();
+ }
+ else if (fml_title.isVisible()){
+  football_led.setAlpha(0);
+  football_led.moveTo(football_track.getX(), football_track.getY()-football_led_height);
+ }
 } 
 
 //public void stopButton_click1(GButton source, GEvent event) { //_CODE_:stopButton:371419:
@@ -107,7 +118,7 @@ public void moveLED(GButton[] light, double[] targetTime){
   
 //  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
   if (ledPosition<track.getWidth()-track.getHeight()) {
-  light[i].moveTo(startPosition+ledPosition,track.getY()+track.getHeight());
+  light[i].moveTo(startPosition+ledPosition,light[i].getY());
   }
   else if (track.getWidth()-track.getHeight()<ledPosition && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*pi/4) {
    float s = (ledPosition - (track.getWidth()-track.getHeight()));
@@ -142,6 +153,25 @@ public void moveLED(GButton[] light, double[] targetTime){
    }
 }
 }
+
+public void moveFootballLED(GButton light, double[] targetTime){
+  long currentTime = System.nanoTime();
+  long elapsed = currentTime-startTime;
+  elapsed_seconds = elapsed/1000000000.0;
+  velocity=(40/targetTime[0])*(1.0+computedSpeedIncrease/100.0);
+  position = (velocity*elapsed_seconds);//position in yards
+  float p =(float) position;
+  float ledTrackLength = football_track.getWidth();
+  float ledPosition = p/40*ledTrackLength;
+    
+//  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
+  if (ledPosition<ledTrackLength) {
+  light.moveTo(startPosition+ledPosition,light.getY());
+  }
+}
+
+
+
 public void tmb_addPerson_click(GButton source, GEvent event) {
   //find which player was added
   int player = findPlayerNumber(source.getY());
@@ -310,7 +340,7 @@ public void createGUI(){
   led[i].setAlpha(0);  
   }
   
-  led[0].setLocalColorScheme(color(0,0,0));
+  led[0].setLocalColorScheme(color(255,255,255));
   led[1].setLocalColorScheme(color(255,0,0));
   led[2].setLocalColorScheme(color(0,255,0));
   led[3].setLocalColorScheme(color(0,0,255));
@@ -327,11 +357,16 @@ public void createGUI(){
   //=============================================================================================================
   //Football Main Page
   fml_title = makeTitle(0, 0, frameWidth, 50, 40, fml_title, "Forty-Yard Dash", false);
-  fml_desiredTime = makeTitle(frameWidth/2-250-50, 50, 250, 40, 30, fml_desiredTime, "Desired Time", false);
-  fmt_desiredTime = makeTextField(frameWidth/2+50, 55, 250, 30, 20, fmt_desiredTime, "", false, "");
+  fml_desiredTime = makeTitle(frameWidth/2-250-50, 60, 250, 40, 30, fml_desiredTime, "Desired Time", false);
+  fmt_desiredTime = makeTextField(frameWidth/2+50, 65, 250, 30, 20, fmt_desiredTime, "", false, "");
   fmt_desiredTime.setText("5");
   football_track = makeImageButton(147, 340, 706, 75, football_track, false, "football_track_click", "football_track.png");
   football_track.setEnabled(false);
+  
+  football_led = new GButton(this, football_track.getX(), football_track.getY()-football_led_height, football_led_height, football_led_height);
+  football_led.setEnabled(false);
+  football_led.setAlpha(0);   
+  football_led.setLocalColorScheme(color(255,255,255));
   
   fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime));
   fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));
@@ -430,6 +465,7 @@ GLabel fml_title;
 GLabel fml_desiredTime;
 GImageButton football_track;
 GTextField fmt_desiredTime;
+GButton football_led;
 List<GLabel> fm_labels;
 List<GImageButton> fm_imageButtons;
 List<GTextField> fm_textFields;
