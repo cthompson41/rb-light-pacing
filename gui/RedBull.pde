@@ -24,7 +24,7 @@ long startTime;
 float startPosition;
 double velocity;
 color pulseColor=#FA150D;
-boolean running=false;
+boolean track_running=false;
 long positionPixels=0;
 double percentBump=.05;
 double computedSpeedIncrease = 0;
@@ -40,7 +40,7 @@ int frameWidth = 1020;
 int frameHeight = 637;
 
 synchronized public void updateVariables(){
-    if(running){
+    if(track_running){
     moveLED(led, targetTime);  
    
  }
@@ -112,6 +112,9 @@ public void showFootballMP() {
      temp.setVisible(true);
   }
    for (GTextField temp : fm_textFields) {
+     temp.setVisible(true);
+  }  
+   for (GButton temp : fm_Buttons) {
      temp.setVisible(true);
   }  
 }

@@ -24,26 +24,29 @@ import java.awt.Font;
 
 public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
-  running=true;
-  targetTime = new double[led.length]; 
+  if (tml_title.isVisible()){
+    track_running=true;
+    targetTime = new double[led.length]; 
   
-  for (int i=0; i<targetTime.length; i++){
-  targetTime[i] = Double.parseDouble(tmt_desiredTimes[i].getText());
-  }
+    for (int i=0; i<targetTime.length; i++){
+    targetTime[i] = Double.parseDouble(tmt_desiredTimes[i].getText());
+    }
   
-  startTime = System.nanoTime();
-  startPosition = led[1].getX();
+    startTime = System.nanoTime();
+    startPosition = led[1].getX();
   
-  for (int i=0; i<led.length; i++){
-    if (targetTime[i] > 0){
-    led[i].setAlpha(255);
+    for (int i=0; i<led.length; i++){
+      if (targetTime[i] > 0){
+      led[i].setAlpha(255);
+      }
     }
   }
+ else if (fml_title.isVisible()){
+ }
 }
 public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
-  running=false;
-  
+  track_running=false;
   
   for (int i=0; i<led.length; i++){
     led[i].setAlpha(0);
@@ -247,26 +250,6 @@ public void createGUI(){
   t_labels.add(tl_title);
   t_buttons = new ArrayList<GButton>(Arrays.asList(tb_track, tb_football));
   //=============================================================================================================
-  //Football Title Page Setup
-  ftl_title = makeTitle(0, 0, frameWidth, 200, 100, ftl_title, "FOOTBALL", false);
-  ftb_dash = makeButton(200, 300, 250, 90, ftb_dash, "Forty-Yard Dash", false, "ftb_forty_click");
-  ftb_fivetenfive = makeButton(550, 300, 250, 90, ftb_fivetenfive, "5-10-5", false, "");
-  //Football Title Page Containers
-  ft_labels = new ArrayList<GLabel>();
-  ft_labels.add(ftl_title);
-  ft_buttons = new ArrayList<GButton>(Arrays.asList(ftb_dash, ftb_fivetenfive));
-  //=============================================================================================================
-  //Football Main Page
-  fml_title = makeTitle(0, 0, frameWidth, 50, 40, fml_title, "Forty-Yard Dash", false);
-  fml_desiredTime = makeTitle(100, 50, 250, 40, 30, fml_desiredTime, "Desired Time", false);
-  fmt_desiredTime = makeTextField(270, 281, 40, 20, 20, fmt_desiredTime, "", false, "");
-  football_track = makeImageButton(147, 340, 706, 75, football_track, false, "football_track_click", "football_track.png");
-  football_track.setEnabled(false);
-  
-  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime));
-  fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));
-  fm_textFields = new ArrayList<GTextField>(Arrays.asList(fmt_desiredTime));
-  //=============================================================================================================
   //Track Main Page
   rowHeight = new int[]{90, 122, 154, 186}; //for runner rows, used in add/remove person
   tml_title = makeTitle(0, 0, frameWidth, 50, 40, tml_title, "Track", false);
@@ -331,7 +314,29 @@ public void createGUI(){
   led[1].setLocalColorScheme(color(255,0,0));
   led[2].setLocalColorScheme(color(0,255,0));
   led[3].setLocalColorScheme(color(0,0,255));
-
+  
+  //=============================================================================================================
+  //Football Title Page Setup
+  ftl_title = makeTitle(0, 0, frameWidth, 200, 100, ftl_title, "FOOTBALL", false);
+  ftb_dash = makeButton(200, 300, 250, 90, ftb_dash, "Forty-Yard Dash", false, "ftb_forty_click");
+  ftb_fivetenfive = makeButton(550, 300, 250, 90, ftb_fivetenfive, "5-10-5", false, "");
+  //Football Title Page Containers
+  ft_labels = new ArrayList<GLabel>();
+  ft_labels.add(ftl_title);
+  ft_buttons = new ArrayList<GButton>(Arrays.asList(ftb_dash, ftb_fivetenfive));
+  //=============================================================================================================
+  //Football Main Page
+  fml_title = makeTitle(0, 0, frameWidth, 50, 40, fml_title, "Forty-Yard Dash", false);
+  fml_desiredTime = makeTitle(frameWidth/2-250-50, 50, 250, 40, 30, fml_desiredTime, "Desired Time", false);
+  fmt_desiredTime = makeTextField(frameWidth/2+50, 55, 250, 30, 20, fmt_desiredTime, "", false, "");
+  fmt_desiredTime.setText("5");
+  football_track = makeImageButton(147, 340, 706, 75, football_track, false, "football_track_click", "football_track.png");
+  football_track.setEnabled(false);
+  
+  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime));
+  fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));
+  fm_textFields = new ArrayList<GTextField>(Arrays.asList(fmt_desiredTime));
+  fm_Buttons = new ArrayList<GButton>(Arrays.asList(tmb_start, tmb_reset)); 
   //=============================================================================================================
   //Final: Let this be the last code before the closing bracket in order to avoid null pointers
   labels = new ArrayList<List<GLabel>>(Arrays.asList(t_labels, ft_labels, tm_labels, fm_labels));
@@ -428,3 +433,4 @@ GTextField fmt_desiredTime;
 List<GLabel> fm_labels;
 List<GImageButton> fm_imageButtons;
 List<GTextField> fm_textFields;
+List<GButton> fm_Buttons;
