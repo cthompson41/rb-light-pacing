@@ -17,10 +17,7 @@ TestObserver testObserver;
 //global variables
 int lapCounter=0;
 float trackLength = 250;
-double targetTime1=5; //KEEP
-double targetTime2=5; //KEEP
-double targetTime3=5; //KEEP
-double targetTime4=5; //KEEP
+double[] targetTime; 
 double increaseSpeed=5.0;
 double position=0;
 long startTime;
@@ -44,10 +41,8 @@ int frameHeight = 637;
 
 synchronized public void updateVariables(){
     if(running){
-    moveLED(led1, targetTime1);  
-    moveLED(led2, targetTime2); 
-    moveLED(led3, targetTime3); 
-    moveLED(led4, targetTime4);    
+    moveLED(led, targetTime);  
+   
  }
 }
 

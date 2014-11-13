@@ -25,17 +25,19 @@ import java.awt.Font;
 public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
   running=true;
-  targetTime1 = Double.parseDouble(tmt_desiredLT1.getText());
-  targetTime2 = Double.parseDouble(tmt_desiredLT2.getText());
-  targetTime3 = Double.parseDouble(tmt_desiredLT3.getText());
-  targetTime4 = Double.parseDouble(tmt_desiredLT4.getText());
+  targetTime = new double[led.length]; 
+  targetTime[0] = Double.parseDouble(tmt_desiredLT1.getText());
+  targetTime[1] = Double.parseDouble(tmt_desiredLT2.getText());
+  targetTime[2] = Double.parseDouble(tmt_desiredLT3.getText());
+  targetTime[3] = Double.parseDouble(tmt_desiredLT4.getText());
   
   startTime = System.nanoTime();
-  startPosition = led1.getX();
-  led1.setAlpha(255);
-  led2.setAlpha(255);
-  led3.setAlpha(255);
-  led4.setAlpha(255);
+  startPosition = led[1].getX();
+  
+  for (int i=0; i<led.length; i++){
+    led[i].setAlpha(255);
+  }
+
   updateVariables();
 } //_CODE_:startButton:595488:
 
@@ -77,11 +79,12 @@ public void cb_click(GButton source, GEvent event) {
    showTrackMP();
 }
 
-public void moveLED(GButton light, double targetTime){
+public void moveLED(GButton[] light, double[] targetTime){
+  for (int i=0; i<light.length; i++){
   long currentTime = System.nanoTime();
   long elapsed = currentTime-startTime;
   elapsed_seconds = elapsed/1000000000.0;
-  velocity=(250.0/targetTime)*(1.0+computedSpeedIncrease/100.0);
+  velocity=(250.0/targetTime[i])*(1.0+computedSpeedIncrease/100.0);
   position = (velocity*elapsed_seconds) % 250.0;//position in meters
   float p =(float) position;
   float ledTrackLength = (track.getWidth()-track.getHeight())*2+pi*track.getHeight();
@@ -89,39 +92,40 @@ public void moveLED(GButton light, double targetTime){
   
 //  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
   if (ledPosition<track.getWidth()-track.getHeight()) {
-  light.moveTo(startPosition+ledPosition,track.getY()+track.getHeight());
+  light[i].moveTo(startPosition+ledPosition,track.getY()+track.getHeight());
   }
   else if (track.getWidth()-track.getHeight()<ledPosition && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*pi/4) {
    float s = (ledPosition - (track.getWidth()-track.getHeight()));
    float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
    float centerPointY1 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2); 
+   light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2); 
   }
   else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*pi/4 && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*pi/2) {
    float s = (ledPosition - (track.getWidth()-track.getHeight()));
    float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
    float centerPointY1 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2-light.getHeight()); 
+   light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2-light[i].getHeight()); 
   }
    else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*pi/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2) {
-    light.moveTo(startPosition+((track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2)-ledPosition,light.getY());
+    light[i].moveTo(startPosition+((track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2)-ledPosition,light[i].getY());
   }
    else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4) {
    float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
    float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX2 = track.getX()+track.getHeight()/2;
    float centerPointY2 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light.getWidth(),centerPointY2+sin(theta)*track.getHeight()/2-light.getHeight()); 
+   light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth(),centerPointY2+sin(theta)*track.getHeight()/2-light[i].getHeight()); 
   }
    else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi) {
    float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
    float theta = s/(track.getHeight()/2)+pi*3/2;
    float centerPointX2 = track.getX()+track.getHeight()/2;
    float centerPointY2 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light.getWidth(),centerPointY2+sin(theta)*track.getHeight()/2); 
+   light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth(),centerPointY2+sin(theta)*track.getHeight()/2); 
    }
+}
 }
 public void tmb_addPerson_click(GButton source, GEvent event) {
   //find which player was added
@@ -133,6 +137,7 @@ public void tmb_addPerson_click(GButton source, GEvent event) {
   println("tmb_addPerson_click - GButton event occured: player " + player + " clicked");
   trackAddPlayer(player);
 }
+
 
 public void tmb_removePerson_click(GButton source, GEvent event) {
   //find which player was removed
@@ -299,22 +304,19 @@ public void createGUI(){
   paceAssist.setVisible(false);
   //
   int ledHeight = 6;
-  led1 = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
-  led1.setEnabled(false);
-  led1.setLocalColorScheme(color(1,1,1));
-  led1.setAlpha(0);
-  led2 = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
-  led2.setEnabled(false);
-  led2.setLocalColorScheme(color(255,0,0));
-  led2.setAlpha(0);  
-  led3 = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
-  led3.setEnabled(false);
-  led3.setLocalColorScheme(color(0,255,0));
-  led3.setAlpha(0);  
-  led4 = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
-  led4.setEnabled(false);
-  led4.setLocalColorScheme(color(0,0,255));
-  led4.setAlpha(0);  
+  led = new GButton[4];
+  
+  for (int i=0; i<led.length; i++) {
+  led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);  
+  led[i].setEnabled(false);
+  led[i].setAlpha(0);  
+  }
+  
+  led[0].setLocalColorScheme(color(0,0,0));
+  led[1].setLocalColorScheme(color(255,0,0));
+  led[2].setLocalColorScheme(color(0,255,0));
+  led[3].setLocalColorScheme(color(0,0,255));
+
   //=============================================================================================================
   //Final: Let this be the last code before the closing bracket in order to avoid null pointers
   labels = new ArrayList<List<GLabel>>(Arrays.asList(t_labels, ft_labels, tm_labels, fm_labels));
@@ -388,9 +390,9 @@ GImageButton tmb_adjustU1, tmb_adjustU2, tmb_adjustU3, tmb_adjustU4, tmb_adjustD
 GLabel tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT;
 GButton tmb_zero1, tmb_zero2, tmb_zero3, tmb_zero4;
 GButton tmb_addPerson, tmb_removePerson, tmb_paceT, tmb_start, tmb_reset;
-GButton led1, led2, led3, led4;
 GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_totalNOL;
 GTextField[] tmt_desiredTimes;
+GButton[] led;
 GCheckbox paceAssist;
 List<GLabel> tm_labels;
 List<GButton> tm_adjustU, tm_adjustD, tm_zero, tm_buttons;
