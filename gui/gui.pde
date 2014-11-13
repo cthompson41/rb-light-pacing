@@ -39,9 +39,19 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
     led[i].setAlpha(255);
     }
   }
+}
+public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
+  println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
+  running=false;
+  
+  
+  for (int i=0; i<led.length; i++){
+    led[i].setAlpha(0);
+    led[i].moveTo(track.getX()+(track.getHeight()/2), track.getY()+track.getHeight());   
+  }
 
   updateVariables();
-} //_CODE_:startButton:595488:
+} 
 
 //public void stopButton_click1(GButton source, GEvent event) { //_CODE_:stopButton:371419:
 //  println("stopButton - GButton event occured " + System.currentTimeMillis()%10000000 );
