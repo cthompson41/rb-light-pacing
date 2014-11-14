@@ -17,7 +17,7 @@ TestObserver testObserver;
 //global variables
 int lapCounter=0;
 float trackLength = 250;
-double[] targetTimes = new double[]{5, 5, 5, 5}; //KEEP
+double[] targetTime; 
 double increaseSpeed=5.0;
 double position=0;
 long startTime;
@@ -31,20 +31,21 @@ double computedSpeedIncrease = 0;
 boolean hysteresis = false;
 double lastPosition = 250.0;
 double elapsed_seconds = 0;
-
-
-
+float pi = (float) Math.PI;
+int football_led_height = 12;
 
 int frameWidth = 1020;
 int frameHeight = 637;
 
 synchronized public void updateVariables(){
-    if(running){
-    moveLED(led1, targetTimes[0]);  
-    moveLED(led2, targetTimes[1]); 
-    moveLED(led3, targetTimes[2]); 
-    moveLED(led4, targetTimes[3]);    
- }
+  if(running){
+    if (tml_title.isVisible()){
+      moveLED(led, targetTime);    
+     }
+     else if (fml_title.isVisible()){
+       moveFootballLED(football_led, targetTime);    
+     }
+   }
 }
 
 public void setup(){
@@ -56,7 +57,6 @@ public void setup(){
   testObserver = new TestObserver();
   registry.addObserver(testObserver);
   registry.setAntiLog(true);
-  
 }
 
 public void draw(){
@@ -71,5 +71,4 @@ public void draw(){
 public void customGUI(){
 
 }
-
 

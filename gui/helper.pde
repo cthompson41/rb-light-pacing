@@ -9,7 +9,9 @@ private int getPlayerCount() {
   int count = 0;
   for (GTextField temp : tmt_desiredTimes) {
     if (temp.getText().length() != 0) {
-      count++;
+      if (Double.parseDouble(temp.getText()) != 0) {
+        count++;
+      }
     } else {
       break;
     } 
@@ -148,6 +150,10 @@ public void removeAll(){
      } 
   }
   tmc_paceAssist.setVisible(false);
+  for (GButton temp: led){
+    temp.setAlpha(0);
+  }
+  football_led.setAlpha(0);   
 }
 
 public void showFootballTP() {
@@ -174,6 +180,22 @@ public void showTrackMP() {
   }
   tmc_paceAssist.setVisible(true);
 }
+
+public void showFootballMP() {
+   for (GLabel temp : fm_labels) {
+      temp.setVisible(true);
+   }
+  for (GImageButton temp : fm_imageButtons) {
+     temp.setVisible(true);
+  }
+   for (GTextField temp : fm_textFields) {
+     temp.setVisible(true);
+  }  
+   for (GButton temp : fm_Buttons) {
+     temp.setVisible(true);
+  }  
+}
+
 
 public void trackAddPlayer(int currentPlayer) {
   removeAll();

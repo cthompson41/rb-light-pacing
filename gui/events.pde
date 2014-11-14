@@ -1,20 +1,33 @@
 public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
-  running=true;
-  if (verifyCTInput() == true) {
-    int numPlayers = getPlayerCount();
-    for (int temp=0; temp<numPlayers; temp++) {
-       targetTimes[temp] = Double.parseDouble(tmt_desiredTimes[temp].getText());
+  if (tml_title.isVisible()){
+    if (verifyCTInput() == true) {
+      running=true;
+      int numPlayers = getPlayerCount();
+      targetTime = new double[4];
+      for (int temp=0; temp<numPlayers; temp++) {
+         targetTime[temp] = Double.parseDouble(tmt_desiredTimes[temp].getText());
+         println("target time: " + targetTime[temp]);
+      }
+      
+      startTime = System.nanoTime();
+      startPosition = led[0].getX();
+      led[0].setAlpha(255);
+      led[1].setAlpha(255);
+      led[2].setAlpha(255);
+      led[3].setAlpha(255);
+      updateVariables();
     }
-    
-    startTime = System.nanoTime();
-    startPosition = led1.getX();
-    led1.setAlpha(255);
-    led2.setAlpha(255);
-    led3.setAlpha(255);
-    led4.setAlpha(255);
-    updateVariables();
   }
+  else if (fml_title.isVisible()){
+   running=true;
+   targetTime = new double[1]; 
+   targetTime[0] = Double.parseDouble(fmt_desiredTime.getText());
+   startTime = System.nanoTime();
+   startPosition = football_led.getX();
+   football_led.setAlpha(255);
+   updateVariables();
+ }
 }
 
 public void titlePaigeReturn_click(GButton source, GEvent event) {
@@ -23,16 +36,37 @@ public void titlePaigeReturn_click(GButton source, GEvent event) {
   showTP();
 }
 
-public void tb_track_click(GButton source, GEvent event) {
-   println("tb_track click - GButton event occured" + System.currentTimeMillis()%10000000);
-   removeAll();
-   showTrackMP(); 
-}
-
 public void tb_football_click(GButton source, GEvent event) {
    println("tb_football click - GButton event occured" + System.currentTimeMillis()%10000000);
    removeAll();
    showFootballTP();  
+}
+
+public void ftb_forty_click(GButton source, GEvent event) {
+   println("tb_football click - GButton event occured" + System.currentTimeMillis()%10000000);
+  removeAll();
+  showFootballMP();
+}
+
+public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
+  println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
+  running=false;
+ if (tml_title.isVisible()){ 
+  for (int i=0; i<led.length; i++){
+    led[i].setAlpha(0);
+    led[i].moveTo(track.getX()+(track.getHeight()/2), track.getY()+track.getHeight());   
+  }
+ }
+ else if (fml_title.isVisible()){
+  football_led.setAlpha(0);
+  football_led.moveTo(football_track.getX(), football_track.getY()-football_led_height);
+ }
+} 
+
+public void tb_track_click(GButton source, GEvent event) {
+   println("tb_track click - GButton event occured" + System.currentTimeMillis()%10000000);
+   removeAll();
+   showTrackMP(); 
 }
 
 public void cb_click(GButton source, GEvent event) {
@@ -41,51 +75,71 @@ public void cb_click(GButton source, GEvent event) {
    showTrackMP();
 }
 
-public void moveLED(GButton light, double targetTime){
+public void moveLED(GButton[] light, double[] targetTime){
+  for (int i=0; i<light.length; i++){
+    long currentTime = System.nanoTime();
+    long elapsed = currentTime-startTime;
+    elapsed_seconds = elapsed/1000000000.0;
+    velocity=(250.0/targetTime[i])*(1.0+computedSpeedIncrease/100.0);
+    position = (velocity*elapsed_seconds) % 250.0;//position in meters
+    float p =(float) position;
+    float ledTrackLength = (track.getWidth()-track.getHeight())*2+pi*track.getHeight();
+    float ledPosition = p/trackLength*ledTrackLength;
+    
+    //  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
+    if (ledPosition<track.getWidth()-track.getHeight()) {
+    light[i].moveTo(startPosition+ledPosition,light[i].getY());
+    }
+    else if (track.getWidth()-track.getHeight()<ledPosition && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*pi/4) {
+     float s = (ledPosition - (track.getWidth()-track.getHeight()));
+     float theta = s/(track.getHeight()/2)+pi*3/2;
+     float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
+     float centerPointY1 = track.getY()+track.getHeight()/2;
+     light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2); 
+    }
+    else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*pi/4 && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*pi/2) {
+     float s = (ledPosition - (track.getWidth()-track.getHeight()));
+     float theta = s/(track.getHeight()/2)+pi*3/2;
+     float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
+     float centerPointY1 = track.getY()+track.getHeight()/2;
+     light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2-light[i].getHeight()); 
+    }
+     else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*pi/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2) {
+      light[i].moveTo(startPosition+((track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2)-ledPosition,light[i].getY());
+    }
+     else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4) {
+     float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
+     float theta = s/(track.getHeight()/2)+pi*3/2;
+     float centerPointX2 = track.getX()+track.getHeight()/2;
+     float centerPointY2 = track.getY()+track.getHeight()/2;
+     light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth(),centerPointY2+sin(theta)*track.getHeight()/2-light[i].getHeight()); 
+    }
+     else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*pi) {
+     float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
+     float theta = s/(track.getHeight()/2)+pi*3/2;
+     float centerPointX2 = track.getX()+track.getHeight()/2;
+     float centerPointY2 = track.getY()+track.getHeight()/2;
+     light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth(),centerPointY2+sin(theta)*track.getHeight()/2); 
+     }
+  }
+}
+
+public void moveFootballLED(GButton light, double[] targetTime){
   long currentTime = System.nanoTime();
   long elapsed = currentTime-startTime;
   elapsed_seconds = elapsed/1000000000.0;
-  velocity=(250.0/targetTime)*(1.0+computedSpeedIncrease/100.0);
-  position = (velocity*elapsed_seconds) % 250.0;//position in meters
+  velocity=(40/targetTime[0])*(1.0+computedSpeedIncrease/100.0);
+  position = (velocity*elapsed_seconds);//position in yards
   float p =(float) position;
-  float ledTrackLength = (track.getWidth()-track.getHeight())*2+3.14159*track.getHeight();
-  float ledPosition = p/trackLength*ledTrackLength;
-  
-  if (ledPosition<track.getWidth()-track.getHeight()) {
-  light.moveTo(startPosition+ledPosition,track.getY()+track.getHeight());
+  float ledTrackLength = football_track.getWidth();
+  float ledPosition = p/40*ledTrackLength;
+    
+//  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
+  if (ledPosition<ledTrackLength) {
+  light.moveTo(startPosition+ledPosition,light.getY());
   }
-  else if (track.getWidth()-track.getHeight()<ledPosition && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*3.14159/4) {
-   float s = (ledPosition - (track.getWidth()-track.getHeight()));
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
-   float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
-   float centerPointY1 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2); 
-  }
-  else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*3.14159/4 && ledPosition<track.getWidth()-track.getHeight()+track.getHeight()*3.14159/2) {
-   float s = (ledPosition - (track.getWidth()-track.getHeight()));
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
-   float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
-   float centerPointY1 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX1+cos(theta)*track.getHeight()/2,centerPointY1-sin(theta)*track.getHeight()/2-light.getHeight()); 
-  }
-   else if (ledPosition>track.getWidth()-track.getHeight()+track.getHeight()*3.14159/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159/2) {
-    light.moveTo(startPosition+((track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159/2)-ledPosition,light.getY());
-  }
-   else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159/2 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159*3/4) {
-   float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*3.14159/2);
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
-   float centerPointX2 = track.getX()+track.getHeight()/2;
-   float centerPointY2 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light.getWidth(),centerPointY2+sin(theta)*track.getHeight()/2-light.getHeight()); 
-  }
-   else if (ledPosition>(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159*3/4 && ledPosition<(track.getWidth()-track.getHeight())*2+track.getHeight()*3.14159) {
-   float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*3.14159/2);
-   float theta = s/(track.getHeight()/2)+3.14159*3/2;
-   float centerPointX2 = track.getX()+track.getHeight()/2;
-   float centerPointY2 = track.getY()+track.getHeight()/2;
-   light.moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light.getWidth(),centerPointY2+sin(theta)*track.getHeight()/2); 
-   }
 }
+
 public void tmb_addPerson_click(GButton source, GEvent event) {
   //find which player was added
   int player = findPlayerNumber(source.getY());
@@ -110,7 +164,6 @@ public void tmb_removePerson_click(GButton source, GEvent event) {
 
 public void tmb_adjustU_click(GImageButton source, GEvent event) {
   //find which player is adjusted
-  println("test123");
  int player = findPlayerNumber(source.getY());
  //sanity check - if player is larger than rowHeight, the location of the sourcebutton doesn't match one of the rowheights, throw error
   if (player == -1) {
