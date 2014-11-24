@@ -222,6 +222,7 @@ public void trackAddPlayer(int currentPlayer) {
       break;
   }
   showTrackMP();
+  tmt_desiredTimes[currentPlayer].setText("5");
 }
 
 public void trackRemovePlayer(int currentPlayer) {
@@ -249,6 +250,7 @@ public void trackRemovePlayer(int currentPlayer) {
       break;
   }
   showTrackMP();
+  tmt_desiredTimes[currentPlayer-1].setText("0");  
 }
 
 public void showTP() {

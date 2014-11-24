@@ -68,12 +68,14 @@ public void createGUI(){
   tml_desiredLT = makeTitle(100, 50, 200, 40, 20, tml_desiredLT, "Desired Lap Time", GAlign.LEFT, GAlign.TOP, false);
   tml_adjustP = makeTitle(325, 50, 200, 40, 20, tml_adjustP, "Adjust Pace", GAlign.LEFT, GAlign.TOP, false);
   tml_zero = makeTitle(550, 50, 200, 40, 20, tml_zero, "Zero", GAlign.LEFT, GAlign.TOP, false); 
-  tml_totalNOL = makeTitle(60, 270, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);
-  tml_trackL = makeTitle(60, 300, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);
+  tml_totalNOL = makeTitle(60, 270, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);  
+  tml_trackL = makeTitle(60, 300, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);  
   tml_remainingNOL = makeTitle(320, 480, 250, 80, 25, tml_remainingNOL, "Lap Number", GAlign.LEFT, GAlign.TOP, false);
   tml_paceT = makeTitle(60, 241, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
   tmt_totalNOL = makeTextField(270, 275, 40, 20, 16, tmt_totalNOL, "", false, "");
+  tmt_totalNOL.setText("10");
   tmt_trackL = makeTextField(270, 310, 40, 20, 16, tmt_trackL, "", false, "");
+  tmt_trackL.setText("150");
   //Each number is for that number runner. The items are on rows per player, with a height of 10 between rows
   int desiredLTX = (int) tml_desiredLT.getX();
   tmt_desiredLT1 = makeTextField(desiredLTX, rowHeight[0], 150, 22, 18, tmt_desiredLT1, "", false, "");

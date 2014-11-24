@@ -12,11 +12,12 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
       
       startTime = System.nanoTime();
       startPosition = led[0].getX();
-      led[0].setAlpha(255);
-      led[1].setAlpha(255);
-      led[2].setAlpha(255);
-      led[3].setAlpha(255);
+    for (int i=0; i<led.length; i++){
+      if (targetTime[i] > 0){
+      led[i].setAlpha(255);
+      }
       updateVariables();
+    }
     }
   }
   else if (fml_title.isVisible()){
