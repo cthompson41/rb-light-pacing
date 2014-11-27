@@ -53,24 +53,15 @@ public void createGUI(){
   t_labels.add(tl_title);
   t_buttons = new ArrayList<GButton>(Arrays.asList(tb_track, tb_football));
   //=============================================================================================================
-  //Football Title Page Setup
-  ftl_title = makeTitle(0, 0, frameWidth, 200, 100, ftl_title, "FOOTBALL", GAlign.CENTER, GAlign.TOP, false);
-  ftb_dash = makeButton(200, 300, 250, 90, ftb_dash, "Forty Yard Dash", false, "");
-  ftb_fivetenfive = makeButton(550, 300, 250, 90, ftb_fivetenfive, "5-10-5", false, "");
-  //Football Title Page Containers
-  ft_labels = new ArrayList<GLabel>();
-  ft_labels.add(ftl_title);
-  ft_buttons = new ArrayList<GButton>(Arrays.asList(ftb_dash, ftb_fivetenfive));
-  //=============================================================================================================
   //Track Main Page
   rowHeight = new int[]{90, 122, 154, 186}; //for runner rows, used in add/remove person
   tml_title = makeTitle(0, 0, frameWidth, 50, 40, tml_title, "Track", GAlign.CENTER, GAlign.TOP, false);
   tml_desiredLT = makeTitle(100, 50, 200, 40, 20, tml_desiredLT, "Desired Lap Time", GAlign.LEFT, GAlign.TOP, false);
-  tml_adjustP = makeTitle(325, 50, 200, 40, 20, tml_adjustP, "Adjust Pace", GAlign.LEFT, GAlign.TOP, false);
-  tml_zero = makeTitle(550, 50, 200, 40, 20, tml_zero, "Zero", GAlign.LEFT, GAlign.TOP, false); 
+  tml_adjustP = makeTitle(300, 50, 200, 40, 20, tml_adjustP, "Adjust Pace", GAlign.LEFT, GAlign.TOP, false);
+  tml_zero = makeTitle(450, 50, 200, 40, 20, tml_zero, "Zero", GAlign.LEFT, GAlign.TOP, false); 
   tml_totalNOL = makeTitle(60, 270, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);  
   tml_trackL = makeTitle(60, 300, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);  
-  tml_remainingNOL = makeTitle(320, 480, 250, 80, 25, tml_remainingNOL, "Lap Number", GAlign.LEFT, GAlign.TOP, false);
+  tml_remainingNOL = makeTitle(525, 50, 200, 40, 20, tml_remainingNOL, "Remaining Laps", GAlign.LEFT, GAlign.TOP, false);
   tml_paceT = makeTitle(60, 241, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
   tmt_totalNOL = makeTextField(270, 275, 40, 20, 16, tmt_totalNOL, "", false, "");
   tmt_totalNOL.setText("10");
@@ -82,6 +73,10 @@ public void createGUI(){
   tmt_desiredLT2 = makeTextField(desiredLTX, rowHeight[1], 150, 22, 18, tmt_desiredLT2, "", false, "");
   tmt_desiredLT3 = makeTextField(desiredLTX, rowHeight[2], 150, 22, 18, tmt_desiredLT3, "", false, "");
   tmt_desiredLT4 = makeTextField(desiredLTX, rowHeight[3], 150, 22, 18, tmt_desiredLT4, "", false, "");
+  tmt_desiredLT1.addEventHandler(this, "desiredLT_change");
+  tmt_desiredLT2.addEventHandler(this, "desiredLT_change");
+  tmt_desiredLT3.addEventHandler(this, "desiredLT_change");
+  tmt_desiredLT4.addEventHandler(this, "desiredLT_change");
   
   tmc_paceAssist = new GCheckbox(this, 275, 250, 25, 25);
   tmc_paceAssist.setVisible(false);
@@ -96,41 +91,27 @@ public void createGUI(){
   tmb_adjustD2 = makeImageButton(adjustPX+55, rowHeight[1]-2, 25, 25, tmb_adjustD2, false, "tmb_adjustD_click", "down.png");
   tmb_adjustD3 = makeImageButton(adjustPX+55, rowHeight[2]-2, 25, 25, tmb_adjustD3, false, "tmb_adjustD_click", "down.png");
   tmb_adjustD4 = makeImageButton(adjustPX+55, rowHeight[3]-2, 25, 25, tmb_adjustD4, false, "tmb_adjustD_click", "down.png");
-  int zeroX = (int)tml_zero.getX();
-  tmb_zero1 = makeButton(zeroX, rowHeight[0]-2, 50, 25, tmb_zero1, "", false, "");
-  tmb_zero2 = makeButton(zeroX, rowHeight[1]-2, 50, 25, tmb_zero2, "", false, "");
-  tmb_zero3 = makeButton(zeroX, rowHeight[2]-2, 50, 25, tmb_zero3, "", false, "");
-  tmb_zero4 = makeButton(zeroX, rowHeight[3]-3, 50, 25, tmb_zero4, "", false, "");
-
-  tmt_desiredLT1 = makeTextField(desiredLTX, rowHeight[0], 250, 22, 18, tmt_desiredLT1, "", false, "");
-  tmt_desiredLT1.setText("5");
-  tmt_desiredLT2 = makeTextField(desiredLTX, rowHeight[1], 250, 22, 18, tmt_desiredLT2, "", false, "");
-  tmt_desiredLT2.setText("0");
-  tmt_desiredLT3 = makeTextField(desiredLTX, rowHeight[2], 250, 22, 18, tmt_desiredLT3, "", false, "");
-  tmt_desiredLT3.setText("0");
-  tmt_desiredLT4 = makeTextField(desiredLTX, rowHeight[3], 250, 22, 18, tmt_desiredLT4, "", false, "");
-  tmt_desiredLT4.setText("0");  
+  int temp = (int)tml_zero.getX();
+  tmb_zero1 = makeButton(temp, rowHeight[0]-2, 50, 25, tmb_zero1, "", false, "");
+  tmb_zero2 = makeButton(temp, rowHeight[1]-2, 50, 25, tmb_zero2, "", false, "");
+  tmb_zero3 = makeButton(temp, rowHeight[2]-2, 50, 25, tmb_zero3, "", false, "");
+  tmb_zero4 = makeButton(temp, rowHeight[3]-3, 50, 25, tmb_zero4, "", false, "");
+  temp = (int)tml_remainingNOL.getX();
+  tml_lapR1 = makeTitle(temp, rowHeight[0]-2, 50, 25, 20, tml_lapR1, "00", GAlign.CENTER, GAlign.CENTER, false);
+  tml_lapR2 = makeTitle(temp, rowHeight[1]-2, 50, 25, 20, tml_lapR2, "00", GAlign.CENTER, GAlign.CENTER, false);
+  tml_lapR3 = makeTitle(temp, rowHeight[2]-2, 50, 25, 20, tml_lapR3, "00", GAlign.CENTER, GAlign.CENTER, false);
+  tml_lapR4 = makeTitle(temp, rowHeight[3]-2, 50, 25, 20, tml_lapR4, "00", GAlign.CENTER, GAlign.CENTER, false);
+  tm_lapR = new GLabel[]{tml_lapR1, tml_lapR2, tml_lapR3, tml_lapR4};
+  
   track = makeImageButton(520, 250, 301, 140, track, false, "track_click", "track3.png");
   track.setEnabled(false);
-  tmb_adjustU1 = makeImageButton(frameWidth/2-5-25, rowHeight[0]-2, 25, 25, tmb_adjustU1, false, "tmb_adjustU_click", "up.png");
-  tmb_adjustU2 = makeImageButton(frameWidth/2-5-25, rowHeight[1]-2, 25, 25, tmb_adjustU2, false, "tmb_adjustU_click", "up.png");
-  tmb_adjustU3 = makeImageButton(frameWidth/2-5-25, rowHeight[2]-2, 25, 25, tmb_adjustU3, false, "tmb_adjustU_click", "up.png");
-  tmb_adjustU4 = makeImageButton(frameWidth/2-5-25, rowHeight[3]-2, 25, 25, tmb_adjustU4, false, "tmb_adjustU_click", "up.png");
-  tmb_adjustD1 = makeImageButton(frameWidth/2+5, rowHeight[0]-2, 25, 25, tmb_adjustD1, false, "tmb_adjustD_click", "down.png");
-  tmb_adjustD2 = makeImageButton(frameWidth/2+5, rowHeight[1]-2, 25, 25, tmb_adjustD2, false, "tmb_adjustD_click", "down.png");
-  tmb_adjustD3 = makeImageButton(frameWidth/2+5, rowHeight[2]-2, 25, 25, tmb_adjustD3, false, "tmb_adjustD_click", "down.png");
-  tmb_adjustD4 = makeImageButton(frameWidth/2+5, rowHeight[3]-2, 25, 25, tmb_adjustD4, false, "tmb_adjustD_click", "down.png");
-  tmb_zero1 = makeButton((frameWidth/2-125)*2-100+62, rowHeight[0]-2, 125, 25, tmb_zero1, "", false, "");
-  tmb_zero2 = makeButton((frameWidth/2-125)*2-100+62, rowHeight[1]-2, 125, 25, tmb_zero2, "", false, "");
-  tmb_zero3 = makeButton((frameWidth/2-125)*2-100+62, rowHeight[2]-2, 125, 25, tmb_zero3, "", false, "");
-  tmb_zero4 = makeButton((frameWidth/2-125)*2-100+62, rowHeight[3]-3, 125, 25, tmb_zero4, "", false, "");
 
-  tmb_addPerson = makeButton(920, rowHeight[0]-2, 25, 25, tmb_addPerson, "+", false, "tmb_addPerson_click");
-  tmb_removePerson = makeButton(960, rowHeight[1]-2, 25, 25, tmb_removePerson, "-", false, "tmb_removePerson_click");
+  tmb_addPerson = makeButton(720, rowHeight[0]-2, 25, 25, tmb_addPerson, "+", false, "tmb_addPerson_click");
+  tmb_removePerson = makeButton(760, rowHeight[1]-2, 25, 25, tmb_removePerson, "-", false, "tmb_removePerson_click");
   tmb_start = makeButton(140, 500, 150, 50, tmb_start, "Start", false, "tmb_start_click");
   tmb_reset = makeButton(140, 570, 150, 50, tmb_reset, "Reset", false, "tmb_reset_click");
 
-  tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL));
+  tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_lapR1));
   tm_buttons = new ArrayList<GButton>();
   tm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(tmb_adjustU1, tmb_adjustD1,track));
   tm_buttons.addAll(Arrays.asList(tmb_zero1, tmb_addPerson, tmb_start, tmb_reset));
@@ -141,9 +122,9 @@ public void createGUI(){
   led = new GButton[4];
   
   for (int i=0; i<led.length; i++) {
-  led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);  
-  led[i].setEnabled(false);
-  led[i].setAlpha(0);  
+    led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);  
+    led[i].setEnabled(false);
+    led[i].setAlpha(0);  
   }
   
   led[0].setLocalColorScheme(color(255,255,255));
@@ -207,12 +188,14 @@ List<GButton> t_buttons;
 int[] rowHeight;
 GImageButton tmb_adjustU1, tmb_adjustU2, tmb_adjustU3, tmb_adjustU4, tmb_adjustD1, tmb_adjustD2, tmb_adjustD3, tmb_adjustD4,track;
 GLabel tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL;
+GLabel tml_lapR1, tml_lapR2, tml_lapR3, tml_lapR4;
 GButton tmb_zero1, tmb_zero2, tmb_zero3, tmb_zero4;
 GButton tmb_addPerson, tmb_removePerson, tmb_paceT, tmb_start, tmb_reset;
 GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_totalNOL, tmt_trackL;
 GTextField[] tmt_desiredTimes;
 GCheckbox tmc_paceAssist;
 GButton[] led;
+GLabel[] tm_lapR;
 GCheckbox paceAssist;
 List<GLabel> tm_labels;
 List<GButton> tm_adjustU, tm_adjustD, tm_zero, tm_buttons;

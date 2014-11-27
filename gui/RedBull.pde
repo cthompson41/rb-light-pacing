@@ -15,11 +15,15 @@ DeviceRegistry registry;
 TestObserver testObserver;
 
 //global variables
-int lapCounter=0;
-float trackLength = 250;
+
+float trackLength;
 double[] targetTime; 
 double increaseSpeed=5.0;
 double position=0;
+double[] lastPositions;
+double[] lastTimes;
+int[] lapCounter;
+boolean[] stillRunning;
 long startTime;
 float startPosition;
 double velocity;
@@ -29,18 +33,54 @@ long positionPixels=0;
 double percentBump=.05;
 double computedSpeedIncrease = 0;
 boolean hysteresis = false;
-double lastPosition = 250.0;
 double elapsed_seconds = 0;
 float pi = (float) Math.PI;
 int football_led_height = 12;
 
+int numPlayers;
 int frameWidth = 1020;
 int frameHeight = 637;
 
 synchronized public void updateVariables(){
   if(running){
     if (tml_title.isVisible()){
-      moveLED(led, targetTime);    
+      for (int i=0; i<numPlayers; i++) {
+        if (stillRunning[i]) {
+          hysteresis = false;
+          long currentTime = System.nanoTime();
+          long elapsed = currentTime-(long)lastTimes[i];
+          lastTimes[i] = currentTime;
+          elapsed_seconds = elapsed/1000000000.0;
+          velocity=trackLength/targetTime[i];
+          position = (lastPositions[i] + (velocity*elapsed_seconds)) % trackLength;//position in meters
+          println("elapsed: " + elapsed_seconds + "    velocity: " + velocity + "    position: "+ position);
+          if (position < lastPositions[i]) { //finished a lap, set hysteresis to true
+            hysteresis = true;
+          }
+          lastPositions[i] = position;
+          if (hysteresis) {  //finished a lap, change lap counter, break if done
+            lapCounter[i]--;
+            tm_lapR[i].setText("" + lapCounter[i]);
+            if (lapCounter[i]==0) {  //done running, see if all done running
+              led[i].setAlpha(0);    //done running this current, so hide it
+              stillRunning[i] = false;
+              running = false;       //check if others have laps remaining. If so, set running back to true
+              for (int temp=0; temp<numPlayers; temp++) {
+                if (lapCounter[temp]!=0) {
+                  running = true;
+                } 
+              }
+            }  
+          }
+        }
+        
+        //Pixelpusher side
+        positionPixels = (long)(position * 48);//position in pixels in a lap
+      }
+      moveLED(led, targetTime);
+      determinePixel();
+      
+      
      }
      else if (fml_title.isVisible()){
        moveFootballLED(football_led, targetTime);    

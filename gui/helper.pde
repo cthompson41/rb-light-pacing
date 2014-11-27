@@ -50,7 +50,7 @@ private boolean verifyCTInput() {
     if (tmt_trackL.getText().length() == 0) {
        throw new Exception("Please enter a numeric value 10-500 in track length"); 
     } else {
-       double trackLength = Double.parseDouble(tmt_trackL.getText());
+       trackLength = Float.parseFloat(tmt_trackL.getText());
       if (trackLength < 10 || trackLength > 500) {
          throw new Exception("Please enter a numeric value 10-500 in track length");
       } 
@@ -65,6 +65,35 @@ private boolean verifyCTInput() {
     println("Error in verifyCTIInput: " + e.toString());
   }
   return false; 
+}
+
+private void updateRunnerSpeeds() {
+    for (int temp=0; temp<numPlayers; temp++) {
+      targetTime[temp] = Double.parseDouble(tmt_desiredTimes[temp].getText());
+    }
+}
+
+
+private void adjustTime(int player, String direction) {
+  GTextField thisLT = tmt_desiredTimes[player-1];
+  double time;
+  try {
+    time = Double.parseDouble(thisLT.getText());
+  } 
+  catch (NumberFormatException e) {
+    println("Valid number not in desired lap time for player " + player + ". Resetting lap time to 0.");
+    time = 0;
+  }
+  if (direction == "UP") {
+    time += 0.1;
+  } else {
+    time -= 0.1;
+    //must check if time below zero after subtraction. Cannot check if time == 0.1 b/c of double math
+    if (time < .1000001) {
+      time = .1;
+    }
+  }
+  thisLT.setText(String.format("%.2f", time));
 }
 
 private int findPlayerNumber(float y){
@@ -200,24 +229,27 @@ public void showFootballMP() {
 public void trackAddPlayer(int currentPlayer) {
   removeAll();
   if (currentPlayer < rowHeight.length) {
-    tmb_addPerson.moveTo(920, rowHeight[currentPlayer]-2);
-    tmb_removePerson.moveTo(960, rowHeight[currentPlayer]-2);
+    tmb_addPerson.moveTo(720, rowHeight[currentPlayer]-2);
+    tmb_removePerson.moveTo(760, rowHeight[currentPlayer]-2);
   } 
   switch (currentPlayer){
     case 1:
       tm_buttons.addAll(Arrays.asList(tmb_zero2, tmb_removePerson));
       tm_imageButtons.addAll(Arrays.asList(tmb_adjustU2, tmb_adjustD2));
       tm_textFields.add(tmt_desiredLT2);
+      tm_labels.addAll(Arrays.asList(tml_lapR2));
       break;
     case 2:
       tm_buttons.addAll(Arrays.asList(tmb_zero3));
       tm_imageButtons.addAll(Arrays.asList(tmb_adjustU3, tmb_adjustD3));
       tm_textFields.addAll(Arrays.asList(tmt_desiredLT3));
+      tm_labels.addAll(Arrays.asList(tml_lapR3));
       break;
     case 3:
       tm_buttons.addAll(Arrays.asList(tmb_zero4));
       tm_imageButtons.addAll(Arrays.asList(tmb_adjustU4, tmb_adjustD4));
       tm_textFields.addAll(Arrays.asList(tmt_desiredLT4));
+      tm_labels.addAll(Arrays.asList(tml_lapR4));
       tm_buttons.remove(tmb_addPerson);
       break;
   }
@@ -228,24 +260,27 @@ public void trackAddPlayer(int currentPlayer) {
 public void trackRemovePlayer(int currentPlayer) {
   removeAll();
   if (currentPlayer > 1) {
-     tmb_addPerson.moveTo(920, rowHeight[currentPlayer-2]-2);
-     tmb_removePerson.moveTo(960, rowHeight[currentPlayer-2]-2); 
+     tmb_addPerson.moveTo(720, rowHeight[currentPlayer-2]-2);
+     tmb_removePerson.moveTo(760, rowHeight[currentPlayer-2]-2); 
   }
   switch (currentPlayer) {
     case 2:
       tm_buttons.removeAll(Arrays.asList(tmb_zero2, tmb_removePerson));
       tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU2, tmb_adjustD2));
       tm_textFields.remove(tmt_desiredLT2);
+      tm_labels.removeAll(Arrays.asList(tml_lapR2));
       break;
     case 3:
       tm_buttons.removeAll(Arrays.asList(tmb_zero3));
       tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU3, tmb_adjustD3));
       tm_textFields.remove(tmt_desiredLT3);
+      tm_labels.removeAll(Arrays.asList(tml_lapR3));
       break;
     case 4:
       tm_buttons.add(tmb_addPerson);
       tm_buttons.removeAll(Arrays.asList(tmb_zero4));
       tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU4, tmb_adjustD4));
+      tm_labels.removeAll(Arrays.asList(tml_lapR4));
       tm_textFields.remove(tmt_desiredLT4);
       break;
   }
