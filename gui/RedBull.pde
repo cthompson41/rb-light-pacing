@@ -29,7 +29,8 @@ float startPosition;
 double velocity;
 color pulseColor=#FA150D;
 boolean running=false;
-long positionPixels=0;
+//long positionPixels=0;
+long[] pixelPositions;
 double percentBump=.05;
 double computedSpeedIncrease = 0;
 boolean hysteresis = false;
@@ -72,10 +73,12 @@ synchronized public void updateVariables(){
               }
             }  
           }
+          pixelPositions[i] = (long)(position * 48);
         }
         
         //Pixelpusher side
-        positionPixels = (long)(position * 48);//position in pixels in a lap
+        //positionPixels = (long)(position * 48);//position in pixels in a lap
+
       }
       moveLED(led, targetTime);
       determinePixel();
@@ -104,6 +107,7 @@ public void draw(){
   fill(pulseColor);
   rectMode(CENTER);
   updateVariables();
+  writeToPixels();
 }
 
 // Use this method to add additional statements

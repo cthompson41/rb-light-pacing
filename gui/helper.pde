@@ -9,7 +9,7 @@ private int getPlayerCount() {
   int count = 0;
   for (GTextField temp : tmt_desiredTimes) {
     if (temp.getText().length() != 0) {
-      if (Double.parseDouble(temp.getText()) != 0) {
+      if (Double.parseDouble(temp.getText()) > 0.001) {    //I hate double comparasions -CT
         count++;
       }
     } else {
@@ -27,7 +27,7 @@ private boolean verifyCTInput() {
         throw new Exception("Desired Lap Time must be given for at least the first runner"); 
     }
     //if any desiredLT1/2/3/4 has something non-numeric, "Please verify only numerical entries are given in desired laptime text boxes"
-    Double.parseDouble(tmt_desiredLT1.getText());
+    Double.parseDouble(tmt_desiredLT1.getText());   
     if (tmt_desiredLT2.getText().length() != 0) {
       Double.parseDouble(tmt_desiredLT2.getText());
       if (tmt_desiredLT3.getText().length() != 0) {

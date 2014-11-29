@@ -14,8 +14,10 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
       targetTime = new double[numPlayers];
       lapCounter = new int[numPlayers];
       stillRunning = new boolean[numPlayers];
+      pixelPositions = new long[numPlayers];
       for (int temp=0; temp<numPlayers; temp++) {
          stillRunning[temp] = true;
+         pixelPositions[temp] = 0;
          lapCounter[temp] = Integer.parseInt(tmt_totalNOL.getText());
          tm_lapR[temp].setText("" + lapCounter[temp]);
          lastPositions[temp] = 0; 
