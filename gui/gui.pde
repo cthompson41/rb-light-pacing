@@ -127,10 +127,10 @@ public void createGUI(){
     led[i].setAlpha(0);  
   }
   
-  led[0].setLocalColorScheme(color(255,255,255));
-  led[1].setLocalColorScheme(color(255,0,0));
-  led[2].setLocalColorScheme(color(0,255,0));
-  led[3].setLocalColorScheme(color(0,0,255));
+  led[0].setLocalColorScheme(color(0,0,204));
+  led[1].setLocalColorScheme(color(70,70,70));
+  led[2].setLocalColorScheme(color(150,150,150));
+  led[3].setLocalColorScheme(color(200,200,200));
   
   //=============================================================================================================
   //Football Title Page Setup
