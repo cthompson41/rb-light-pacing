@@ -137,13 +137,14 @@ private int findPlayerNumber(float y){
 
 //=============================================================================================================
 //2. Helper functions for drawing controls
+
+//Takes the led and target time as input, moves virtual LED to that time
+//used to move virtual LED in gui for the track page
 public void moveLED(GButton[] light, double[] targetTime) {
   float ledTrackLength = (track.getWidth()-track.getHeight())*2+pi*track.getHeight();
   for (int i=0; i<numPlayers; i++) {
-    long currentTime = System.nanoTime();
-    long elapsed = currentTime-startTime;
-    position = lastPositions[i];
-    float p =(float) position;
+    //position = lastPositions[i];
+    float p =(float)lastPositions[i];
     float ledPosition = p/trackLength*ledTrackLength;
 
     if (ledPosition<track.getWidth()-track.getHeight()) {
@@ -178,6 +179,9 @@ public void moveLED(GButton[] light, double[] targetTime) {
   }
 }
 
+//Takes x location, y location, x height, y height, font size, label handle, title text, horizontal alignment, vertical alignment, and visibility as input
+//returns handle to label made
+//Used to make all labels in gui.pde. Sets all given values, color scheme to white, font type
 private GLabel makeTitle(int p0, int p1, int p2, int p3, int fontSize, GLabel title, String text, GAlign horizAlign, GAlign vertAlign, Boolean isVisible) {
   title = new GLabel(this, p0, p1, p2, p3); 
   title.setText(text);
@@ -189,6 +193,10 @@ private GLabel makeTitle(int p0, int p1, int p2, int p3, int fontSize, GLabel ti
   title.setTextAlign(horizAlign, vertAlign);
   return title;
 }
+
+//Takes x location, y location, x height, y height, button handle, text for button, visibility, and event handler as input
+//returns handle to button made
+//Used to make all buttons in gui.pde. Sets all given values and event handlers
 private GButton makeButton(int p0, int p1, int p2, int p3, GButton button, String text, Boolean isVisible, String eventHandler) {
   button = new GButton(this, p0, p1, p2, p3);
   button.setText(text);
@@ -197,6 +205,10 @@ private GButton makeButton(int p0, int p1, int p2, int p3, GButton button, Strin
   button.addEventHandler(this, eventHandler);
   return button;
 }
+
+//Takes x location, y location, x height, y height, image button handle, text for button, visibility, event handler, and button image string as input
+//returns handle to image button made
+//Used to make all image buttons in gui.pde. Sets all given values and event handlers
 private GImageButton makeImageButton(int p0, int p1, int p2, int p3, GImageButton button, Boolean isVisible, String eventHandler, String img) {
   String[] images = new String[1];
   images[0] = img;
@@ -205,6 +217,10 @@ private GImageButton makeImageButton(int p0, int p1, int p2, int p3, GImageButto
   button.addEventHandler(this, eventHandler); 
   return button;
 }
+
+//Takes x location, y location, x height, y height, font size, gtextfield handle, initial text in text field, visibility, and event handler as input
+//returns handle to gtextfield made
+//Used to make all gtextfields in gui.pde. Sets all given values and event handlers
 private GTextField makeTextField(int p0, int p1, int p2, int p3, int textSize, GTextField textField, String text, Boolean isVisible, String eventHandler) {
   textField = new GTextField(this, p0, p1, p2, p3);
   textField.setText(text);
@@ -213,12 +229,17 @@ private GTextField makeTextField(int p0, int p1, int p2, int p3, int textSize, G
   textField.setOpaque(true);
   textField.addEventHandler(this, eventHandler);
   textField.setVisible(isVisible);
-  
   return textField;
 }
 
 //=============================================================================================================
 //Helper functions for showing/hiding controls
+//All functions iterate through arrays and set visibility of all controls. Some functions also set visibility for controls
+//These are used to change between gui pages, move buttons on certain pages (track main page), etc.
+//not put into any containers for various reasons
+
+//Called in all gui page changes to remove everything first, then go back and add what is necessary for the next page
+//If you add any controls to the page, put something in this method to remove them from visibility!
 public void removeAll(){
   for (List<GLabel> tempArray : labels) {
      for (GLabel tempLabel : tempArray) {
@@ -247,6 +268,7 @@ public void removeAll(){
   football_led.setAlpha(0);   
 }
 
+//Show football title page controls
 public void showFootballTP() {
    for (GLabel temp : ft_labels) {
       temp.setVisible(true);
@@ -256,6 +278,7 @@ public void showFootballTP() {
   } 
 }
 
+//Show track main page controls
 public void showTrackMP() {
   for (GLabel temp : tm_labels) {
      temp.setVisible(true); 
@@ -272,6 +295,7 @@ public void showTrackMP() {
   tmc_paceAssist.setVisible(true);
 }
 
+//Show football main page controls
 public void showFootballMP() {
    for (GLabel temp : fm_labels) {
       temp.setVisible(true);
@@ -288,7 +312,9 @@ public void showFootballMP() {
   fmd_choosePosition.setVisible(true);
 }
 
-
+//Add a runner to the track main page. Depending on what position the current player is, add different controls and 
+//move add/remove controsl to a new spot
+//Takes current player as input
 public void trackAddPlayer(int currentPlayer) {
   if (!running) {
     removeAll();
@@ -324,6 +350,9 @@ public void trackAddPlayer(int currentPlayer) {
   }
 }
 
+//Remove a runner to the track main page. Depending on what position the current player is, remove different controls and 
+//move add/remove controsl to a new spot
+//Takes current player as input
 public void trackRemovePlayer(int currentPlayer) {
   if (!running) {
     removeAll();
@@ -353,10 +382,11 @@ public void trackRemovePlayer(int currentPlayer) {
         break;
     }
     showTrackMP();
-    tmt_desiredTimes[currentPlayer-1].setText("0");
+    tmt_desiredTimes[currentPlayer-1].setText("0");     //when you remove the player, set the (now hidden) text field for desired lap time to zero for playercount calculation
   }  
 }
 
+//Show title page
 public void showTP() {
    for (GLabel temp : t_labels) {
       temp.setVisible(true);
