@@ -1,47 +1,53 @@
+/*
+  Redbull.pde
+  Sets up most global variables for calculating position on track, contains methods for gui (setup, draw) and to update variables (called in rapid succession when running)
+*/
+
 // Need G4P library
 import g4p_controls.*;
-
 import com.heroicrobot.dropbit.registry.*;
 import com.heroicrobot.dropbit.devices.pixelpusher.Pixel;
 import com.heroicrobot.dropbit.devices.pixelpusher.Strip;
 import com.heroicrobot.dropbit.devices.pixelpusher.PixelPusher;
-
 import processing.core.*;
 import java.util.*;
 import java.text.*;
-
 DeviceRegistry registry;
-
 TestObserver testObserver;
 
-//global variables
-
+//=============================================================================================================
+//Global Variables for tracking position and showing on LEDs
 float trackLength;
-double[] targetTime; 
-double increaseSpeed=5.0;
+double[] targetTime;                                                  //array for each runner
 double position=0;
-double[] lastPositions;
-double[] lastTimes;
-int[] lapCounter;
-boolean[] stillRunning;
+double[] lastPositions;                                               //array for each runner
+double[] lastTimes;                                                   //array for each runner
+int[] lapCounter;                                                     //array for each runner
+boolean[] stillRunning;                                               //array for each runner
 long startTime;
 float startPosition;
 double velocity;
-color[] pulseColor=new color[]{#FF0000, #00FF00, #0000FF, #FFFF00};
-boolean running=false;
+color[] pulseColor=new color[]{#FF0000, #00FF00, #0000FF, #FFFF00};   //if you change this, change the led[0:3] colors in gui.pde
+boolean running=false;                                                //set to true when running, false when not or finished
 //long positionPixels=0;
-long[] pixelPositions;
-double percentBump=.05;
+long[] pixelPositions;                                                //array for each runner
 double computedSpeedIncrease = 0;
 boolean hysteresis = false;
 double elapsed_seconds = 0;
 float pi = (float) Math.PI;
 int football_led_height = 12;
 
-int numPlayers;
+int numPlayers;                                                       //Used in most loops to determine how many times to run through logic
 int frameWidth = 1020;
 int frameHeight = 637;
 
+/*
+  Called rapidly, executes if running==true. If tml_title is visible then we are in track page. If football, then football page. Each runs its own set of logic
+  Iterates through all arrays that exist for all runners and calculates time elapsed. This is used with the calculated velocity of that runner to determine the
+  runners new position. If the new position modded with the track length is smaller than the old position, a lap was finished, so run that logic. Otherwise, just 
+  update the position of that runner. If a runner is complete, hide that runner, then see if other runners are still running. If not, then set running=false to kill 
+  loop
+*/
 synchronized public void updateVariables(){
   if(running){
     if (tml_title.isVisible()){
@@ -62,7 +68,7 @@ synchronized public void updateVariables(){
           if (hysteresis) {  //finished a lap, change lap counter, break if done
             lapCounter[i]--;
             tm_lapR[i].setText("" + lapCounter[i]);
-            if (lapCounter[i]==0) {  //done running, see if all done running
+            if (lapCounter[i]==0) {  //done running, hide current runner light, see if all runners done running
               led[i].setAlpha(0);    //done running this current, so hide it
               stillRunning[i] = false;
               running = false;       //check if others have laps remaining. If so, set running back to true
@@ -73,15 +79,11 @@ synchronized public void updateVariables(){
               }
             }  
           }
-          pixelPositions[i] = (long)(position * 48);
+          pixelPositions[i] = (long)(position * 48);     //for pixelpusher led strip
         }
-        
-        //Pixelpusher side
-        //positionPixels = (long)(position * 48);//position in pixels in a lap
-
-      }
-      moveLED(led, targetTime);
-      determinePixel();
+      } //end for loop to iterate through all players
+      moveLED(led, targetTime);  //moveLED lights (virtual lights) for all players
+      determinePixel();          //light actual led lights for all players
       
       
      }
@@ -92,7 +94,7 @@ synchronized public void updateVariables(){
 }
 
 public void setup(){
-  size(frameWidth, frameHeight, JAVA2D);
+  size(frameWidth, frameHeight, JAVA2D);    //frameWidth and frameHeight must match GUI background image pixel counts
   createGUI();
   frameRate(60);
   // Place your setup code here
@@ -103,11 +105,10 @@ public void setup(){
 }
 
 public void draw(){
-  background(backgroundImage);
-  //fill(pulseColor[0]);
+  background(backgroundImage);    //set background to redbull bg image
   rectMode(CENTER);
-  updateVariables();
-  writeToPixels();
+  updateVariables();              //call updatevariables is safe b/c running=false
+  writeToPixels();                //call to light actual LED strips
 }
 
 // Use this method to add additional statements

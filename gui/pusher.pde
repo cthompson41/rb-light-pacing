@@ -16,7 +16,6 @@ public void writeToPixels(){
           
           for (int stripx = 0; stripx < pstrip.getLength(); stripx++) {
             if(lightUpPixel(intControllerNo, stripNo, stripx)) {
-              println("HERE: " + System.nanoTime());
               pstrip.setPixel(pulseColor[chosenPlayer], stripx);
             }
             else{
