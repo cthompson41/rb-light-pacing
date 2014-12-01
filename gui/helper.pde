@@ -8,10 +8,8 @@
 private int getPlayerCount() {
   int count = 0;
   for (GTextField temp : tmt_desiredTimes) {
-    if (temp.getText().length() != 0) {
-      if (Double.parseDouble(temp.getText()) > 0.001) {    //I hate double comparasions -CT
-        count++;
-      }
+    if ((temp.getText().length() != 0) && Double.parseDouble(temp.getText()) > 0.01) { //I hate double comparasions -CT
+      count++;
     } else {
       break;
     } 
@@ -27,7 +25,7 @@ private boolean verifyCTInput() {
         throw new Exception("Desired Lap Time must be given for at least the first runner"); 
     }
     //if any desiredLT1/2/3/4 has something non-numeric, "Please verify only numerical entries are given in desired laptime text boxes"
-    Double.parseDouble(tmt_desiredLT1.getText());   
+   Double.parseDouble(tmt_desiredLT1.getText());   
     if (tmt_desiredLT2.getText().length() != 0) {
       Double.parseDouble(tmt_desiredLT2.getText());
       if (tmt_desiredLT3.getText().length() != 0) {
@@ -37,13 +35,13 @@ private boolean verifyCTInput() {
         } 
       }
     }
-    //if tmt_totalNOL is empty or if it is non-numeric, "Please enter a numeric value 1-20 in total number of laps"
+    //if tmt_totalNOL is empty or if it is non-numeric, "Please enter a numeric value 1-100 in total number of laps"
     if (tmt_totalNOL.getText().length() == 0) {
-        throw new Exception("Please enter a numeric value 1-20 in total number of laps");
+        throw new Exception("Please enter a numeric value 1-100 in total number of laps");
     } else {
       double numLaps = Double.parseDouble(tmt_totalNOL.getText());
-      if (numLaps < 0 || numLaps > 20) {
-         throw new Exception("Please enter a numeric value 1-20 in total number of laps");
+      if (numLaps < 0 || numLaps > 100) {
+         throw new Exception("Please enter a numeric value 1-100 in total number of laps");
       }    
     }
     //if tmt_trackL is empty, non-numeric, or too large/small
@@ -228,65 +226,71 @@ public void showFootballMP() {
 
 
 public void trackAddPlayer(int currentPlayer) {
-  removeAll();
-  if (currentPlayer < rowHeight.length) {
-    tmb_addPerson.moveTo(720, rowHeight[currentPlayer]-2);
-    tmb_removePerson.moveTo(760, rowHeight[currentPlayer]-2);
-  } 
-  switch (currentPlayer){
-    case 1:
-      tm_buttons.addAll(Arrays.asList(tmb_zero2, tmb_removePerson));
-      tm_imageButtons.addAll(Arrays.asList(tmb_adjustU2, tmb_adjustD2));
-      tm_textFields.add(tmt_desiredLT2);
-      tm_labels.addAll(Arrays.asList(tml_lapR2));
-      break;
-    case 2:
-      tm_buttons.addAll(Arrays.asList(tmb_zero3));
-      tm_imageButtons.addAll(Arrays.asList(tmb_adjustU3, tmb_adjustD3));
-      tm_textFields.addAll(Arrays.asList(tmt_desiredLT3));
-      tm_labels.addAll(Arrays.asList(tml_lapR3));
-      break;
-    case 3:
-      tm_buttons.addAll(Arrays.asList(tmb_zero4));
-      tm_imageButtons.addAll(Arrays.asList(tmb_adjustU4, tmb_adjustD4));
-      tm_textFields.addAll(Arrays.asList(tmt_desiredLT4));
-      tm_labels.addAll(Arrays.asList(tml_lapR4));
-      tm_buttons.remove(tmb_addPerson);
-      break;
+  if (!running) {
+    removeAll();
+    if (currentPlayer < rowHeight.length) {
+      tmb_addPerson.moveTo(720, rowHeight[currentPlayer]-2);
+      tmb_removePerson.moveTo(760, rowHeight[currentPlayer]-2);
+    } 
+    switch (currentPlayer){
+      case 1:
+        tm_buttons.addAll(Arrays.asList(tmb_zero2, tmb_removePerson));
+        tm_imageButtons.addAll(Arrays.asList(tmb_adjustU2, tmb_adjustD2));
+        tm_textFields.add(tmt_desiredLT2);
+        tm_labels.addAll(Arrays.asList(tml_lapR2));
+        tmt_desiredLT2.setFocus(true);
+        break;
+      case 2:
+        tm_buttons.addAll(Arrays.asList(tmb_zero3));
+        tm_imageButtons.addAll(Arrays.asList(tmb_adjustU3, tmb_adjustD3));
+        tm_textFields.addAll(Arrays.asList(tmt_desiredLT3));
+        tm_labels.addAll(Arrays.asList(tml_lapR3));
+        tmt_desiredLT3.setFocus(true);
+        break;
+      case 3:
+        tm_buttons.addAll(Arrays.asList(tmb_zero4));
+        tm_imageButtons.addAll(Arrays.asList(tmb_adjustU4, tmb_adjustD4));
+        tm_textFields.addAll(Arrays.asList(tmt_desiredLT4));
+        tm_labels.addAll(Arrays.asList(tml_lapR4));
+        tm_buttons.remove(tmb_addPerson);
+        tmt_desiredLT4.setFocus(true);
+        break;
+    }
+    showTrackMP();
   }
-  showTrackMP();
-  tmt_desiredTimes[currentPlayer].setText("5");
 }
 
 public void trackRemovePlayer(int currentPlayer) {
-  removeAll();
-  if (currentPlayer > 1) {
-     tmb_addPerson.moveTo(720, rowHeight[currentPlayer-2]-2);
-     tmb_removePerson.moveTo(760, rowHeight[currentPlayer-2]-2); 
-  }
-  switch (currentPlayer) {
-    case 2:
-      tm_buttons.removeAll(Arrays.asList(tmb_zero2, tmb_removePerson));
-      tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU2, tmb_adjustD2));
-      tm_textFields.remove(tmt_desiredLT2);
-      tm_labels.removeAll(Arrays.asList(tml_lapR2));
-      break;
-    case 3:
-      tm_buttons.removeAll(Arrays.asList(tmb_zero3));
-      tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU3, tmb_adjustD3));
-      tm_textFields.remove(tmt_desiredLT3);
-      tm_labels.removeAll(Arrays.asList(tml_lapR3));
-      break;
-    case 4:
-      tm_buttons.add(tmb_addPerson);
-      tm_buttons.removeAll(Arrays.asList(tmb_zero4));
-      tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU4, tmb_adjustD4));
-      tm_labels.removeAll(Arrays.asList(tml_lapR4));
-      tm_textFields.remove(tmt_desiredLT4);
-      break;
-  }
-  showTrackMP();
-  tmt_desiredTimes[currentPlayer-1].setText("0");  
+  if (!running) {
+    removeAll();
+    if (currentPlayer > 1) {
+       tmb_addPerson.moveTo(720, rowHeight[currentPlayer-2]-2);
+       tmb_removePerson.moveTo(760, rowHeight[currentPlayer-2]-2); 
+    }
+    switch (currentPlayer) {
+      case 2:
+        tm_buttons.removeAll(Arrays.asList(tmb_zero2, tmb_removePerson));
+        tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU2, tmb_adjustD2));
+        tm_textFields.remove(tmt_desiredLT2);
+        tm_labels.removeAll(Arrays.asList(tml_lapR2));
+        break;
+      case 3:
+        tm_buttons.removeAll(Arrays.asList(tmb_zero3));
+        tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU3, tmb_adjustD3));
+        tm_textFields.remove(tmt_desiredLT3);
+        tm_labels.removeAll(Arrays.asList(tml_lapR3));
+        break;
+      case 4:
+        tm_buttons.add(tmb_addPerson);
+        tm_buttons.removeAll(Arrays.asList(tmb_zero4));
+        tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU4, tmb_adjustD4));
+        tm_labels.removeAll(Arrays.asList(tml_lapR4));
+        tm_textFields.remove(tmt_desiredLT4);
+        break;
+    }
+    showTrackMP();
+    tmt_desiredTimes[currentPlayer-1].setText("0");
+  }  
 }
 
 public void showTP() {

@@ -63,25 +63,19 @@ public void createGUI(){
   tml_trackL = makeTitle(60, 300, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);  
   tml_remainingNOL = makeTitle(525, 50, 200, 40, 20, tml_remainingNOL, "Remaining Laps", GAlign.LEFT, GAlign.TOP, false);
   tml_paceT = makeTitle(60, 241, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
-  tmt_totalNOL = makeTextField(270, 275, 40, 20, 16, tmt_totalNOL, "", false, "");
-  tmt_totalNOL.setText("10");
-  tmt_trackL = makeTextField(270, 310, 40, 20, 16, tmt_trackL, "", false, "");
-  tmt_trackL.setText("150");
+  tmt_totalNOL = makeTextField(270, 275, 40, 20, 16, tmt_totalNOL, "10", false, "noTextEventYet");
+  tmt_trackL = makeTextField(270, 310, 40, 20, 16, tmt_trackL, "150", false, "noTextEventYet");
   //Each number is for that number runner. The items are on rows per player, with a height of 10 between rows
   int desiredLTX = (int) tml_desiredLT.getX();
-  tmt_desiredLT1 = makeTextField(desiredLTX, rowHeight[0], 150, 22, 18, tmt_desiredLT1, "", false, "");
-  tmt_desiredLT2 = makeTextField(desiredLTX, rowHeight[1], 150, 22, 18, tmt_desiredLT2, "", false, "");
-  tmt_desiredLT3 = makeTextField(desiredLTX, rowHeight[2], 150, 22, 18, tmt_desiredLT3, "", false, "");
-  tmt_desiredLT4 = makeTextField(desiredLTX, rowHeight[3], 150, 22, 18, tmt_desiredLT4, "", false, "");
-  tmt_desiredLT1.addEventHandler(this, "desiredLT_change");
-  tmt_desiredLT2.addEventHandler(this, "desiredLT_change");
-  tmt_desiredLT3.addEventHandler(this, "desiredLT_change");
-  tmt_desiredLT4.addEventHandler(this, "desiredLT_change");
+  tmt_desiredLT1 = makeTextField(desiredLTX, rowHeight[0], 150, 22, 18, tmt_desiredLT1, "0", false, "desiredLT_change");
+  tmt_desiredLT2 = makeTextField(desiredLTX, rowHeight[1], 150, 22, 18, tmt_desiredLT2, "0", false, "desiredLT_change");
+  tmt_desiredLT3 = makeTextField(desiredLTX, rowHeight[2], 150, 22, 18, tmt_desiredLT3, "0", false, "desiredLT_change");
+  tmt_desiredLT4 = makeTextField(desiredLTX, rowHeight[3], 150, 22, 18, tmt_desiredLT4, "0", false, "desiredLT_change");
   
   tmc_paceAssist = new GCheckbox(this, 275, 250, 25, 25);
   tmc_paceAssist.setVisible(false);
 
-  track = makeImageButton(520, 250, 301, 140, track, false, "track_click", "track3.png");
+  track = makeImageButton(520, 250, 301, 140, track, false, "noImageButtonEventYet", "track3.png");
   int adjustPX = (int)tml_adjustP.getX();
   tmb_adjustU1 = makeImageButton(adjustPX+10, rowHeight[0]-2, 25, 25, tmb_adjustU1, false, "tmb_adjustU_click", "up.png");
   tmb_adjustU2 = makeImageButton(adjustPX+10, rowHeight[1]-2, 25, 25, tmb_adjustU2, false, "tmb_adjustU_click", "up.png");
@@ -92,10 +86,10 @@ public void createGUI(){
   tmb_adjustD3 = makeImageButton(adjustPX+55, rowHeight[2]-2, 25, 25, tmb_adjustD3, false, "tmb_adjustD_click", "down.png");
   tmb_adjustD4 = makeImageButton(adjustPX+55, rowHeight[3]-2, 25, 25, tmb_adjustD4, false, "tmb_adjustD_click", "down.png");
   int temp = (int)tml_zero.getX();
-  tmb_zero1 = makeButton(temp, rowHeight[0]-2, 50, 25, tmb_zero1, "", false, "");
-  tmb_zero2 = makeButton(temp, rowHeight[1]-2, 50, 25, tmb_zero2, "", false, "");
-  tmb_zero3 = makeButton(temp, rowHeight[2]-2, 50, 25, tmb_zero3, "", false, "");
-  tmb_zero4 = makeButton(temp, rowHeight[3]-3, 50, 25, tmb_zero4, "", false, "");
+  tmb_zero1 = makeButton(temp, rowHeight[0]-2, 50, 25, tmb_zero1, "", false, "noButtonEventYet");
+  tmb_zero2 = makeButton(temp, rowHeight[1]-2, 50, 25, tmb_zero2, "", false, "noButtonEventYet");
+  tmb_zero3 = makeButton(temp, rowHeight[2]-2, 50, 25, tmb_zero3, "", false, "noButtonEventYet");
+  tmb_zero4 = makeButton(temp, rowHeight[3]-3, 50, 25, tmb_zero4, "", false, "noButtonEventYet");
   temp = (int)tml_remainingNOL.getX();
   tml_lapR1 = makeTitle(temp, rowHeight[0]-2, 50, 25, 20, tml_lapR1, "00", GAlign.CENTER, GAlign.CENTER, false);
   tml_lapR2 = makeTitle(temp, rowHeight[1]-2, 50, 25, 20, tml_lapR2, "00", GAlign.CENTER, GAlign.CENTER, false);
@@ -103,7 +97,7 @@ public void createGUI(){
   tml_lapR4 = makeTitle(temp, rowHeight[3]-2, 50, 25, 20, tml_lapR4, "00", GAlign.CENTER, GAlign.CENTER, false);
   tm_lapR = new GLabel[]{tml_lapR1, tml_lapR2, tml_lapR3, tml_lapR4};
   
-  track = makeImageButton(520, 250, 301, 140, track, false, "track_click", "track3.png");
+  track = makeImageButton(520, 250, 301, 140, track, false, "noImageButtonEventYet", "track3.png");
   track.setEnabled(false);
 
   tmb_addPerson = makeButton(720, rowHeight[0]-2, 25, 25, tmb_addPerson, "+", false, "tmb_addPerson_click");
@@ -127,16 +121,16 @@ public void createGUI(){
     led[i].setAlpha(0);  
   }
   
-  led[0].setLocalColorScheme(color(0,0,204));
-  led[1].setLocalColorScheme(color(70,70,70));
-  led[2].setLocalColorScheme(color(150,150,150));
-  led[3].setLocalColorScheme(color(200,200,200));
+  led[0].setLocalColorScheme(GConstants.RED_SCHEME);
+  led[1].setLocalColorScheme(GConstants.GREEN_SCHEME);
+  led[2].setLocalColorScheme(GConstants.BLUE_SCHEME);
+  led[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
   
   //=============================================================================================================
   //Football Title Page Setup
   ftl_title = makeTitle(0, 0, frameWidth, 200, 100, ftl_title, "FOOTBALL", GAlign.CENTER, GAlign.TOP, false);
   ftb_dash = makeButton(200, 300, 250, 90, ftb_dash, "Forty-Yard Dash", false, "ftb_forty_click");
-  ftb_fivetenfive = makeButton(550, 300, 250, 90, ftb_fivetenfive, "5-10-5", false, "");
+  ftb_fivetenfive = makeButton(550, 300, 250, 90, ftb_fivetenfive, "5-10-5", false, "noButtonEventYet");
   //Football Title Page Containers
   ft_labels = new ArrayList<GLabel>();
   ft_labels.add(ftl_title);
@@ -145,7 +139,7 @@ public void createGUI(){
   //Football Main Page
   fml_title = makeTitle(0, 0, frameWidth, 50, 40, fml_title, "Forty-Yard Dash", GAlign.CENTER, GAlign.TOP, false);
   fml_desiredTime = makeTitle(frameWidth/2-250-50, 60, 250, 40, 30, fml_desiredTime, "Desired Time", GAlign.CENTER, GAlign.TOP, false);
-  fmt_desiredTime = makeTextField(frameWidth/2+50, 65, 250, 30, 20, fmt_desiredTime, "", false, "");
+  fmt_desiredTime = makeTextField(frameWidth/2+50, 65, 250, 30, 20, fmt_desiredTime, "", false, "noTextEventYet");
   fmt_desiredTime.setText("5");
   fmt_desiredTime.addEventHandler(this, "fmt_desiredTime_change");
   

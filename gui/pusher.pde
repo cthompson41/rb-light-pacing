@@ -1,9 +1,12 @@
+int chosenPlayer = -1;
+
 public void writeToPixels(){
   if (testObserver.hasStrips) {
     registry.startPushing();
      Map<String, PixelPusher> controllerMap = registry.getPusherMap();
       
       for (Map.Entry ppMappedController : controllerMap.entrySet()) {
+        chosenPlayer=-1;
         PixelPusher ppController = (PixelPusher) ppMappedController.getValue();
         List<Strip> strips = ppController.getStrips();
         int intControllerNo = ppController.getControllerOrdinal();
@@ -13,7 +16,8 @@ public void writeToPixels(){
           
           for (int stripx = 0; stripx < pstrip.getLength(); stripx++) {
             if(lightUpPixel(intControllerNo, stripNo, stripx)) {
-              pstrip.setPixel(pulseColor, stripx);
+              println("HERE: " + System.nanoTime());
+              pstrip.setPixel(pulseColor[chosenPlayer], stripx);
             }
             else{
               pstrip.setPixel(stripColor, stripx);
@@ -31,37 +35,41 @@ boolean lightUpPixel(int controllerNo, int stripNo, int stripx) {
   // strip  == the strip the cursor is currently on
   // pixelInStrip == the position of the the cursor within that strip
   // reversed == whether that strip is reversed or not.
-  
-  if (controllerNo != controller) {
-     return false; 
-  }
-  
-  if (stripNo == strip) {
-    if (pixelInStrip == stripx) {
-      return true;
+  for (int i=0; i<numPlayers; i++) {
+    if (controllerNo != controller[i]) {
+       return false; 
     }
-    if (abs(stripx - pixelInStrip) < 8) {
-      return true; 
-    }
-    if (reversed) {
-      if (pixelInStrip < 8) {
-        if (stripNo == strip + 1) {
-           if (stripx > ((240-8) - pixelInStrip)) {
-              return true;
-           } 
-        }
+    
+    if (stripNo == strip[i]) {
+      if (pixelInStrip[i] == stripx) {
+        chosenPlayer=i;
+        return true;
       }
-    } else {
-        if (pixelInStrip > (240-8)) {
-          if (stripNo == strip + 1) {
-             if (stripx > (pixelInStrip-240)) {
+      if (abs(stripx - pixelInStrip[i]) < 8) {
+        chosenPlayer=i;
+        return true; 
+      }
+      if (reversed[i]) {
+        if (pixelInStrip[i] < 8) {
+          if (stripNo == strip[i] + 1) {
+             if (stripx > ((240-8) - pixelInStrip[i])) {
+                chosenPlayer=i;
                 return true;
              } 
           }
         }
+      } else {
+          if (pixelInStrip[i] > (240-8)) {
+            if (stripNo == strip[i] + 1) {
+               if (stripx > (pixelInStrip[i]-240)) {
+                  chosenPlayer=i;
+                  return true;
+               } 
+            }
+          }
+      }
     }
   }
-  
   return false;
 }
 

@@ -27,7 +27,7 @@ boolean[] stillRunning;
 long startTime;
 float startPosition;
 double velocity;
-color pulseColor=#FA150D;
+color[] pulseColor=new color[]{#FF0000, #00FF00, #0000FF, #FFFF00};
 boolean running=false;
 //long positionPixels=0;
 long[] pixelPositions;
@@ -104,7 +104,7 @@ public void setup(){
 
 public void draw(){
   background(backgroundImage);
-  fill(pulseColor);
+  //fill(pulseColor[0]);
   rectMode(CENTER);
   updateVariables();
   writeToPixels();

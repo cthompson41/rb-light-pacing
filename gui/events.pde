@@ -7,31 +7,34 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
       //Set needed variables
       position = 0;
       startTime = System.nanoTime();
-      numPlayers = getPlayerCount();
-      tml_remainingNOL.setText("Lap Number"); 
-      lastPositions = new double[numPlayers];
-      lastTimes = new double[numPlayers];
-      targetTime = new double[numPlayers];
-      lapCounter = new int[numPlayers];
-      stillRunning = new boolean[numPlayers];
-      pixelPositions = new long[numPlayers];
-      for (int temp=0; temp<numPlayers; temp++) {
-         stillRunning[temp] = true;
-         pixelPositions[temp] = 0;
-         lapCounter[temp] = Integer.parseInt(tmt_totalNOL.getText());
-         tm_lapR[temp].setText("" + lapCounter[temp]);
-         lastPositions[temp] = 0; 
-         lastTimes[temp] = startTime;
-         targetTime[temp] = Double.parseDouble(tmt_desiredTimes[temp].getText());
-         println("target time: " + targetTime[temp]);
+      if ((numPlayers = getPlayerCount()) == 0) {
+        running = false;
+      } else {
+        tml_remainingNOL.setText("Lap Number"); 
+        lastPositions = new double[numPlayers];
+        lastTimes = new double[numPlayers];
+        targetTime = new double[numPlayers];
+        lapCounter = new int[numPlayers];
+        stillRunning = new boolean[numPlayers];
+        pixelPositions = new long[numPlayers];
+        for (int temp=0; temp<numPlayers; temp++) {
+           stillRunning[temp] = true;
+           pixelPositions[temp] = 0;
+           lapCounter[temp] = Integer.parseInt(tmt_totalNOL.getText());
+           tm_lapR[temp].setText("" + lapCounter[temp]);
+           lastPositions[temp] = 0; 
+           lastTimes[temp] = startTime;
+           targetTime[temp] = Double.parseDouble(tmt_desiredTimes[temp].getText());
+           println("target time: " + targetTime[temp]);
+        }
+        trackLength = Float.parseFloat(tmt_trackL.getText());
+  
+        startPosition = led[0].getX();
+        for (int i=0; i<numPlayers; i++) {
+          led[i].setAlpha(255);
+        }
+        updateVariables();
       }
-      trackLength = Float.parseFloat(tmt_trackL.getText());
-
-      startPosition = led[0].getX();
-      for (int i=0; i<numPlayers; i++) {
-        led[i].setAlpha(255);
-      }
-      updateVariables();
     }
   } else if (fml_title.isVisible()) {
     running=true;
@@ -57,6 +60,18 @@ public void titlePaigeReturn_click(GButton source, GEvent event) {
   println("titlePaigeButton - GButton event occured" + System.currentTimeMillis()%10000000);
   removeAll();
   showTP();
+}
+
+public void noTextEventYet(GTextField source, GEvent event) {
+  println("Action received for GTextField: \"" + source.getText() + "\" but no event set for GTextField");
+}
+
+public void noButtonEventYet(GButton source, GEvent event) {
+  println("Action received for GButton: \"" + source.getText() + "\" but no event set for button");
+}
+
+public void noImageButtonEventYet(GImageButton source, GEvent event) {
+  println("Action received for GImageButton, but no event set for image button");
 }
 
 public void tb_football_click(GButton source, GEvent event) {
@@ -89,6 +104,7 @@ public void tb_track_click(GButton source, GEvent event) {
   println("tb_track click - GButton event occured" + System.currentTimeMillis()%10000000);
   removeAll();
   showTrackMP();
+  tmt_desiredLT1.setFocus(true);
 }
 
 public void cb_click(GButton source, GEvent event) {
