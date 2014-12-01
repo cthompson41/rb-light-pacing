@@ -221,8 +221,9 @@ public void showFootballMP() {
      temp.setVisible(true);
   }  
    for (GButton temp : fm_Buttons) {
-     temp.setVisible(true);
+     temp.setVisible(true);     
   }  
+  fmd_choosePosition.setVisible(true);
 }
 
 
