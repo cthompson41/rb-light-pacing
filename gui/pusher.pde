@@ -1,5 +1,15 @@
+/*
+  pusher.pde
+  This writes the LED commands and lights the physical LEDs
+*/
+
+//Global variable shortcut to avoid having to change the return from lightuppixels
 int chosenPlayer = -1;
 
+//Don't know about initial part of code
+//Iterates through each strip connected to the pixelpusher controller. For each pixel location in each strip, if the
+//pixel should be lit (Determined by comparing to variables set in mapping.pde), sets the pixel to the pulse color for that 
+//runner (the chosenPlayer variable). Otherwise, sets the pixel to the strip color (no light).
 public void writeToPixels(){
   if (testObserver.hasStrips) {
     registry.startPushing();
@@ -29,6 +39,11 @@ public void writeToPixels(){
   }
 }
 
+//Called by writeToPixels to determine if the strip position should be lit
+//Takes the controller, strip, and position as inputs, returns true if the three match to a point
+//set in mapping.pde that says that location should be lit
+//Also, iterates through each active runner to determine this. If the position matches true, it sets chosenPlayer to that runner (0-3)
+//so the pulse color of that runner can be used for that location in writeToPixels.
 boolean lightUpPixel(int controllerNo, int stripNo, int stripx) {
   // controller == the controller we currently need lit up
   // strip  == the strip the cursor is currently on
@@ -71,6 +86,4 @@ boolean lightUpPixel(int controllerNo, int stripNo, int stripx) {
   }
   return false;
 }
-
-// intControllerNo==controller && stripNo==strip && (abs(stripx-pixelInStrip)<8)){
 
