@@ -1,3 +1,8 @@
+/*
+  helper.pde
+  Helper functions for rest of code base. General order of functions is given below. 
+*/
+
 //Ordered table of contents for helper functions
 //1. Helper functions for logic
 //2. Helper functions for drawing controls
@@ -5,6 +10,12 @@
 
 //=============================================================================================================
 //1. Helper functions for logic
+
+//Returns number of set runners, which is used in most of the code logic to decide how many iterations of logic to perform
+//Determines length of text in each desiredLT text field in desiredTimes array. If the field has text, it tries to parse
+//the text into a double. If that works and it parses to be greater than zero, add to count. Otherwise, break
+//The code will break on the first 0 or non-numeric entry, so if runner one has time zero and runner two has time 10, the 
+//player count will be 0
 private int getPlayerCount() {
   int count = 0;
   for (GTextField temp : tmt_desiredTimes) {
@@ -17,6 +28,12 @@ private int getPlayerCount() {
   return count;
 }
 
+//Verify Control Track Input (CTI) for track gui. If all controls have valid input, returns true. Otherwise, returns false
+//Returns false and prints some custom error message if any of the following are true:
+//--desired lap time for first entry is empty (if equal to zero, player count catches it and returns 0)
+//--desired lap time has text that is non numeric
+//--total number of laps is empty, non-numeric, or too big
+//--track length is empty, non-numeric, or too big
 private boolean verifyCTInput() {
   //try parsing all required input fields. If error, return false. If all required input is provided, return true
   try {
@@ -54,6 +71,7 @@ private boolean verifyCTInput() {
       } 
     }
     return true;
+    //Catch certain errors and print helpful error message
   } catch (NumberFormatException e) {
     //Error in parsing some input field as a double
     println("Error in verifyCTIInput: Please verify only numerical entries are given in all text boxes");
@@ -65,23 +83,26 @@ private boolean verifyCTInput() {
   return false; 
 }
 
+//Updates array that holds each runners desired lap time with values in text boxes
 private void updateRunnerSpeeds() {
     for (int temp=0; temp<numPlayers; temp++) {
       targetTime[temp] = Double.parseDouble(tmt_desiredTimes[temp].getText());
     }
 }
 
-
+//Takes player number and direction as input, and adjusts the desired lap time for that player in that direction by 0.1 s
 private void adjustTime(int player, String direction) {
   GTextField thisLT = tmt_desiredTimes[player-1];
   double time;
   try {
+    //in case non-numeric value is in that desired lap time text box
     time = Double.parseDouble(thisLT.getText());
   } 
   catch (NumberFormatException e) {
     println("Valid number not in desired lap time for player " + player + ". Resetting lap time to 0.");
     time = 0;
   }
+  //if up, increase time. If down, decrease time
   if (direction == "UP") {
     time += 0.1;
   } else {
@@ -91,12 +112,14 @@ private void adjustTime(int player, String direction) {
       time = .1;
     }
   }
+  //Set that lap time text field to the calculated time
   thisLT.setText(String.format("%.2f", time));
 }
 
+//Takes a integer of height, returns player that is at that height in the gui layout
+//Returns -1 if player index not found. If this happens, check the player heights in gui.pde
+//Used in add/remove person click to determine who to add/remove
 private int findPlayerNumber(float y){
-  //find player number for which add/removePerson was clicked
-  //returns player index if player found, -1 otherwise
   int player = 1;
   for (int temp : rowHeight) {
     if (temp == y + 2) {
