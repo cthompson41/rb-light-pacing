@@ -1,7 +1,19 @@
+/*
+  mapping.pde
+  Contains global variables for mapping player position to the actual LED strip
+  
+  Called in updatevariables (redbull.pde) after all timing/position for each runner is determined. 
+  
+  This reinitializes the variables used to determine the physical led location for the runner positions to the values
+  determined in the logic. The base logic for this was from NI/Redbull and didn't change much, so it isn't commented well
+  All that was added was the arrays instead of single variables to account for multiple runners
+*/
+
 boolean[] reversed;
 int[] controller;
 int[] strip;
 long[] pixelInStrip;
+
 
 public void determinePixel(){
   reversed = new boolean[numPlayers];
