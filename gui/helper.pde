@@ -83,6 +83,14 @@ private boolean verifyCTInput() {
   return false; 
 }
 
+//Takes the player number to zero as input
+//Zero's position, and thus virtual and physical led, for the given runner
+public void trackZeroPlayer(int player) {
+  println("num players: " + numPlayers);
+  println("player: " + player);
+  lastPositions[player-1] = 0; 
+}
+
 //Updates array that holds each runners desired lap time with values in text boxes
 private void updateRunnerSpeeds() {
     for (int temp=0; temp<numPlayers; temp++) {

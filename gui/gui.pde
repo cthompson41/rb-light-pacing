@@ -71,10 +71,10 @@ public void createGUI(){
   tmb_adjustD3 = makeImageButton(adjustPX+55, rowHeight[2]-2, 25, 25, tmb_adjustD3, false, "tmb_adjustD_click", "down.png");
   tmb_adjustD4 = makeImageButton(adjustPX+55, rowHeight[3]-2, 25, 25, tmb_adjustD4, false, "tmb_adjustD_click", "down.png");
   int temp = (int)tml_zero.getX();
-  tmb_zero1 = makeButton(temp, rowHeight[0]-2, 50, 25, tmb_zero1, "", false, "noButtonEventYet");
-  tmb_zero2 = makeButton(temp, rowHeight[1]-2, 50, 25, tmb_zero2, "", false, "noButtonEventYet");
-  tmb_zero3 = makeButton(temp, rowHeight[2]-2, 50, 25, tmb_zero3, "", false, "noButtonEventYet");
-  tmb_zero4 = makeButton(temp, rowHeight[3]-3, 50, 25, tmb_zero4, "", false, "noButtonEventYet");
+  tmb_zero1 = makeButton(temp, rowHeight[0]-2, 50, 25, tmb_zero1, "", false, "tmb_zero_click");
+  tmb_zero2 = makeButton(temp, rowHeight[1]-2, 50, 25, tmb_zero2, "", false, "tmb_zero_click");
+  tmb_zero3 = makeButton(temp, rowHeight[2]-2, 50, 25, tmb_zero3, "", false, "tmb_zero_click");
+  tmb_zero4 = makeButton(temp, rowHeight[3]-3, 50, 25, tmb_zero4, "", false, "tmb_zero_click");
   temp = (int)tml_remainingNOL.getX();
   tml_lapR1 = makeTitle(temp, rowHeight[0]-2, 50, 25, 20, tml_lapR1, "00", GAlign.CENTER, GAlign.CENTER, false);
   tml_lapR2 = makeTitle(temp, rowHeight[1]-2, 50, 25, 20, tml_lapR2, "00", GAlign.CENTER, GAlign.CENTER, false);

@@ -19,6 +19,7 @@ TestObserver testObserver;
 //Global Variables for tracking position and showing on LEDs
 float trackLength;
 double[] targetTime;                                                  //array for each runner
+boolean[] match; 
 double position=0;
 double[] lastPositions;                                               //array for each runner
 double[] lastTimes;                                                   //array for each runner
@@ -60,7 +61,7 @@ synchronized public void updateVariables(){
           elapsed_seconds = elapsed/1000000000.0;
           velocity=trackLength/targetTime[i];
           position = (lastPositions[i] + (velocity*elapsed_seconds)) % trackLength;//position in meters
-          println("elapsed: " + elapsed_seconds + "    velocity: " + velocity + "    position: "+ position);
+          //println("elapsed: " + elapsed_seconds + "    velocity: " + velocity + "    position: "+ position);
           if (position < lastPositions[i]) { //finished a lap, set hysteresis to true
             hysteresis = true;
           }

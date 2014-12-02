@@ -32,7 +32,6 @@ public void writeToPixels(){
               pstrip.setPixel(stripColor, stripx);
             }
           }
-         
           stripNo++;
         }
       }
@@ -50,8 +49,9 @@ boolean lightUpPixel(int controllerNo, int stripNo, int stripx) {
   // pixelInStrip == the position of the the cursor within that strip
   // reversed == whether that strip is reversed or not.
   for (int i=0; i<numPlayers; i++) {
+    //match[i] = false;                  //reset to false
     if (controllerNo != controller[i]) {
-       return false; 
+       continue; 
     }
     
     if (stripNo == strip[i]) {

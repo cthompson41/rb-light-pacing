@@ -21,6 +21,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
         position = 0;
         startTime = System.nanoTime();
         //Initialize all arrays for all runners
+        match = new boolean[numPlayers];
         lastPositions = new double[numPlayers];
         lastTimes = new double[numPlayers];
         targetTime = new double[numPlayers];
@@ -29,6 +30,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
         pixelPositions = new long[numPlayers];
         for (int temp=0; temp<numPlayers; temp++) {
            //for all arrays, iterate through all values to set to initial values
+           match[temp] = false;                                                      //used to determine if match in pixel location in pusher
            stillRunning[temp] = true;                                                //used to determine when to stop running
            pixelPositions[temp] = 0;                                                 
            lapCounter[temp] = Integer.parseInt(tmt_totalNOL.getText());              //initially all are set to number of laps
@@ -63,7 +65,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
 public void desiredLT_change(GTextField source, GEvent event) {
   println("desiredLapTime change - GTextField event occured " + System.currentTimeMillis()%10000000 );
   if (running) {  //if the program is not running, there is no need to update anything
-                  //if the program is running, numPlayers should be valid data, so use it to change targetTime[]
+                  //if the program is running, nums should be valid data, so use it to change targetTime[]
   updateRunnerSpeeds();
   }   
 }
@@ -165,6 +167,18 @@ public void tmb_addPerson_click(GButton source, GEvent event) {
   }
   println("tmb_addPerson_click - GButton event occured: player " + player + " clicked");
   trackAddPlayer(player);
+}
+
+
+public void tmb_zero_click(GButton source, GEvent event) {
+  //find which player was added
+  int player = findPlayerNumber(source.getY());
+    //sanity check - if player is larger than rowHeight, the location of the sourcebutton doesn't match one of the rowheights, throw error
+  if (player == -1) {
+    throw new Error("Error in zero_click -> player not found");
+  }
+  println("tmb_zero_click - GButton event occured: player " + player + " clicked");
+  trackZeroPlayer(player);
 }
 
 //Track main page removeperson click
