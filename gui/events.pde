@@ -16,7 +16,6 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
         //player count is zero, do nothing
       } else {
         //player count is greater than zero, so initialize and run
-        running=true;
         //Set needed variables
         position = 0;
         startTime = System.nanoTime();
@@ -48,6 +47,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
         for (int i=0; i<numPlayers; i++) {
           led[i].setAlpha(255);      //make virtual led visible
         }
+        running=true;
         updateVariables();           //start running updateVariables 
       }
     }
@@ -120,8 +120,8 @@ public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton
   if (tml_title.isVisible()) { 
     for (int i=0; i<led.length; i++) {
       led[i].setAlpha(0);
-      led[i].moveTo(track.getX()+(track.getHeight()/2), track.getY()+track.getHeight());
-    }
+      led[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight());
+    }  
   } else if (fml_title.isVisible()) {
     football_led.setAlpha(0);
     football_led.moveTo(football_track.getX(), football_track.getY()-football_led_height);

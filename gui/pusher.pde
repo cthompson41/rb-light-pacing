@@ -27,8 +27,7 @@ public void writeToPixels(){
           for (int stripx = 0; stripx < pstrip.getLength(); stripx++) {
             if(lightUpPixel(intControllerNo, stripNo, stripx)) {
               pstrip.setPixel(pulseColor[chosenPlayer], stripx);
-            }
-            else{
+            } else {
               pstrip.setPixel(stripColor, stripx);
             }
           }

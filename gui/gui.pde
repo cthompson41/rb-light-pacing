@@ -46,7 +46,7 @@ public void createGUI(){
   tml_remainingNOL = makeTitle(525, 50, 200, 40, 20, tml_remainingNOL, "Remaining Laps", GAlign.LEFT, GAlign.TOP, false);
   tml_paceT = makeTitle(60, 241, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
   tmt_totalNOL = makeTextField(270, 275, 40, 20, 16, tmt_totalNOL, "10", false, "noTextEventYet");
-  tmt_trackL = makeTextField(270, 310, 40, 20, 16, tmt_trackL, "150", false, "noTextEventYet");
+  tmt_trackL = makeTextField(270, 310, 40, 20, 16, tmt_trackL, "250", false, "noTextEventYet");
   tmc_paceAssist = new GCheckbox(this, 275, 250, 25, 25);
   tmc_paceAssist.setVisible(false);
   tmb_addPerson = makeButton(720, rowHeight[0]-2, 25, 25, tmb_addPerson, "+", false, "tmb_addPerson_click");
