@@ -83,14 +83,6 @@ private boolean verifyCTInput() {
   return false; 
 }
 
-//Takes the player number to zero as input
-//Zero's position, and thus virtual and physical led, for the given runner
-public void trackZeroPlayer(int player) {
-  println("num players: " + numPlayers);
-  println("player: " + player);
-  lastPositions[player-1] = 0; 
-}
-
 //Updates array that holds each runners desired lap time with values in text boxes
 private void updateRunnerSpeeds() {
     for (int temp=0; temp<numPlayers; temp++) {
@@ -151,38 +143,44 @@ private int findPlayerNumber(float y){
 public void moveLED(GButton[] light, double[] targetTime) {
   float ledTrackLength = (track.getWidth()-track.getHeight())*2+pi*track.getHeight();
   for (int i=0; i<numPlayers; i++) {
-    //position = lastPositions[i];
-    float p =(float)lastPositions[i];
-    float ledPosition = p/trackLength*ledTrackLength;
-
-    if (ledPosition<track.getWidth()-track.getHeight()) {
-      light[i].moveTo(startPosition+ledPosition-light[i].getWidth(), light[i].getY());/////////////////////////////////////
-    } else if ((track.getWidth()-track.getHeight())<ledPosition && ledPosition<(track.getWidth()-track.getHeight()+track.getHeight()*pi/4)) {
-      float s = (ledPosition - (track.getWidth()-track.getHeight()));
-      float theta = s/(track.getHeight()/2)+pi*3/2;
-      float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
-      float centerPointY1 = track.getY()+track.getHeight()/2;
-      light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2-light[i].getWidth()+light[i].getWidth()/(pi/2)*(theta-3*pi/2), centerPointY1-sin(theta)*track.getHeight()/2);/////////////////////////
-    } else if (ledPosition>(track.getWidth()-track.getHeight()+track.getHeight()*pi/4) && ledPosition<(track.getWidth()-track.getHeight()+track.getHeight()*pi/2)) {
-      float s = (ledPosition - (track.getWidth()-track.getHeight()));
-      float theta = s/(track.getHeight()/2)+pi*3/2;
-      float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
-      float centerPointY1 = track.getY()+track.getHeight()/2;
-      light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2, centerPointY1-sin(theta)*track.getHeight()/2-light[i].getHeight()/(pi/2)*(theta-2*pi));//////////////////////////////////////
-    } else if (ledPosition>(track.getWidth()-track.getHeight()+track.getHeight()*pi/2) && ledPosition<((track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2)) {
-      light[i].moveTo(startPosition+((track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2)-ledPosition, light[i].getY());
-    } else if (ledPosition>((track.getWidth()-track.getHeight())*2+track.getHeight()*pi/2) && ledPosition<((track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4)) {
-      float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
-      float theta = s/(track.getHeight()/2)+pi*3/2;
-      float centerPointX2 = track.getX()+track.getHeight()/2;
-      float centerPointY2 = track.getY()+track.getHeight()/2;
-      light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth()/(pi/2)*(theta-3*pi/2), centerPointY2+sin(theta)*track.getHeight()/2-light[i].getHeight());//////////////////////////////////////      
-    } else if (ledPosition>((track.getWidth()-track.getHeight())*2+track.getHeight()*pi*3/4) && ledPosition<((track.getWidth()-track.getHeight())*2+track.getHeight()*pi)) {
-      float s = (ledPosition - (track.getWidth()-track.getHeight())*2 - track.getHeight()*pi/2);
-      float theta = s/(track.getHeight()/2)+pi*3/2;
-      float centerPointX2 = track.getX()+track.getHeight()/2;
-      float centerPointY2 = track.getY()+track.getHeight()/2;
-      light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth(), centerPointY2+sin(theta)*track.getHeight()/2-light[i].getHeight()+light[i].getHeight()/(pi/2)*(theta-2*pi));///////////////////////      
+    if (toClear[i]) {
+      light[i].moveTo(startPosition, track.getY()+track.getHeight());
+      toClear[i] = false; 
+    } else {
+      //position = lastPositions[i];
+      float p =(float)lastPositions[i];
+      float ledPosition = p/trackLength*ledTrackLength;
+      if (ledPosition<(track.getWidth()-track.getHeight())/2) {
+        light[i].moveTo(startPosition+ledPosition-light[i].getWidth(), light[i].getY());
+      } else if (ledPosition>(track.getWidth()-track.getHeight())/2 && ledPosition<((track.getWidth()-track.getHeight())/2+track.getHeight()*pi/4)) {
+        float s = (ledPosition - (track.getWidth()-track.getHeight())/2);
+        float theta = s/(track.getHeight()/2)+pi*3/2;
+        float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
+        float centerPointY1 = track.getY()+track.getHeight()/2;
+        light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2-light[i].getWidth()+light[i].getWidth()/(pi/2)*(theta-3*pi/2), centerPointY1-sin(theta)*track.getHeight()/2);/////////////////////////
+      } else if (ledPosition>((track.getWidth()-track.getHeight())/2+track.getHeight()*pi/4) && ledPosition<((track.getWidth()-track.getHeight())/2+track.getHeight()*pi/2)) {
+        float s = (ledPosition - (track.getWidth()-track.getHeight())/2);
+        float theta = s/(track.getHeight()/2)+pi*3/2;
+        float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
+        float centerPointY1 = track.getY()+track.getHeight()/2;
+        light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2, centerPointY1-sin(theta)*track.getHeight()/2-light[i].getHeight()/(pi/2)*(theta-2*pi));//////////////////////////////////////
+      } else if (ledPosition>((track.getWidth()-track.getHeight())/2+track.getHeight()*pi/2) && ledPosition<((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi/2)) {
+        light[i].moveTo(startPosition+((track.getWidth()-track.getHeight())+track.getHeight()*pi/2)-ledPosition, light[i].getY());
+      } else if (ledPosition>((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi/2) && ledPosition<((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi*3/4)) {
+        float s = (ledPosition - (track.getWidth()-track.getHeight())*3/2 - track.getHeight()*pi/2);
+        float theta = s/(track.getHeight()/2)+pi*3/2;
+        float centerPointX2 = track.getX()+track.getHeight()/2;
+        float centerPointY2 = track.getY()+track.getHeight()/2;
+        light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth()/(pi/2)*(theta-3*pi/2), centerPointY2+sin(theta)*track.getHeight()/2-light[i].getHeight());//////////////////////////////////////
+      } else if (ledPosition>((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi*3/4) && ledPosition<((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi)) {
+        float s = (ledPosition - (track.getWidth()-track.getHeight())*3/2 - track.getHeight()*pi/2);
+        float theta = s/(track.getHeight()/2)+pi*3/2;
+        float centerPointX2 = track.getX()+track.getHeight()/2;
+        float centerPointY2 = track.getY()+track.getHeight()/2;
+        light[i].moveTo(centerPointX2-cos(theta)*track.getHeight()/2-light[i].getWidth(), centerPointY2+sin(theta)*track.getHeight()/2-light[i].getHeight()+light[i].getHeight()/(pi/2)*(theta-2*pi));///////////////////////      
+      } else if (ledPosition > ((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi) && ledPosition < ((track.getWidth()-track.getHeight())*2+track.getHeight()*pi)) {
+        light[i].moveTo(startPosition-light[i].getWidth()-(ledTrackLength-ledPosition), light[i].getY());  
+      }
     }
   }
 }

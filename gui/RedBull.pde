@@ -21,6 +21,7 @@ float trackLength;
 double[] targetTime;                                                  //array for each runner
 boolean[] match; 
 double position=0;
+boolean[] toClear;
 double[] lastPositions;                                               //array for each runner
 double[] lastTimes;                                                   //array for each runner
 int[] lapCounter;                                                     //array for each runner
@@ -65,7 +66,11 @@ synchronized public void updateVariables(){
           if (position < lastPositions[i]) { //finished a lap, set hysteresis to true
             hysteresis = true;
           }
-          lastPositions[i] = position;
+          if (toClear[i]) {
+            lastPositions[i] = 0; 
+          } else {
+            lastPositions[i] = position;
+          }
           if (hysteresis) {  //finished a lap, change lap counter, break if done
             lapCounter[i]--;
             tm_lapR[i].setText("" + lapCounter[i]);

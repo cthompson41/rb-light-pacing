@@ -21,6 +21,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
         position = 0;
         startTime = System.nanoTime();
         //Initialize all arrays for all runners
+        toClear = new boolean[numPlayers];
         match = new boolean[numPlayers];
         lastPositions = new double[numPlayers];
         lastTimes = new double[numPlayers];
@@ -30,6 +31,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
         pixelPositions = new long[numPlayers];
         for (int temp=0; temp<numPlayers; temp++) {
            //for all arrays, iterate through all values to set to initial values
+           toClear[temp] = false;
            match[temp] = false;                                                      //used to determine if match in pixel location in pusher
            stillRunning[temp] = true;                                                //used to determine when to stop running
            pixelPositions[temp] = 0;                                                 
@@ -178,7 +180,7 @@ public void tmb_zero_click(GButton source, GEvent event) {
     throw new Error("Error in zero_click -> player not found");
   }
   println("tmb_zero_click - GButton event occured: player " + player + " clicked");
-  trackZeroPlayer(player);
+  toClear[player-1]=true;
 }
 
 //Track main page removeperson click

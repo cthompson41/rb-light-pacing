@@ -74,7 +74,7 @@ public void createGUI(){
   tmb_zero1 = makeButton(temp, rowHeight[0]-2, 50, 25, tmb_zero1, "", false, "tmb_zero_click");
   tmb_zero2 = makeButton(temp, rowHeight[1]-2, 50, 25, tmb_zero2, "", false, "tmb_zero_click");
   tmb_zero3 = makeButton(temp, rowHeight[2]-2, 50, 25, tmb_zero3, "", false, "tmb_zero_click");
-  tmb_zero4 = makeButton(temp, rowHeight[3]-3, 50, 25, tmb_zero4, "", false, "tmb_zero_click");
+  tmb_zero4 = makeButton(temp, rowHeight[3]-2, 50, 25, tmb_zero4, "", false, "tmb_zero_click");
   temp = (int)tml_remainingNOL.getX();
   tml_lapR1 = makeTitle(temp, rowHeight[0]-2, 50, 25, 20, tml_lapR1, "00", GAlign.CENTER, GAlign.CENTER, false);
   tml_lapR2 = makeTitle(temp, rowHeight[1]-2, 50, 25, 20, tml_lapR2, "00", GAlign.CENTER, GAlign.CENTER, false);
@@ -83,12 +83,15 @@ public void createGUI(){
   tm_lapR = new GLabel[]{tml_lapR1, tml_lapR2, tml_lapR3, tml_lapR4};
   //=============================================================================================================
   //Track for visual of LED position on real track
+  led = new GButton[4];
   track = makeImageButton(520, 250, 301, 140, track, false, "noImageButtonEventYet", "track3.png");
   track.setEnabled(false);
-    int ledHeight = 6;
-  led = new GButton[4];
+  int ledHeight = 6;
+  
   for (int i=0; i<led.length; i++) {
-    led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);  
+    //ttt = makeButton((int)(track.getX()+track.getWidth()/2), (int)(track.getY()-led[0].getHeight()), 5, 5, ttt, "", true, "");
+    led[i] = new GButton(this, track.getX()+(track.getWidth()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);  
+    //led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
     led[i].setEnabled(false);
     led[i].setAlpha(0);  
   }
@@ -167,7 +170,7 @@ List<GButton> t_buttons;
 //==================
 //Track Page
 int[] rowHeight;
-GImageButton tmb_adjustU1, tmb_adjustU2, tmb_adjustU3, tmb_adjustU4, tmb_adjustD1, tmb_adjustD2, tmb_adjustD3, tmb_adjustD4,track;
+GImageButton tmb_adjustU1, tmb_adjustU2, tmb_adjustU3, tmb_adjustU4, tmb_adjustD1, tmb_adjustD2, tmb_adjustD3, tmb_adjustD4;
 GLabel tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL;
 GLabel tml_lapR1, tml_lapR2, tml_lapR3, tml_lapR4;
 GButton tmb_zero1, tmb_zero2, tmb_zero3, tmb_zero4;
@@ -176,6 +179,7 @@ GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_t
 GTextField[] tmt_desiredTimes;
 GCheckbox tmc_paceAssist;
 GButton[] led;
+GImageButton track;
 GLabel[] tm_lapR;
 GCheckbox paceAssist;
 List<GLabel> tm_labels;
