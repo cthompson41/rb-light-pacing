@@ -135,6 +135,16 @@ private int findPlayerNumber(float y){
   return player;
 }
 
+public boolean isPaceAssistLightingStop(int player, int stripNo) {
+  int difference = Integer.parseInt(tmt_totalNOL.getText()) - lapCounter[player];
+  if (difference <= stripCount) {
+    if ((stripCount - difference) < stripNo) {
+    return true;
+    }
+  }
+  return false;
+}
+
 //=============================================================================================================
 //2. Helper functions for drawing controls
 
