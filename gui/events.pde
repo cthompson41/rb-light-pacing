@@ -57,14 +57,19 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
     }
   } else if (fml_title.isVisible()) {
     reset();
-    pixelPositions = new long[1];
-    pixelPositions[0] = 0;
     running=true;
     targetTime = new double[1]; 
     targetTime[0] = Double.parseDouble(fmt_desiredTime.getText());
     startTime = System.nanoTime();
     startPosition = football_led.getX();
     football_led.setAlpha(255);
+    pixelPositions = new long[1];
+    pixelPositions[0] = 0;
+    lastPositions = new double[1];
+    lastPositions[0] = 0;
+    lastTimes = new double[1];
+    lastTimes[0] = startTime;
+    position = 0;
     updateVariables();
   }
 }

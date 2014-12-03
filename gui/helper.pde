@@ -465,3 +465,25 @@ public void reset() {
   }
   
 }
+
+public void velocity() {
+   double t = targetTime[0]/5;   
+   
+   if (0 < elapsed_seconds && elapsed_seconds < t){
+     velocity = 4.5/t * elapsed_seconds;
+   }
+   else if (elapsed_seconds < 2*t){
+     velocity = 4.5 + 4/t * (elapsed_seconds - t);
+   }
+   else if (elapsed_seconds < 3*t){
+     velocity = 8.5 + 1.5/t * (elapsed_seconds - 2*t);
+   }
+   else if (elapsed_seconds < 4*t){
+     velocity = 10 + 1/t * (elapsed_seconds - 3*t);
+   }
+   else if (elapsed_seconds < 5*t){
+     velocity = 11 + 1/t * (elapsed_seconds - 4*t);
+   }
+   println(velocity);
+   
+}
