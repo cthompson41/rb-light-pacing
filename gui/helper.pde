@@ -140,7 +140,6 @@ private int findPlayerNumber(float y){
 //stripCount is set to 6 because each pixelpusher will have six strips in it
 public boolean isPaceAssistLightingStop(int player, int stripNo) {
   int difference = (Integer.parseInt(tmt_totalNOL.getText()) - lapCounter[player]) % stripCount;
-  println("difference: " + difference);
   if (difference <= stripCount) {
     if ((stripCount - difference) <= stripNo) {
       //Set virtual led representing the physical led to invisible as well
