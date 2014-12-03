@@ -5,5 +5,11 @@
 ---Add Acceleration
 
 -Track
---pixelPositions[i] = (long)(position * 12000/trackLength); (I think it should still just be 48)
+--pixelPositions[i] = (long)(position * 12000/trackLength); (I think it should still just be 48) (mapping should include trackLength instead)
+
+
+-Start Button
+--Add sound and maybe time delay when clicked? (It feels like we just need a goodw way at the expo to trigger people)
+
+
 
