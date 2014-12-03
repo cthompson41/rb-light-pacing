@@ -5,7 +5,7 @@
 
 //Global variable shortcut to avoid having to change the return from lightuppixels
 int chosenPlayer = -1;
-int stripCount = -1;
+int stripCount = 6;
 
 //Don't know about initial part of code
 //Iterates through each strip connected to the pixelpusher controller. For each pixel location in each strip, if the
@@ -20,7 +20,6 @@ public void writeToPixels(){
         chosenPlayer=-1;
         PixelPusher ppController = (PixelPusher) ppMappedController.getValue();
         List<Strip> strips = ppController.getStrips();
-        stripCount = strips.size();
         int intControllerNo = ppController.getControllerOrdinal();
         int stripNo = 0;
         for(Strip pstrip : strips) {
@@ -30,13 +29,6 @@ public void writeToPixels(){
             //If strip matches one that should be lit and 
             //it's not true that pace assist is enabled and the light should not be lit because of pace assist lap count
             //ligtht led with player color. Otherwise, light led with strip color
-            if (lightUpPixel(intControllerNo, stripNo, stripx)) {
-              println("light match with strip " + stripNo);
-              if (!(tmc_paceAssist.isSelected() && isPaceAssistLightingStop(chosenPlayer, stripNo))) {
-                println("still lighting on strip " + stripNo);  
-              }
-            }
-            
             if(lightUpPixel(intControllerNo, stripNo, stripx) && !(tmc_paceAssist.isSelected() && isPaceAssistLightingStop(chosenPlayer, stripNo))) {
               pstrip.setPixel(pulseColor[chosenPlayer], stripx);
             } else {

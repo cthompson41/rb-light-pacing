@@ -135,6 +135,9 @@ private int findPlayerNumber(float y){
   return player;
 }
 
+//Method to determine if the given strip should light up for the given player for the current lap. Returns
+//true if the light should be disabled and false if the light should be enabled
+//stripCount is set to 6 because each pixelpusher will have six strips in it
 public boolean isPaceAssistLightingStop(int player, int stripNo) {
   int difference = Integer.parseInt(tmt_totalNOL.getText()) - lapCounter[player];
   if (difference <= stripCount) {
