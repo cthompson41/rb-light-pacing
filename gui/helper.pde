@@ -431,3 +431,19 @@ public void showTP() {
       temp.setVisible(true); 
    }
 }
+
+public void reset() {
+    running=false;
+  if (tml_title.isVisible()) { 
+    for (int i=0; i<led.length; i++) {
+      led[i].setAlpha(0);
+      vled[i].setAlpha(0);
+      led[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight());
+      vled[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight()+ledHeight);
+    }  
+  } else if (fml_title.isVisible()) {
+    football_led.setAlpha(0);
+    football_led.moveTo(football_track.getX(), football_track.getY()-football_led_height);
+  }
+
+}

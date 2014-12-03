@@ -115,18 +115,7 @@ public void ftb_forty_click(GButton source, GEvent event) {
 //so no need to go scrub all of them
 public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
-  running=false;
-  if (tml_title.isVisible()) { 
-    for (int i=0; i<led.length; i++) {
-      led[i].setAlpha(0);
-      vled[i].setAlpha(0);
-      led[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight());
-      vled[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight()+ledHeight);
-    }  
-  } else if (fml_title.isVisible()) {
-    football_led.setAlpha(0);
-    football_led.moveTo(football_track.getX(), football_track.getY()-football_led_height);
-  }
+  reset();
 } 
 
 //Changes to visibility for new gui page
@@ -156,6 +145,9 @@ public void moveFootballLED(GButton light, double[] targetTime) {
   //  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
   if (ledPosition<ledTrackLength) {
     light.moveTo(startPosition+ledPosition, light.getY());
+  }
+  else {
+    reset();
   }
 }
 
