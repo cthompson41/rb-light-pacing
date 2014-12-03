@@ -77,6 +77,7 @@ public void desiredLT_change(GTextField source, GEvent event) {
 
 //Changes to visibility for new gui page
 public void titlePaigeReturn_click(GButton source, GEvent event) {
+  reset();
   println("titlePaigeButton - GButton event occured" + System.currentTimeMillis()%10000000);
   removeAll();
   showTP();

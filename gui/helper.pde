@@ -57,8 +57,8 @@ private boolean verifyCTInput() {
         throw new Exception("Please enter a numeric value 1-100 in total number of laps");
     } else {
       double numLaps = Double.parseDouble(tmt_totalNOL.getText());
-      if (numLaps < 0 || numLaps > 100) {
-         throw new Exception("Please enter a numeric value 1-100 in total number of laps");
+      if (numLaps < .5 || numLaps > 999) {
+         throw new Exception("Please enter a numeric value 1-999 in total number of laps");
       }    
     }
     //if tmt_trackL is empty, non-numeric, or too large/small
