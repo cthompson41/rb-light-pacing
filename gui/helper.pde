@@ -301,6 +301,7 @@ public void removeAll(){
     temp.setAlpha(0); 
   }
   football_led.setAlpha(0);   
+  fmd_choosePosition.setVisible(false);
 }
 
 //Show football title page controls
