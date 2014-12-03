@@ -12,6 +12,7 @@ int stripCount = 6;
 //pixel should be lit (Determined by comparing to variables set in mapping.pde), sets the pixel to the pulse color for that 
 //runner (the chosenPlayer variable). Otherwise, sets the pixel to the strip color (no light).
 public void writeToPixels(){
+ // println("in write to pixel");
   if (testObserver.hasStrips) {
     registry.startPushing();
      Map<String, PixelPusher> controllerMap = registry.getPusherMap();
@@ -47,6 +48,7 @@ public void writeToPixels(){
 //Also, iterates through each active runner to determine this. If the position matches true, it sets chosenPlayer to that runner (0-3)
 //so the pulse color of that runner can be used for that location in writeToPixels.
 boolean lightUpPixel(int controllerNo, int stripNo, int stripx) {
+  //println("controller: " + controllerNo);
   // controller == the controller we currently need lit up
   // strip  == the strip the cursor is currently on
   // pixelInStrip == the position of the the cursor within that strip

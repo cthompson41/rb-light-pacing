@@ -38,7 +38,7 @@ public void createGUI(){
   //Track Main Page
   rowHeight = new int[]{90, 122, 154, 186}; //for runner rows, used in add/remove person
   tml_title = makeTitle(0, 0, frameWidth, 50, 40, tml_title, "Track", GAlign.CENTER, GAlign.TOP, false);
-  tml_desiredLT = makeTitle(100, 50, 200, 40, 20, tml_desiredLT, "Desired Lap Time", GAlign.LEFT, GAlign.TOP, false);
+  tml_desiredLT = makeTitle(80, 50, 200, 40, 18, tml_desiredLT, "Desired Lap Time (sec)", GAlign.LEFT, GAlign.TOP, false);
   tml_adjustP = makeTitle(300, 50, 200, 40, 20, tml_adjustP, "Adjust Pace", GAlign.LEFT, GAlign.TOP, false);
   tml_zero = makeTitle(450, 50, 200, 40, 20, tml_zero, "Zero", GAlign.LEFT, GAlign.TOP, false); 
   tml_totalNOL = makeTitle(60, 270, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);  
@@ -56,7 +56,7 @@ public void createGUI(){
   //=============================================================================================================
   //Make controls for each runner (max of 4 right now)
   //Each number is for that number runner. The items are on rows per player, with a height of 10 between rows
-  int desiredLTX = (int) tml_desiredLT.getX();
+  int desiredLTX = (int) tml_desiredLT.getX()+15;
   tmt_desiredLT1 = makeTextField(desiredLTX, rowHeight[0], 150, 22, 18, tmt_desiredLT1, "0", false, "desiredLT_change");
   tmt_desiredLT2 = makeTextField(desiredLTX, rowHeight[1], 150, 22, 18, tmt_desiredLT2, "0", false, "desiredLT_change");
   tmt_desiredLT3 = makeTextField(desiredLTX, rowHeight[2], 150, 22, 18, tmt_desiredLT3, "0", false, "desiredLT_change");
@@ -127,7 +127,7 @@ public void createGUI(){
   //=============================================================================================================
   //Football Main Page
   fml_title = makeTitle(0, 0, frameWidth, 50, 40, fml_title, "Forty-Yard Dash", GAlign.CENTER, GAlign.TOP, false);
-  fml_desiredTime = makeTitle(frameWidth/2-250-50, 60, 250, 40, 30, fml_desiredTime, "Desired Time", GAlign.CENTER, GAlign.TOP, false);
+  fml_desiredTime = makeTitle(frameWidth/2-250-50, 60, 270, 40, 30, fml_desiredTime, "Desired Time (sec)", GAlign.CENTER, GAlign.TOP, false);
   fmt_desiredTime = makeTextField(frameWidth/2+50, 65, 250, 30, 20, fmt_desiredTime, "", false, "noTextEventYet");
   fmt_desiredTime.setText("5");
   fmt_desiredTime.addEventHandler(this, "fmt_desiredTime_change");

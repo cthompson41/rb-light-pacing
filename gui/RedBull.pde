@@ -22,7 +22,7 @@ int ledHeight = 6;                                                    //height o
 double[] targetTime;                                                  //array for each runner
 boolean[] match; 
 double position=0;
-int footballTrackLength = 40;
+int footballTrackLength = 17;
 boolean[] toClear;
 double[] lastPositions;                                               //array for each runner
 double[] lastTimes;                                                   //array for each runner
@@ -111,7 +111,7 @@ synchronized public void updateVariables(){
         else {
         running = false;    
         reset();
-        }    
+        }   
      }
    }
 }
@@ -131,7 +131,9 @@ public void draw(){
   background(backgroundImage);    //set background to redbull bg image
   rectMode(CENTER);
   updateVariables();              //call updatevariables is safe b/c running=false
+  
   writeToPixels();                //call to light actual LED strips
+  
 }
 
 // Use this method to add additional statements

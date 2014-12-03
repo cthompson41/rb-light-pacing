@@ -446,7 +446,7 @@ public void showTP() {
 }
 
 public void reset() {
-    running=false;
+  running=false;    
   if (tml_title.isVisible()) { 
     for (int i=0; i<led.length; i++) {
       led[i].setAlpha(0);
@@ -457,6 +457,7 @@ public void reset() {
   } else if (fml_title.isVisible()) {
     football_led.setAlpha(0);
     football_led.moveTo(football_track.getX(), football_track.getY()-football_led_height);
+   // pixelPostitions[0] = 0;
   }
-
+  
 }
