@@ -10,6 +10,10 @@
 //For track, if the verifyCTIInput function returns true and the player count is not equal to zero, initialize all variables for running track logic.
 public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton:595488:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
+  //If countdown option is selected, go to countdown in pusher.pde
+  if (tmc_countdown.isSelected()) {
+    performCountdown();
+  }
   if (tml_title.isVisible()) {
     if (verifyCTInput() == true) {
       if ((numPlayers = getPlayerCount()) == 0) {

@@ -307,6 +307,7 @@ public void removeAll(){
      } 
   }
   tmc_paceAssist.setVisible(false);
+  tmc_countdown.setVisible(false);
   for (GButton temp: led){
     temp.setAlpha(0);
   }
@@ -342,6 +343,7 @@ public void showTrackMP() {
      temp.setVisible(true);
   }
   tmc_paceAssist.setVisible(true);
+  tmc_countdown.setVisible(true);
 }
 
 //Show football main page controls
@@ -446,7 +448,8 @@ public void showTP() {
 }
 
 public void reset() {
-  running=false;    
+  running=false;
+  clearPixels();  
   if (tml_title.isVisible()) { 
     for (int i=0; i<led.length; i++) {
       led[i].setAlpha(0);

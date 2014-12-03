@@ -7,13 +7,66 @@
 int chosenPlayer = -1;
 int stripCount = 6;
 
+//Pulse lights three timess for countdown. Triggered from events.pde start_click
+public void performCountdown() {
+  if (testObserver.hasStrips) {
+    /*
+    long currentTime = System.nanoTime();
+          long elapsed = currentTime-(long)lastTimes[i];
+          lastTimes[i] = currentTime;
+          elapsed_seconds = elapsed/1000000000.0;
+     */
+    long pulseStartTime;
+    color stripColor = #000000;
+    color[] pulses = new color[]{#FF0000, #FFFF00, #00FF00}; 
+    registry.startPushing();
+    List<Strip> strips = registry.getStrips();
+    println("strip count: " + strips.size());
+    int numStrips = strips.size();
+    if (numStrips == 0) {
+      return; 
+    }
+    //Iterate through three times for three pulses
+    for (int c=0; c<3; c++) {
+      pulseStartTime = System.nanoTime();
+      for (Strip pstrip : strips) {
+        for (int stripx=0; stripx < pstrip.getLength(); stripx++) {
+          pstrip.setPixel(pulses[c], stripx);
+        }
+      }
+      while (((System.nanoTime() - pulseStartTime)/1000000000.0)<1) {}
+    }
+    clearPixels();
+  }
+}
+
+//Clear light strips
+public void clearPixels() {
+  if (testObserver.hasStrips) {
+    color stripColor = #000000; 
+    registry.startPushing();
+    List<Strip> strips = registry.getStrips();
+    int numStrips = strips.size();
+    if (numStrips == 0) {
+      return; 
+    }
+    //Iterate through three times for three pulses
+    for (Strip pstrip : strips) {
+      println("clearing strip " + pstrip);
+      for (int stripx=0; stripx < pstrip.getLength(); stripx++) {
+        pstrip.setPixel(stripColor, stripx);
+      }
+    }
+  }
+}
+
 //Don't know about initial part of code
 //Iterates through each strip connected to the pixelpusher controller. For each pixel location in each strip, if the
 //pixel should be lit (Determined by comparing to variables set in mapping.pde), sets the pixel to the pulse color for that 
 //runner (the chosenPlayer variable). Otherwise, sets the pixel to the strip color (no light).
 public void writeToPixels(){
  // println("in write to pixel");
-  if (testObserver.hasStrips) {
+  if (testObserver.hasStrips && running) {
     registry.startPushing();
      Map<String, PixelPusher> controllerMap = registry.getPusherMap();
       

@@ -130,8 +130,7 @@ public void setup(){
 public void draw(){
   background(backgroundImage);    //set background to redbull bg image
   rectMode(CENTER);
-  updateVariables();              //call updatevariables is safe b/c running=false
-  
+  updateVariables();              //call updatevariables is safe b/c running=false  
   writeToPixels();                //call to light actual LED strips
   
 }

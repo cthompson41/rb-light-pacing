@@ -41,13 +41,16 @@ public void createGUI(){
   tml_desiredLT = makeTitle(80, 50, 200, 40, 18, tml_desiredLT, "Desired Lap Time (sec)", GAlign.LEFT, GAlign.TOP, false);
   tml_adjustP = makeTitle(300, 50, 200, 40, 20, tml_adjustP, "Adjust Pace", GAlign.LEFT, GAlign.TOP, false);
   tml_zero = makeTitle(450, 50, 200, 40, 20, tml_zero, "Zero", GAlign.LEFT, GAlign.TOP, false); 
-  tml_totalNOL = makeTitle(60, 270, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);  
-  tml_trackL = makeTitle(60, 300, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);  
+  tml_totalNOL = makeTitle(60, 300, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);  
+  tml_trackL = makeTitle(60, 330, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);  
   tml_remainingNOL = makeTitle(525, 50, 200, 40, 20, tml_remainingNOL, "Remaining Laps", GAlign.LEFT, GAlign.TOP, false);
-  tml_paceT = makeTitle(60, 241, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
-  tmt_totalNOL = makeTextField(270, 275, 40, 20, 16, tmt_totalNOL, "10", false, "noTextEventYet");
-  tmt_trackL = makeTextField(270, 310, 40, 20, 16, tmt_trackL, "250", false, "noTextEventYet");
-  tmc_paceAssist = new GCheckbox(this, 275, 250, 25, 25);
+  tml_countdown = makeTitle(60, 241, 200, 40, 20, tml_countdown, "Enable Countdown", GAlign.RIGHT, GAlign.TOP, false);
+  tml_paceT = makeTitle(60, 271, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
+  tmt_totalNOL = makeTextField(270, (int)tml_totalNOL.getY()+6, 40, 20, 16, tmt_totalNOL, "10", false, "noTextEventYet");
+  tmt_trackL = makeTextField(270, (int)tml_trackL.getY()+6, 40, 20, 16, tmt_trackL, "250", false, "noTextEventYet");
+  tmc_countdown = new GCheckbox(this, 270, tml_countdown.getY()+2, 25, 25);
+  tmc_countdown.setVisible(false);
+  tmc_paceAssist = new GCheckbox(this, 270, tml_paceT.getY()+2, 25, 25);
   tmc_paceAssist.setVisible(false);
   tmb_addPerson = makeButton(720, rowHeight[0]-2, 25, 25, tmb_addPerson, "+", false, "tmb_addPerson_click");
   tmb_removePerson = makeButton(760, rowHeight[1]-2, 25, 25, tmb_removePerson, "-", false, "tmb_removePerson_click");
@@ -108,7 +111,7 @@ public void createGUI(){
   vled[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
   //=============================================================================================================
   //Final containers for track page
-  tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_lapR1));
+  tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_lapR1, tml_countdown));
   tm_buttons = new ArrayList<GButton>();
   tm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(tmb_adjustU1, tmb_adjustD1,track));
   tm_buttons.addAll(Arrays.asList(tmb_zero1, tmb_addPerson, tmb_start, tmb_reset));
@@ -179,13 +182,13 @@ List<GButton> t_buttons;
 //Track Page
 int[] rowHeight;
 GImageButton tmb_adjustU1, tmb_adjustU2, tmb_adjustU3, tmb_adjustU4, tmb_adjustD1, tmb_adjustD2, tmb_adjustD3, tmb_adjustD4;
-GLabel tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL;
+GLabel tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_countdown;
 GLabel tml_lapR1, tml_lapR2, tml_lapR3, tml_lapR4;
 GButton tmb_zero1, tmb_zero2, tmb_zero3, tmb_zero4;
 GButton tmb_addPerson, tmb_removePerson, tmb_paceT, tmb_start, tmb_reset;
 GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_totalNOL, tmt_trackL;
 GTextField[] tmt_desiredTimes;
-GCheckbox tmc_paceAssist;
+GCheckbox tmc_paceAssist, tmc_countdown;
 GButton[] led;      //virtual led representing each runner
 GButton[] vled;     //virtual led representing the physical led strip. when this button is visible, the real led strip should be lit
 GImageButton track;
