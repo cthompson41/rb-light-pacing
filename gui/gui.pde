@@ -185,8 +185,8 @@ GButton tmb_addPerson, tmb_removePerson, tmb_paceT, tmb_start, tmb_reset;
 GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_totalNOL, tmt_trackL;
 GTextField[] tmt_desiredTimes;
 GCheckbox tmc_paceAssist;
-GButton[] led;
-GButton[] vled;
+GButton[] led;      //virtual led representing each runner
+GButton[] vled;     //virtual led representing the physical led strip. when this button is visible, the real led strip should be lit
 GImageButton track;
 GLabel[] tm_lapR;
 GCheckbox paceAssist;

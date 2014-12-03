@@ -86,7 +86,8 @@ synchronized public void updateVariables(){
               }
             }  
           }
-          pixelPositions[i] = (long)(position * 48);     //for pixelpusher led strip
+          pixelPositions[i] = (long)(position * 12000/trackLength);     //for pixelpusher led strip
+                                                                         //was just *48, but added *250/trackLength to change position if track length adjusted from 250
         }
       } //end for loop to iterate through all players
       moveLED(led, targetTime);  //moveLED lights (virtual lights) for all players
