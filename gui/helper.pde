@@ -316,6 +316,7 @@ public void removeAll(){
   }
   football_led.setAlpha(0);   
   fmd_choosePosition.setVisible(false);
+  acceleration.setVisible(false);
 }
 
 //Show football title page controls
@@ -325,7 +326,7 @@ public void showFootballTP() {
    }
   for (GButton temp : ft_buttons) {
      temp.setVisible(true);
-  } 
+  }   
 }
 
 //Show track main page controls
@@ -362,6 +363,7 @@ public void showFootballMP() {
   }  
   fmd_choosePosition.setVisible(true);
   tmc_countdown.setVisible(true);
+  acceleration.setVisible(true);
 }
 
 //Add a runner to the track main page. Depending on what position the current player is, add different controls and 

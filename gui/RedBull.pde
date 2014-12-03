@@ -100,12 +100,18 @@ synchronized public void updateVariables(){
         long currentTime = System.nanoTime();
         long elapsed = currentTime-startTime;        
         elapsed_seconds = elapsed/1000000000.0;
-        velocity();//velocity=(footballTrackLength/targetTime[0])
+        
+        if (acceleration.isSelected()){
+        velocity();
         double elapsed2 = (currentTime - lastTimes[0])/1000000000.0;
         lastPositions[0] = position;
         lastTimes[0] = currentTime;       
-        position = (lastPositions[0] + (velocity*elapsed2));
-        //position = (velocity*elapsed_seconds);//position in yards             
+        position = (lastPositions[0] + (velocity*elapsed2));                 
+        }
+        else {
+          velocity=(footballTrackLength/targetTime[0]);
+          position = (velocity*elapsed_seconds);//position in yards 
+        }
         
         if (position<footballTrackLength){           
         pixelPositions[0] = (long)(position * 0.9144 * 48); //isn't 48 just the number of pixels in a meter? Also, converted yards to meter

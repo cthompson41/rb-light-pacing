@@ -135,8 +135,8 @@ public void createGUI(){
   fmt_desiredTime.setText("5");
   fmt_desiredTime.addEventHandler(this, "fmt_desiredTime_change");
   //=============================================================================================================
-  fml_choosePosition = makeTitle(frameWidth/2-250-50, 200, 250, 40, 30, fml_desiredTime, "Choose Position", GAlign.CENTER, GAlign.TOP, false);
-  fmd_choosePosition = new GDropList(this, frameWidth/2+50, 210, 250, 420, 15);
+  fml_choosePosition = makeTitle(frameWidth/2-250-50, 120, 250, 40, 30, fml_choosePosition, "Choose Position", GAlign.CENTER, GAlign.TOP, false);
+  fmd_choosePosition = new GDropList(this, frameWidth/2+50, 130, 250, 420, 15);
   footballPositions = new String[]{"None","Wide Receiver","Cornerback","Running Back","Safety","Outside Linebacker","Tight End","Full Back","Inside Linebcker","Quarterback","Defensive End","Defensive Tackle","Offensive Center","Offensive Tackle","Offensive Guard"};
   fmd_choosePosition.setItems(footballPositions,0);
   fmd_choosePosition.setVisible(false);
@@ -144,13 +144,17 @@ public void createGUI(){
   //=============================================================================================================
   football_track = makeImageButton(147, 340, 706, 75, football_track, false, "football_track_click", "football_track.png");
   football_track.setEnabled(false);
+  
+  fml_acceleration = makeTitle(frameWidth/2-250-50, 180, 250, 40, 30, fml_acceleration, "Acceleration", GAlign.CENTER, GAlign.TOP, false);
+  acceleration = new GCheckbox(this, 580, 190, 25, 25);
+  acceleration.setVisible(false);
   //=============================================================================================================
   football_led = new GButton(this, football_track.getX(), football_track.getY()-football_led_height, football_led_height, football_led_height);
   football_led.setEnabled(false);
   football_led.setAlpha(0);   
   football_led.setLocalColorScheme(GConstants.RED_SCHEME);
   //=============================================================================================================
-  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime,fml_choosePosition, tml_countdown));
+  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime,fml_choosePosition, tml_countdown,fml_acceleration));
   fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));
   fm_textFields = new ArrayList<GTextField>(Arrays.asList(fmt_desiredTime));
   fm_Buttons = new ArrayList<GButton>(Arrays.asList(tmb_start, tmb_reset)); 
@@ -206,9 +210,11 @@ List<GLabel> ft_labels;
 List<GButton> ft_buttons;
 //==================
 //Football Main Page
+GCheckbox acceleration;
 GLabel fml_title;
 GLabel fml_desiredTime;
 GLabel fml_choosePosition;
+GLabel fml_acceleration;
 GImageButton football_track;
 GTextField fmt_desiredTime;
 GButton football_led;
