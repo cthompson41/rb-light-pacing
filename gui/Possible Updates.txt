@@ -1,0 +1,2 @@
+-Pace assist functionality
+---Would be nice to give user more control over how pace assist works. Could have a default setting, and then have where they can control through the gui how the light strips are turned off/on for certain laps. Maybe read in a file that is formatted in a certain way, maybe popup a new window that allows them to control it

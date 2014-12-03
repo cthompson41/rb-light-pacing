@@ -84,21 +84,28 @@ public void createGUI(){
   //=============================================================================================================
   //Track for visual of LED position on real track
   led = new GButton[4];
+  vled = new GButton[4];
   track = makeImageButton(520, 250, 301, 140, track, false, "noImageButtonEventYet", "track3.png");
   track.setEnabled(false);
-  int ledHeight = 6;
   
   for (int i=0; i<led.length; i++) {
     //ttt = makeButton((int)(track.getX()+track.getWidth()/2), (int)(track.getY()-led[0].getHeight()), 5, 5, ttt, "", true, "");
-    led[i] = new GButton(this, track.getX()+(track.getWidth()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);  
+    led[i] = new GButton(this, track.getX()+(track.getWidth()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
+    vled[i] = new GButton(this, track.getX()+track.getWidth()/2, track.getY()+track.getHeight()+ledHeight, ledHeight, ledHeight);  
     //led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
     led[i].setEnabled(false);
+    vled[i].setEnabled(false);
     led[i].setAlpha(0);  
+    vled[i].setAlpha(0);
   }
   led[0].setLocalColorScheme(GConstants.RED_SCHEME);
+  vled[0].setLocalColorScheme(GConstants.RED_SCHEME);
   led[1].setLocalColorScheme(GConstants.GREEN_SCHEME);
+  vled[1].setLocalColorScheme(GConstants.GREEN_SCHEME);
   led[2].setLocalColorScheme(GConstants.BLUE_SCHEME);
+  vled[2].setLocalColorScheme(GConstants.BLUE_SCHEME);
   led[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
+  vled[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
   //=============================================================================================================
   //Final containers for track page
   tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_lapR1));
@@ -179,6 +186,7 @@ GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_t
 GTextField[] tmt_desiredTimes;
 GCheckbox tmc_paceAssist;
 GButton[] led;
+GButton[] vled;
 GImageButton track;
 GLabel[] tm_lapR;
 GCheckbox paceAssist;

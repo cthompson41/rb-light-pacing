@@ -120,7 +120,9 @@ public void tmb_reset_click(GButton source, GEvent event) { //_CODE_:startButton
   if (tml_title.isVisible()) { 
     for (int i=0; i<led.length; i++) {
       led[i].setAlpha(0);
+      vled[i].setAlpha(0);
       led[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight());
+      vled[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight()+ledHeight);
     }  
   } else if (fml_title.isVisible()) {
     football_led.setAlpha(0);

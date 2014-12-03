@@ -18,6 +18,7 @@ TestObserver testObserver;
 //=============================================================================================================
 //Global Variables for tracking position and showing on LEDs
 float trackLength;
+int ledHeight = 6;                                                    //height of button representing virtual led
 double[] targetTime;                                                  //array for each runner
 boolean[] match; 
 double position=0;
