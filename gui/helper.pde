@@ -168,8 +168,10 @@ public void moveLED(GButton[] light, double[] targetTime) {
       float ledPosition = p/trackLength*ledTrackLength;
       if (ledPosition<(track.getWidth()-track.getHeight())/2) {
         light[i].moveTo(startPosition+ledPosition-light[i].getWidth(), light[i].getY());
-        vled[i].setAlpha(255);
-        vled[i].moveTo(startPosition+ledPosition-light[i].getWidth(), light[i].getY()+ledHeight);
+        if (stillRunning[i]) {     //if runner is done, don't light virtual led 
+          vled[i].setAlpha(255);
+          vled[i].moveTo(startPosition+ledPosition-light[i].getWidth(), light[i].getY()+ledHeight);
+        }
       } else if (ledPosition>(track.getWidth()-track.getHeight())/2 && ledPosition<((track.getWidth()-track.getHeight())/2+track.getHeight()*pi/4)) {
         vled[i].setAlpha(0);
         float s = (ledPosition - (track.getWidth()-track.getHeight())/2);
