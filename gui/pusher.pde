@@ -51,6 +51,11 @@ boolean lightUpPixel(int controllerNo, int stripNo, int stripx) {
   // strip  == the strip the cursor is currently on
   // pixelInStrip == the position of the the cursor within that strip
   // reversed == whether that strip is reversed or not.
+  
+  if (fml_title.isVisible()){
+    numPlayers = 1;
+  }
+  
   for (int i=0; i<numPlayers; i++) {
     //match[i] = false;                  //reset to false
     if (controllerNo != controller[i]) {

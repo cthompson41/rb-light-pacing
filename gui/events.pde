@@ -53,6 +53,8 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
     }
   } else if (fml_title.isVisible()) {
     reset();
+    pixelPositions = new long[1];
+    pixelPositions[0] = 0;
     running=true;
     targetTime = new double[1]; 
     targetTime[0] = Double.parseDouble(fmt_desiredTime.getText());
@@ -135,23 +137,7 @@ public void cb_click(GButton source, GEvent event) {
   showTrackMP();
 }
 
-public void moveFootballLED(GButton light, double[] targetTime) {
-  long currentTime = System.nanoTime();
-  long elapsed = currentTime-startTime;
-  elapsed_seconds = elapsed/1000000000.0;
-  velocity=(40/targetTime[0])*(1.0+computedSpeedIncrease/100.0);
-  position = (velocity*elapsed_seconds);//position in yards
-  float p =(float) position;
-  float ledTrackLength = football_track.getWidth();
-  float ledPosition = p/40*ledTrackLength;
-  //  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
-  if (ledPosition<ledTrackLength) {
-    light.moveTo(startPosition+ledPosition, light.getY());
-  }
-  else {
-    reset();
-  }
-}
+
 
 //Track main page addperson click
 //Determines number of runners already initialized. Feeds number to trackAddPlayer (helper.pde) to add player and change gui

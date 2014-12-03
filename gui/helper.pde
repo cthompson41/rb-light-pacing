@@ -211,6 +211,19 @@ public void moveLED(GButton[] light, double[] targetTime) {
   }
 }
 
+public void moveFootballLED(GButton light, double[] targetTime) {
+  float p =(float) position;
+  float ledTrackLength = football_track.getWidth();
+  float ledPosition = p/footballTrackLength*ledTrackLength;
+  //  if (led.getX()<track.getX()+track.getWidth()-track.getHeight()/2) {
+  if (ledPosition<ledTrackLength) {
+    light.moveTo(startPosition+ledPosition, light.getY());
+  }
+  else {
+    reset();
+  }
+}
+
 //Takes x location, y location, x height, y height, font size, label handle, title text, horizontal alignment, vertical alignment, and visibility as input
 //returns handle to label made
 //Used to make all labels in gui.pde. Sets all given values, color scheme to white, font type

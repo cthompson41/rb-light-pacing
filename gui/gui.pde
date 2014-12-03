@@ -144,7 +144,7 @@ public void createGUI(){
   football_led = new GButton(this, football_track.getX(), football_track.getY()-football_led_height, football_led_height, football_led_height);
   football_led.setEnabled(false);
   football_led.setAlpha(0);   
-  football_led.setLocalColorScheme(color(255,255,255));
+  football_led.setLocalColorScheme(GConstants.RED_SCHEME);
   //=============================================================================================================
   fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime));
   fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));

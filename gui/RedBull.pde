@@ -22,6 +22,7 @@ int ledHeight = 6;                                                    //height o
 double[] targetTime;                                                  //array for each runner
 boolean[] match; 
 double position=0;
+int footballTrackLength = 40;
 boolean[] toClear;
 double[] lastPositions;                                               //array for each runner
 double[] lastTimes;                                                   //array for each runner
@@ -95,8 +96,22 @@ synchronized public void updateVariables(){
       
       
      }
-     else if (fml_title.isVisible()){
-       moveFootballLED(football_led, targetTime);    
+     else if (fml_title.isVisible()){        
+        long currentTime = System.nanoTime();
+        long elapsed = currentTime-startTime;        
+        elapsed_seconds = elapsed/1000000000.0;
+        velocity=(footballTrackLength/targetTime[0])*(1.0+computedSpeedIncrease/100.0);
+        position = (velocity*elapsed_seconds);//position in yards             
+        
+        if (position<footballTrackLength){           
+        pixelPositions[0] = (long)(position * 0.9144 * 48); //isn't 48 just the number of pixels in a meter? Also, converted yards to meter
+        moveFootballLED(football_led, targetTime); 
+        determinePixel();           
+        }
+        else {
+        running = false;    
+        reset();
+        }    
      }
    }
 }

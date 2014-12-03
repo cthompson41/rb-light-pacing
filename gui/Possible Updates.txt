@@ -4,5 +4,6 @@
 -Football Addition
 ---Add Acceleration
 
-
+-Track
+--pixelPositions[i] = (long)(position * 12000/trackLength); (I think it should still just be 48)
 
