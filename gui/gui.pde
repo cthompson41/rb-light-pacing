@@ -132,7 +132,8 @@ public void createGUI(){
   fmt_desiredTime.setText("5");
   fmt_desiredTime.addEventHandler(this, "fmt_desiredTime_change");
   //=============================================================================================================
-  fmd_choosePosition = new GDropList(this, frameWidth/2+50, 200, 250, 420, 15);
+  fml_choosePosition = makeTitle(frameWidth/2-250-50, 200, 250, 40, 30, fml_desiredTime, "Choose Position", GAlign.CENTER, GAlign.TOP, false);
+  fmd_choosePosition = new GDropList(this, frameWidth/2+50, 210, 250, 420, 15);
   footballPositions = new String[]{"None","Wide Receiver","Cornerback","Running Back","Safety","Outside Linebacker","Tight End","Full Back","Inside Linebcker","Quarterback","Defensive End","Defensive Tackle","Offensive Center","Offensive Tackle","Offensive Guard"};
   fmd_choosePosition.setItems(footballPositions,0);
   fmd_choosePosition.setVisible(false);
@@ -146,7 +147,7 @@ public void createGUI(){
   football_led.setAlpha(0);   
   football_led.setLocalColorScheme(GConstants.RED_SCHEME);
   //=============================================================================================================
-  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime));
+  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime,fml_choosePosition));
   fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));
   fm_textFields = new ArrayList<GTextField>(Arrays.asList(fmt_desiredTime));
   fm_Buttons = new ArrayList<GButton>(Arrays.asList(tmb_start, tmb_reset)); 
@@ -204,6 +205,7 @@ List<GButton> ft_buttons;
 //Football Main Page
 GLabel fml_title;
 GLabel fml_desiredTime;
+GLabel fml_choosePosition;
 GImageButton football_track;
 GTextField fmt_desiredTime;
 GButton football_led;

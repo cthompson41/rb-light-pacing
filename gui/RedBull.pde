@@ -39,7 +39,7 @@ double computedSpeedIncrease = 0;
 boolean hysteresis = false;
 double elapsed_seconds = 0;
 float pi = (float) Math.PI;
-int football_led_height = 12;
+int football_led_height = 20;
 
 int numPlayers;                                                       //Used in most loops to determine how many times to run through logic
 int frameWidth = 1020;
