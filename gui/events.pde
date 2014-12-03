@@ -39,7 +39,6 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
            lastPositions[temp] = 0;                                                  //used to light LEDs
            lastTimes[temp] = startTime;                                              //used to determine elapsed time
            targetTime[temp] = Double.parseDouble(tmt_desiredTimes[temp].getText());  //used for velocity
-           println("target time: " + targetTime[temp]);
         }
         trackLength = Float.parseFloat(tmt_trackL.getText());                        //used in multiple calculations
   

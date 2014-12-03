@@ -77,6 +77,7 @@ synchronized public void updateVariables(){
             tm_lapR[i].setText("" + lapCounter[i]);
             if (lapCounter[i]==0) {  //done running, hide current runner light, see if all runners done running
               led[i].setAlpha(0);    //done running this current, so hide it
+              vled[i].setAlpha(0);   //done running this current, so hide virtual led
               stillRunning[i] = false;
               running = false;       //check if others have laps remaining. If so, set running back to true
               for (int temp=0; temp<numPlayers; temp++) {
