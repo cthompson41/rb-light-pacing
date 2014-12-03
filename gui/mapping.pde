@@ -104,12 +104,14 @@ public void determinePixel(){
         pixelInStrip[i]=positionPixels-7200;
       }
     }
+   }
     
     if (tml_title.isVisible()){
     reversed = new boolean[numPlayers];
     controller = new int[numPlayers];
     strip = new int[numPlayers];
     pixelInStrip = new long[numPlayers];
+    
     for (int i=0; i<numPlayers; i++) {
       controller[i] = -1;
       strip[i] = -1;
