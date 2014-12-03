@@ -493,6 +493,5 @@ public void velocity() {
    else if (elapsed_seconds < 5*t){     
      velocity = v1 + v2 + v3 + v4 + v5/t * (elapsed_seconds - 4*t);
    }
-   println(velocity);
-   
+      
 }
