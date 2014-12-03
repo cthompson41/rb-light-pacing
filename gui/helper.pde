@@ -468,21 +468,28 @@ public void reset() {
 
 public void velocity() {
    double t = targetTime[0]/5;   
+   double l =(double) footballTrackLength;
+   double averageVelocity = l/targetTime[0];
+   double v1 = averageVelocity*0.28125*2;
+   double v2 = (((averageVelocity*0.8125)*2-v1)-v1);
+   double v3 = ((averageVelocity*1.15625)*2-(v1+v2)-(v1+v2));
+   double v4 = ((averageVelocity*1.3125)*2-(v1+v2+v3)-(v1+v2+v3));
+   double v5 = ((averageVelocity*1.4375)*2-(v1+v2+v3+v4)-(v1+v2+v3+v4));
    
-   if (0 < elapsed_seconds && elapsed_seconds < t){
-     velocity = 4.5/t * elapsed_seconds;
+   if (0 < elapsed_seconds && elapsed_seconds < t){     
+     velocity = v1/t * elapsed_seconds;
    }
-   else if (elapsed_seconds < 2*t){
-     velocity = 4.5 + 4/t * (elapsed_seconds - t);
+   else if (elapsed_seconds < 2*t){     
+     velocity = v1 + v2/t * (elapsed_seconds - t);
    }
-   else if (elapsed_seconds < 3*t){
-     velocity = 8.5 + 1.5/t * (elapsed_seconds - 2*t);
+   else if (elapsed_seconds < 3*t){    
+     velocity = v1 + v2 + v3/t * (elapsed_seconds - 2*t);
    }
-   else if (elapsed_seconds < 4*t){
-     velocity = 10 + 1/t * (elapsed_seconds - 3*t);
+   else if (elapsed_seconds < 4*t){     
+     velocity = v1 + v2 + v3 + v4/t * (elapsed_seconds - 3*t);
    }
-   else if (elapsed_seconds < 5*t){
-     velocity = 11 + 1/t * (elapsed_seconds - 4*t);
+   else if (elapsed_seconds < 5*t){     
+     velocity = v1 + v2 + v3 + v4 + v5/t * (elapsed_seconds - 4*t);
    }
    println(velocity);
    
