@@ -227,3 +227,18 @@ public void tmb_adjustD_click(GImageButton source, GEvent event) {
   updateRunnerSpeeds();
 }
 
+public void fmd_choosePosition_click(GDropList source, GEvent event) {
+  float[] positionTimes = {Float.parseFloat(fmt_desiredTime.getText()), 4.55, 4.55, 4.59, 4.62, 4.74, 4.77, 4.80, 4.80, 4.87, 4.88, 5.13, 5.30, 5.32, 5.36};
+  int positionIndex = fmd_choosePosition.getSelectedIndex();
+  
+  
+  fmt_desiredTime.setText(Float.toString(positionTimes[positionIndex]));  
+
+  println("fmd_choosePosition_click - GDropList event occured: player " + fmd_choosePosition.getSelectedText() + " clicked");
+}
+
+public void fmt_desiredTime_change(GTextField source, GEvent event) {
+  println("fmt_desiredTime_change - GTextField event occured " + System.currentTimeMillis()%10000000 );
+  fmd_choosePosition.setSelected(0);
+}
+
