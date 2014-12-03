@@ -17,6 +17,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
       } else {
         //player count is greater than zero, so initialize and run
         //Set needed variables
+        reset();
         position = 0;
         startTime = System.nanoTime();
         //Initialize all arrays for all runners
@@ -51,6 +52,7 @@ public void tmb_start_click(GButton source, GEvent event) { //_CODE_:startButton
       }
     }
   } else if (fml_title.isVisible()) {
+    reset();
     running=true;
     targetTime = new double[1]; 
     targetTime[0] = Double.parseDouble(fmt_desiredTime.getText());
