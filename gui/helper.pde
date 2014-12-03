@@ -361,6 +361,7 @@ public void showFootballMP() {
      temp.setVisible(true);     
   }  
   fmd_choosePosition.setVisible(true);
+  tmc_countdown.setVisible(true);
 }
 
 //Add a runner to the track main page. Depending on what position the current player is, add different controls and 

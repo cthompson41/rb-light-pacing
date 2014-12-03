@@ -44,11 +44,11 @@ public void createGUI(){
   tml_totalNOL = makeTitle(60, 300, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);  
   tml_trackL = makeTitle(60, 330, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);  
   tml_remainingNOL = makeTitle(525, 50, 200, 40, 20, tml_remainingNOL, "Remaining Laps", GAlign.LEFT, GAlign.TOP, false);
-  tml_countdown = makeTitle(60, 241, 200, 40, 20, tml_countdown, "Enable Countdown", GAlign.RIGHT, GAlign.TOP, false);
+  tml_countdown = makeTitle(270, 500, 200, 40, 20, tml_countdown, "Enable Countdown", GAlign.RIGHT, GAlign.TOP, false);
   tml_paceT = makeTitle(60, 271, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
   tmt_totalNOL = makeTextField(270, (int)tml_totalNOL.getY()+6, 40, 20, 16, tmt_totalNOL, "10", false, "noTextEventYet");
   tmt_trackL = makeTextField(270, (int)tml_trackL.getY()+6, 40, 20, 16, tmt_trackL, "250", false, "noTextEventYet");
-  tmc_countdown = new GCheckbox(this, 270, tml_countdown.getY()+2, 25, 25);
+  tmc_countdown = new GCheckbox(this, 480, tml_countdown.getY()+3, 25, 25);
   tmc_countdown.setVisible(false);
   tmc_paceAssist = new GCheckbox(this, 270, tml_paceT.getY()+2, 25, 25);
   tmc_paceAssist.setVisible(false);
@@ -150,7 +150,7 @@ public void createGUI(){
   football_led.setAlpha(0);   
   football_led.setLocalColorScheme(GConstants.RED_SCHEME);
   //=============================================================================================================
-  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime,fml_choosePosition));
+  fm_labels = new ArrayList<GLabel>(Arrays.asList(fml_title,fml_desiredTime,fml_choosePosition, tml_countdown));
   fm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(football_track));
   fm_textFields = new ArrayList<GTextField>(Arrays.asList(fmt_desiredTime));
   fm_Buttons = new ArrayList<GButton>(Arrays.asList(tmb_start, tmb_reset)); 
