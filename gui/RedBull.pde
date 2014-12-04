@@ -22,7 +22,7 @@ int ledHeight = 12; //height of button representing virtual led
 double[] targetTime;                                                  //array for each runner
 boolean[] match; 
 double position=0;
-int footballTrackLength = 40;
+int footballTrackLength = 32;
 boolean[] toClear;
 double[] lastPositions;                                               //array for each runner
 double[] lastTimes;                                                   //array for each runner
@@ -92,9 +92,7 @@ synchronized public void updateVariables(){
         }
       } //end for loop to iterate through all players
       moveLED(led, targetTime);  //moveLED lights (virtual lights) for all players
-      determinePixel();          //light actual led lights for all players
-      
-      
+      determinePixel();          //light actual led lights for all players     
      }
      else if (fml_title.isVisible()){        
         long currentTime = System.nanoTime();

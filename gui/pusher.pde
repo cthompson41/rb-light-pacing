@@ -85,8 +85,10 @@ public void writeToPixels(){
             //it's not true that pace assist is enabled and the light should not be lit because of pace assist lap count
             //ligtht led with player color. Otherwise, light led with strip color
             if(lightUpPixel(intControllerNo, stripNo, stripx) && !(tmc_paceAssist.isSelected() && isPaceAssistLightingStop(chosenPlayer, stripNo))) {
+              println("here");
               pstrip.setPixel(pulseColor[chosenPlayer], stripx);
-              led[chosenPlayer].setText("L");;            } else {
+              led[chosenPlayer].setText("L");
+            } else {
               pstrip.setPixel(stripColor, stripx);
             }
           }
@@ -117,8 +119,9 @@ boolean lightUpPixel(int controllerNo, int stripNo, int stripx) {
     if (controllerNo != controller[i]) {
        continue; 
     }
-    
+    println(stripNo + "&" + strip[i]);
     if (stripNo == strip[i]) {
+      
       if (pixelInStrip[i] == stripx) {
         chosenPlayer=i;
         return true;
