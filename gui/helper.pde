@@ -143,7 +143,6 @@ public boolean isPaceAssistLightingStop(int player, int stripNo) {
   if (difference <= stripCount) {
     if ((stripCount - difference) <= stripNo) {
       //Set virtual led representing the physical led to invisible as well
-      vled[player].setAlpha(0);
       return true;
     }
   }
@@ -169,11 +168,8 @@ public void moveLED(GButton[] light, double[] targetTime) {
       if (ledPosition<(track.getWidth()-track.getHeight())/2) {
         light[i].moveTo(startPosition+ledPosition-light[i].getWidth(), light[i].getY());
         if (stillRunning[i]) {     //if runner is done, don't light virtual led 
-          vled[i].setAlpha(255);
-          vled[i].moveTo(startPosition+ledPosition-light[i].getWidth(), light[i].getY()+ledHeight);
         }
       } else if (ledPosition>(track.getWidth()-track.getHeight())/2 && ledPosition<((track.getWidth()-track.getHeight())/2+track.getHeight()*pi/4)) {
-        vled[i].setAlpha(0);
         float s = (ledPosition - (track.getWidth()-track.getHeight())/2);
         float theta = s/(track.getHeight()/2)+pi*3/2;
         float centerPointX1 = track.getX()+track.getWidth()-track.getHeight()/2;
@@ -186,13 +182,8 @@ public void moveLED(GButton[] light, double[] targetTime) {
         float centerPointY1 = track.getY()+track.getHeight()/2;
         light[i].moveTo(centerPointX1+cos(theta)*track.getHeight()/2, centerPointY1-sin(theta)*track.getHeight()/2-light[i].getHeight()/(pi/2)*(theta-2*pi));//////////////////////////////////////
       } else if (ledPosition>((track.getWidth()-track.getHeight())/2+track.getHeight()*pi/2) && ledPosition<((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi/2)) {
-        if (ledPosition > ((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi/2)-(track.getWidth()-track.getHeight())/2) {
-          vled[i].setAlpha(255);  
-          vled[i].moveTo(startPosition+((track.getWidth()-track.getHeight())+track.getHeight()*pi/2)-ledPosition, light[i].getY()-ledHeight);
-        }
         light[i].moveTo(startPosition+((track.getWidth()-track.getHeight())+track.getHeight()*pi/2)-ledPosition, light[i].getY());
       } else if (ledPosition>((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi/2) && ledPosition<((track.getWidth()-track.getHeight())*3/2+track.getHeight()*pi*3/4)) {
-        vled[i].setAlpha(0);
         float s = (ledPosition - (track.getWidth()-track.getHeight())*3/2 - track.getHeight()*pi/2);
         float theta = s/(track.getHeight()/2)+pi*3/2;
         float centerPointX2 = track.getX()+track.getHeight()/2;
@@ -311,9 +302,7 @@ public void removeAll(){
   for (GButton temp: led){
     temp.setAlpha(0);
   }
-  for (GButton temp : vled) {
-    temp.setAlpha(0); 
-  }
+
   football_led.setAlpha(0);   
   fmd_choosePosition.setVisible(false);
   acceleration.setVisible(false);
@@ -456,9 +445,7 @@ public void reset() {
   if (tml_title.isVisible()) { 
     for (int i=0; i<led.length; i++) {
       led[i].setAlpha(0);
-      vled[i].setAlpha(0);
       led[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight());
-      vled[i].moveTo(track.getX()+(track.getWidth()/2), track.getY()+track.getHeight()+ledHeight);
     }  
   } else if (fml_title.isVisible()) {
     football_led.setAlpha(0);

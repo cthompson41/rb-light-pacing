@@ -27,7 +27,7 @@ public void createGUI(){
   titlePaigeButton.addEventHandler(this, "titlePaigeReturn_click");
   //=============================================================================================================     
   //Title Page Setup
-  tl_title = makeTitle(0, 25, frameWidth, 300, 100, tl_title, "LIGHT PACING DEVICE", GAlign.CENTER, GAlign.TOP, true);
+  tl_title = makeTitle(0, 100, frameWidth, 300, 100, tl_title, "LIGHT RUNNER", GAlign.CENTER, GAlign.TOP, true);
   tb_track = makeButton(frameWidth/2 - 300, 350, 200, 60, tb_track, "Track", true, "tb_track_click");
   tb_football = makeButton(frameWidth/2 + 100, 350, 200, 60, tb_football, "Football", true, "tb_football_click");
   //Title Page Containers 
@@ -43,7 +43,7 @@ public void createGUI(){
   tml_adjustP = makeTitle(300 + adjust, 50, 200, 40, 20, tml_adjustP, "Adjust Pace", GAlign.LEFT, GAlign.TOP, false);
   tml_zero = makeTitle(450 + adjust, 50, 200, 40, 20, tml_zero, "Zero", GAlign.LEFT, GAlign.TOP, false); 
   tml_totalNOL = makeTitle(60 + adjust/2, 300, 200, 40, 20, tml_totalNOL, "Number of Laps", GAlign.RIGHT, GAlign.TOP, false);  
-  tml_trackL = makeTitle(60 + adjust/2, 330, 200, 40, 20, tml_trackL, "Track Length", GAlign.RIGHT, GAlign.TOP, false);  
+  tml_trackL = makeTitle(60 + adjust/2, 330, 200, 40, 20, tml_trackL, "Track Length (m)", GAlign.RIGHT, GAlign.TOP, false);  
   tml_remainingNOL = makeTitle(525 + adjust, 50, 200, 40, 20, tml_remainingNOL, "Remaining Laps", GAlign.LEFT, GAlign.TOP, false);
   tml_countdown = makeTitle(270, 500, 200, 40, 20, tml_countdown, "Enable Countdown", GAlign.RIGHT, GAlign.TOP, false);
   tml_paceT = makeTitle(60 + adjust/2, 271, 200, 40, 20, tml_paceT, "Pace Assist", GAlign.RIGHT, GAlign.TOP, false);
@@ -88,28 +88,20 @@ public void createGUI(){
   //=============================================================================================================
   //Track for visual of LED position on real track
   led = new GButton[4];
-  vled = new GButton[4];
   track = makeImageButton(520 - adjust/2, 250, 301, 140, track, false, "noImageButtonEventYet", "track3.png");
   track.setEnabled(false);
   
   for (int i=0; i<led.length; i++) {
     //ttt = makeButton((int)(track.getX()+track.getWidth()/2), (int)(track.getY()-led[0].getHeight()), 5, 5, ttt, "", true, "");
     led[i] = new GButton(this, track.getX()+(track.getWidth()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
-    vled[i] = new GButton(this, track.getX()+track.getWidth()/2, track.getY()+track.getHeight()+ledHeight, ledHeight, ledHeight);  
     //led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
     led[i].setEnabled(false);
-    vled[i].setEnabled(false);
     led[i].setAlpha(0);  
-    vled[i].setAlpha(0);
   }
   led[0].setLocalColorScheme(GConstants.RED_SCHEME);
-  vled[0].setLocalColorScheme(GConstants.RED_SCHEME);
   led[1].setLocalColorScheme(GConstants.GREEN_SCHEME);
-  vled[1].setLocalColorScheme(GConstants.GREEN_SCHEME);
   led[2].setLocalColorScheme(GConstants.BLUE_SCHEME);
-  vled[2].setLocalColorScheme(GConstants.BLUE_SCHEME);
   led[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
-  vled[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
   //=============================================================================================================
   //Final containers for track page
   tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_lapR1, tml_countdown));
@@ -195,7 +187,6 @@ GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_t
 GTextField[] tmt_desiredTimes;
 GCheckbox tmc_paceAssist, tmc_countdown;
 GButton[] led;      //virtual led representing each runner
-GButton[] vled;     //virtual led representing the physical led strip. when this button is visible, the real led strip should be lit
 GImageButton track;
 GLabel[] tm_lapR;
 GCheckbox paceAssist;

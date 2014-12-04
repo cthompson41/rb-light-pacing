@@ -34,37 +34,37 @@ public void determinePixel(){
       if(positionPixels>=0 && positionPixels<=239){
         reversed[i]=true;
         strip[i]=0;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=240-positionPixels;
       }
       if(positionPixels>=240 && positionPixels<=479){
         reversed[i]=true;
         strip[i]=1;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=480-positionPixels;
       }
       if(positionPixels>=480 && positionPixels<=719){
         reversed[i]=true;
         strip[i]=2;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=720-positionPixels;
       }
       if(positionPixels>=720 && positionPixels<=959){
         reversed[i]=false;
         strip[i]=3;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=positionPixels-720;
       }
       if(positionPixels>=960 && positionPixels<=1199){
         reversed[i]=false;
         strip[i]=4;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=positionPixels-960;
       }
       if(positionPixels>=1200 && positionPixels<=1439){
         reversed[i]=false;
         strip[i]=5;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=positionPixels-1200;
       }    
       if(positionPixels>=1440 && positionPixels<=1679){
@@ -111,6 +111,8 @@ public void determinePixel(){
     controller = new int[numPlayers];
     strip = new int[numPlayers];
     pixelInStrip = new long[numPlayers];
+    float location = trackLength*48/2;
+    
     
     for (int i=0; i<numPlayers; i++) {
       controller[i] = -1;
@@ -123,70 +125,70 @@ public void determinePixel(){
       if(positionPixels>=0 && positionPixels<=239){
         reversed[i]=true;
         strip[i]=0;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=240-positionPixels;
       }
       if(positionPixels>=240 && positionPixels<=479){
         reversed[i]=true;
         strip[i]=1;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=480-positionPixels;
       }
       if(positionPixels>=480 && positionPixels<=719){
         reversed[i]=true;
         strip[i]=2;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=720-positionPixels;
       }
       if(positionPixels>=720 && positionPixels<=959){
         reversed[i]=false;
         strip[i]=3;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=positionPixels-720;
       }
       if(positionPixels>=960 && positionPixels<=1199){
         reversed[i]=false;
         strip[i]=4;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=positionPixels-960;
       }
       if(positionPixels>=1200 && positionPixels<=1439){
         reversed[i]=false;
         strip[i]=5;
-        controller[i]=0;
+        controller[i]=1;
         pixelInStrip[i]=positionPixels-1200;
       }    
-      if(positionPixels>=6000 && positionPixels<=6239){
+      if(positionPixels>=location && positionPixels<=location+239){
         reversed[i]=true;
         strip[i]=0;
         controller[i]=2;
         pixelInStrip[i]=6240-positionPixels;
       }
-      if(positionPixels>=6240 && positionPixels<=6479){
+      if(positionPixels>=location+240 && positionPixels<=location+239+240){
         reversed[i]=true;
         strip[i]=1;
         controller[i]=2;
         pixelInStrip[i]=6480-positionPixels;
       }
-      if(positionPixels>=6480 && positionPixels<=6719){
+      if(positionPixels>=location+240*2 && positionPixels<=location+239+240*2){
         reversed[i]=true;
         strip[i]=2;
         controller[i]=2;
         pixelInStrip[i]=6720-positionPixels;
       }
-      if(positionPixels>=6720 && positionPixels<=6959){
+      if(positionPixels>=location+240*3 && positionPixels<=location+239+240*3){
         reversed[i]=false;
         strip[i]=3;
         controller[i]=2;
         pixelInStrip[i]=positionPixels-6720;
       }
-      if(positionPixels>=6960 && positionPixels<=7199){
+      if(positionPixels>=location+240*4 && positionPixels<=location+239+240*4){
         reversed[i]=false;
         strip[i]=4;
         controller[i]=2;
         pixelInStrip[i]=positionPixels-6960;
       }
-      if(positionPixels>=7200 && positionPixels<=7439){
+      if(positionPixels>=location+240*5 && positionPixels<=location+239+240*5){
         reversed[i]=false;
         strip[i]=5;
         controller[i]=2;

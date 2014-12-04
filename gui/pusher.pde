@@ -21,7 +21,6 @@ public void performCountdown() {
     color[] pulses = new color[]{#FF0000, #FFFF00, #00FF00}; 
     registry.startPushing();
     List<Strip> strips = registry.getStrips();
-    println("strip count: " + strips.size());
     int numStrips = strips.size();
     if (numStrips == 0) {
       return; 
@@ -52,7 +51,6 @@ public void clearPixels() {
     }
     //Iterate through three times for three pulses
     for (Strip pstrip : strips) {
-      println("clearing strip " + pstrip);
       for (int stripx=0; stripx < pstrip.getLength(); stripx++) {
         pstrip.setPixel(stripColor, stripx);
       }
@@ -65,6 +63,9 @@ public void clearPixels() {
 //pixel should be lit (Determined by comparing to variables set in mapping.pde), sets the pixel to the pulse color for that 
 //runner (the chosenPlayer variable). Otherwise, sets the pixel to the strip color (no light).
 public void writeToPixels(){
+  for (int i=0; i<numPlayers; i++) {
+    led[i].setText(""); 
+  }
  // println("in write to pixel");
   if (testObserver.hasStrips && running) {
     registry.startPushing();
@@ -85,7 +86,7 @@ public void writeToPixels(){
             //ligtht led with player color. Otherwise, light led with strip color
             if(lightUpPixel(intControllerNo, stripNo, stripx) && !(tmc_paceAssist.isSelected() && isPaceAssistLightingStop(chosenPlayer, stripNo))) {
               pstrip.setPixel(pulseColor[chosenPlayer], stripx);
-            } else {
+              led[chosenPlayer].setText("L");;            } else {
               pstrip.setPixel(stripColor, stripx);
             }
           }

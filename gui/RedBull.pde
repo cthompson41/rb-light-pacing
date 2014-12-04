@@ -18,7 +18,7 @@ TestObserver testObserver;
 //=============================================================================================================
 //Global Variables for tracking position and showing on LEDs
 float trackLength;
-int ledHeight = 6; //height of button representing virtual led
+int ledHeight = 12; //height of button representing virtual led
 double[] targetTime;                                                  //array for each runner
 boolean[] match; 
 double position=0;
@@ -87,7 +87,7 @@ synchronized public void updateVariables(){
               }
             }  
           }
-          pixelPositions[i] = (long)(position * 12000/trackLength);     //for pixelpusher led strip
+          pixelPositions[i] = (long)(position * 48);     //for pixelpusher led strip
                                                                          //was just *48, but added *250/trackLength to change position if track length adjusted from 250
         }
       } //end for loop to iterate through all players
