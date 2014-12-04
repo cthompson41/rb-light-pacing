@@ -373,8 +373,8 @@ public void trackAddPlayer(int currentPlayer) {
   if (!running) {
     removeAll();
     if (currentPlayer < rowHeight.length) {
-      tmb_addPerson.moveTo(720, rowHeight[currentPlayer]-2);
-      tmb_removePerson.moveTo(760, rowHeight[currentPlayer]-2);
+      tmb_addPerson.moveTo(tmb_addPerson.getX(), rowHeight[currentPlayer]-2);
+      tmb_removePerson.moveTo(tmb_removePerson.getX(), rowHeight[currentPlayer]-2);
     } 
     switch (currentPlayer){
       case 1:
@@ -411,8 +411,8 @@ public void trackRemovePlayer(int currentPlayer) {
   if (!running) {
     removeAll();
     if (currentPlayer > 1) {
-       tmb_addPerson.moveTo(720, rowHeight[currentPlayer-2]-2);
-       tmb_removePerson.moveTo(760, rowHeight[currentPlayer-2]-2); 
+       tmb_addPerson.moveTo(tmb_addPerson.getX(), rowHeight[currentPlayer-2]-2);
+       tmb_removePerson.moveTo(tmb_removePerson.getX(), rowHeight[currentPlayer-2]-2); 
     }
     switch (currentPlayer) {
       case 2:
@@ -468,6 +468,7 @@ public void reset() {
   
 }
 
+//
 public void velocity() {
    double t = targetTime[0]/5;   
    double l =(double) footballTrackLength;
