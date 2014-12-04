@@ -107,11 +107,7 @@ public void createGUI(){
   int ledMarkerHeight = 15;
   
     for (int i=0; i<ledMarker.length; i++) {
-    //ttt = makeButton((int)(track.getX()+track.getWidth()/2), (int)(track.getY()-led[0].getHeight()), 5, 5, ttt, "", true, "");
-    ledMarker[i] = new GButton(this, desiredLTX - 40, rowHeight[i]+5, ledMarkerHeight, ledMarkerHeight);
-    //led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
-    ledMarker[i].setEnabled(false);
-    ledMarker[i].setAlpha(0);  
+     ledMarker[i] = makeButton(desiredLTX - 40, rowHeight[i]+5, ledMarkerHeight, ledMarkerHeight, ledMarker[i], "", false, "none");
   }
   
   ledMarker[0].setLocalColorScheme(GConstants.RED_SCHEME);
@@ -127,7 +123,7 @@ public void createGUI(){
   tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_lapR1, tml_countdown));
   tm_buttons = new ArrayList<GButton>();
   tm_imageButtons = new ArrayList<GImageButton>(Arrays.asList(tmb_adjustU1, tmb_adjustD1,track));
-  tm_buttons.addAll(Arrays.asList(tmb_zero1, tmb_addPerson, tmb_start, tmb_reset));
+  tm_buttons.addAll(Arrays.asList(tmb_zero1, tmb_addPerson, tmb_start, tmb_reset, ledMarker[0]));
   tm_textFields = new ArrayList<GTextField>(Arrays.asList(tmt_totalNOL, tmt_desiredLT1, tmt_trackL));
   tmt_desiredTimes = new GTextField[]{tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4};
   //=============================================================================================================
