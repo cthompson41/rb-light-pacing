@@ -306,6 +306,10 @@ public void removeAll(){
   football_led.setAlpha(0);   
   fmd_choosePosition.setVisible(false);
   acceleration.setVisible(false);
+  ledMarker[0].setAlpha(0);  
+  ledMarker[1].setAlpha(0);  
+  ledMarker[2].setAlpha(0);  
+  ledMarker[3].setAlpha(0);  
 }
 
 //Show football title page controls
@@ -334,6 +338,7 @@ public void showTrackMP() {
   }
   tmc_paceAssist.setVisible(true);
   tmc_countdown.setVisible(true);
+  ledMarker[0].setAlpha(255);  
 }
 
 //Show football main page controls
@@ -372,6 +377,7 @@ public void trackAddPlayer(int currentPlayer) {
         tm_textFields.add(tmt_desiredLT2);
         tm_labels.addAll(Arrays.asList(tml_lapR2));
         tmt_desiredLT2.setFocus(true);
+        ledMarker[1].setAlpha(255);  
         break;
       case 2:
         tm_buttons.addAll(Arrays.asList(tmb_zero3));
@@ -379,6 +385,8 @@ public void trackAddPlayer(int currentPlayer) {
         tm_textFields.addAll(Arrays.asList(tmt_desiredLT3));
         tm_labels.addAll(Arrays.asList(tml_lapR3));
         tmt_desiredLT3.setFocus(true);
+        ledMarker[1].setAlpha(255);  
+        ledMarker[2].setAlpha(255);  
         break;
       case 3:
         tm_buttons.addAll(Arrays.asList(tmb_zero4));
@@ -387,6 +395,9 @@ public void trackAddPlayer(int currentPlayer) {
         tm_labels.addAll(Arrays.asList(tml_lapR4));
         tm_buttons.remove(tmb_addPerson);
         tmt_desiredLT4.setFocus(true);
+        ledMarker[1].setAlpha(255);  
+        ledMarker[2].setAlpha(255); 
+        ledMarker[3].setAlpha(255);  
         break;
     }
     showTrackMP();
@@ -409,12 +420,15 @@ public void trackRemovePlayer(int currentPlayer) {
         tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU2, tmb_adjustD2));
         tm_textFields.remove(tmt_desiredLT2);
         tm_labels.removeAll(Arrays.asList(tml_lapR2));
+        ledMarker[1].setAlpha(0);  
         break;
       case 3:
         tm_buttons.removeAll(Arrays.asList(tmb_zero3));
         tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU3, tmb_adjustD3));
         tm_textFields.remove(tmt_desiredLT3);
         tm_labels.removeAll(Arrays.asList(tml_lapR3));
+        ledMarker[1].setAlpha(255);
+        ledMarker[2].setAlpha(0);  
         break;
       case 4:
         tm_buttons.add(tmb_addPerson);
@@ -422,6 +436,9 @@ public void trackRemovePlayer(int currentPlayer) {
         tm_imageButtons.removeAll(Arrays.asList(tmb_adjustU4, tmb_adjustD4));
         tm_labels.removeAll(Arrays.asList(tml_lapR4));
         tm_textFields.remove(tmt_desiredLT4);
+        ledMarker[1].setAlpha(255);  
+        ledMarker[2].setAlpha(255); 
+        ledMarker[3].setAlpha(0);  
         break;
     }
     showTrackMP();

@@ -88,6 +88,7 @@ public void createGUI(){
   //=============================================================================================================
   //Track for visual of LED position on real track
   led = new GButton[4];
+  ledMarker = new GButton[4];
   track = makeImageButton(520 - adjust/2, 250, 301, 140, track, false, "noImageButtonEventYet", "track3.png");
   track.setEnabled(false);
   
@@ -102,6 +103,25 @@ public void createGUI(){
   led[1].setLocalColorScheme(GConstants.GREEN_SCHEME);
   led[2].setLocalColorScheme(GConstants.BLUE_SCHEME);
   led[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
+  
+  int ledMarkerHeight = 15;
+  
+    for (int i=0; i<ledMarker.length; i++) {
+    //ttt = makeButton((int)(track.getX()+track.getWidth()/2), (int)(track.getY()-led[0].getHeight()), 5, 5, ttt, "", true, "");
+    ledMarker[i] = new GButton(this, desiredLTX - 40, rowHeight[i]+5, ledMarkerHeight, ledMarkerHeight);
+    //led[i] = new GButton(this, track.getX()+(track.getHeight()/2), track.getY()+track.getHeight(), ledHeight, ledHeight);
+    ledMarker[i].setEnabled(false);
+    ledMarker[i].setAlpha(0);  
+  }
+  
+  ledMarker[0].setLocalColorScheme(GConstants.RED_SCHEME);
+  ledMarker[1].setLocalColorScheme(GConstants.GREEN_SCHEME);
+  ledMarker[2].setLocalColorScheme(GConstants.BLUE_SCHEME);
+  ledMarker[3].setLocalColorScheme(GConstants.YELLOW_SCHEME);
+  
+  
+  
+  
   //=============================================================================================================
   //Final containers for track page
   tm_labels = new ArrayList<GLabel>(Arrays.asList(tml_title, tml_desiredLT, tml_adjustP, tml_zero, tml_totalNOL, tml_remainingNOL, tml_paceT, tml_trackL, tml_lapR1, tml_countdown));
@@ -187,6 +207,7 @@ GTextField tmt_desiredLT1, tmt_desiredLT2, tmt_desiredLT3, tmt_desiredLT4, tmt_t
 GTextField[] tmt_desiredTimes;
 GCheckbox tmc_paceAssist, tmc_countdown;
 GButton[] led;      //virtual led representing each runner
+GButton[] ledMarker;
 GImageButton track;
 GLabel[] tm_lapR;
 GCheckbox paceAssist;
