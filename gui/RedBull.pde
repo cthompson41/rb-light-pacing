@@ -22,7 +22,7 @@ int ledHeight = 12; //height of button representing virtual led
 double[] targetTime;                                                  //array for each runner
 boolean[] match; 
 double position=0;
-int footballTrackLength = 32;
+int footballTrackLength = 11;
 boolean[] toClear;
 double[] lastPositions;                                               //array for each runner
 double[] lastTimes;                                                   //array for each runner
